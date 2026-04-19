@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-04-19",
+  "description": "Lista de servidores BRAZTELA. Edite os campos 'dns' com os endereços reais. Mantenha os 20 slots.",
+  "servers": [
+    { "id": 1,  "name": "Servidor 01 - Premium",  "dns": "http://SEU-SERVIDOR-01.com:8080", "active": true, "note": "" },
+    { "id": 2,  "name": "Servidor 02 - Premium",  "dns": "http://SEU-SERVIDOR-02.com:8080", "active": true, "note": "" },
+    { "id": 3,  "name": "Servidor 03 - Premium",  "dns": "http://SEU-SERVIDOR-03.com:8080", "active": true, "note": "" },
+    { "id": 4,  "name": "Servidor 04 - Premium",  "dns": "http://SEU-SERVIDOR-04.com:8080", "active": true, "note": "" },
+    { "id": 5,  "name": "Servidor 05 - Premium",  "dns": "http://SEU-SERVIDOR-05.com:8080", "active": true, "note": "" },
+    { "id": 6,  "name": "Servidor 06 - Premium",  "dns": "http://SEU-SERVIDOR-06.com:8080", "active": true, "note": "" },
+    { "id": 7,  "name": "Servidor 07 - Premium",  "dns": "http://SEU-SERVIDOR-07.com:8080", "active": true, "note": "" },
+    { "id": 8,  "name": "Servidor 08 - Premium",  "dns": "http://SEU-SERVIDOR-08.com:8080", "active": true, "note": "" },
+    { "id": 9,  "name": "Servidor 09 - Premium",  "dns": "http://SEU-SERVIDOR-09.com:8080", "active": true, "note": "" },
+    { "id": 10, "name": "Servidor 10 - Premium",  "dns": "http://SEU-SERVIDOR-10.com:8080", "active": true, "note": "" },
+    { "id": 11, "name": "Servidor 11 - Backup",   "dns": "http://SEU-SERVIDOR-11.com:8080", "active": true, "note": "" },
+    { "id": 12, "name": "Servidor 12 - Backup",   "dns": "http://SEU-SERVIDOR-12.com:8080", "active": true, "note": "" },
+    { "id": 13, "name": "Servidor 13 - Backup",   "dns": "http://SEU-SERVIDOR-13.com:8080", "active": true, "note": "" },
+    { "id": 14, "name": "Servidor 14 - Backup",   "dns": "http://SEU-SERVIDOR-14.com:8080", "active": true, "note": "" },
+    { "id": 15, "name": "Servidor 15 - Backup",   "dns": "http://SEU-SERVIDOR-15.com:8080", "active": true, "note": "" },
+    { "id": 16, "name": "Servidor 16 - Reserva",  "dns": "http://SEU-SERVIDOR-16.com:8080", "active": true, "note": "" },
+    { "id": 17, "name": "Servidor 17 - Reserva",  "dns": "http://SEU-SERVIDOR-17.com:8080", "active": true, "note": "" },
+    { "id": 18, "name": "Servidor 18 - Reserva",  "dns": "http://SEU-SERVIDOR-18.com:8080", "active": true, "note": "" },
+    { "id": 19, "name": "Servidor 19 - Reserva",  "dns": "http://SEU-SERVIDOR-19.com:8080", "active": true, "note": "" },
+    { "id": 20, "name": "Servidor 20 - Reserva",  "dns": "http://SEU-SERVIDOR-20.com:8080", "active": true, "note": "" }
+  ]
+}
