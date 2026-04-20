@@ -1,0 +1,12 @@
+v1.0.0 (2026-04-19)
+-------------------
+- Lançamento oficial do BRAZTELA por Braz Junior.
+- 20 servidores configuráveis via servers.json no GitHub.
+- Autenticação individual por cliente (passwords.json remoto).
+- Controle parental com PIN de 4 dígitos.
+- Player avançado anti-travamento com InputStream Adaptive.
+- Reconexão automática em caso de erro/parada do stream.
+- Sinopse, capa, elenco, ano, avaliação e duração em todos os conteúdos.
+- Menu "TROCAR SERVIDOR" em destaque na tela principal.
+- advancedsettings.xml otimizado (50-250 MB de buffer configurável).
+- Interface em Português Brasileiro nas cores Vermelho e Preto.

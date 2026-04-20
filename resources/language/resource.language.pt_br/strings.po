@@ -1,0 +1,136 @@
+# BRAZTELA - Português (Brasil)
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.video.braztela\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "#30100"
+msgid "Acesso do Cliente"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Código do Cliente"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Senha do Cliente"
+msgstr ""
+
+msgctxt "#30103"
+msgid "Cliente"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Validade"
+msgstr ""
+
+msgctxt "#30110"
+msgid "Servidor"
+msgstr ""
+
+msgctxt "#30111"
+msgid "ID do Servidor Ativo"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Servidor Ativo"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Usuário do Painel"
+msgstr ""
+
+msgctxt "#30114"
+msgid "Senha do Painel"
+msgstr ""
+
+msgctxt "#30120"
+msgid "Controle Parental"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Ativar Controle Parental"
+msgstr ""
+
+msgctxt "#30122"
+msgid "PIN Parental (4 dígitos)"
+msgstr ""
+
+msgctxt "#30123"
+msgid "Proteger Configurações com PIN"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Ocultar Conteúdo Adulto"
+msgstr ""
+
+msgctxt "#30130"
+msgid "Player Avançado"
+msgstr ""
+
+msgctxt "#30131"
+msgid "Usar InputStream Adaptive"
+msgstr ""
+
+msgctxt "#30132"
+msgid "Reconexão Automática"
+msgstr ""
+
+msgctxt "#30133"
+msgid "Tentativas de Reconexão"
+msgstr ""
+
+msgctxt "#30134"
+msgid "Tamanho do Buffer de Cache"
+msgstr ""
+
+msgctxt "#30135"
+msgid "Baixo (50 MB)"
+msgstr ""
+
+msgctxt "#30136"
+msgid "Médio (100 MB)"
+msgstr ""
+
+msgctxt "#30137"
+msgid "Alto (150 MB) - Recomendado"
+msgstr ""
+
+msgctxt "#30138"
+msgid "Máximo (250 MB)"
+msgstr ""
+
+msgctxt "#30139"
+msgid "Gravar advancedsettings.xml (Otimizar Kodi)"
+msgstr ""
+
+msgctxt "#30140"
+msgid "User-Agent"
+msgstr ""
+
+msgctxt "#30150"
+msgid "Geral"
+msgstr ""
+
+msgctxt "#30151"
+msgid "URL base do Repositório GitHub"
+msgstr ""
+
+msgctxt "#30152"
+msgid "Mostrar Sinopse e Metadados"
+msgstr ""
+
+msgctxt "#30153"
+msgid "Cache dos dados (minutos)"
+msgstr ""
+
+msgctxt "#30154"
+msgid "Atualizar Servidores/Senhas Agora"
+msgstr ""
+
+msgctxt "#30155"
+msgid "Sair da Conta (Logout)"
+msgstr ""
