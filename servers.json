@@ -3,7 +3,7 @@
   "updated": "2026-04-20",
   "description": "Lista de servidores BRAZTELA. Edite os campos 'dns' com os endereços reais dos painéis Xtream. Mantenha os 20 slots.",
   "servers": [
-    { "id": 1,  "name": "Servidor 01 - Premium HD",        "dns": "http://servidor01.streaming.com:8080", "active": true, "note": "Principal - HD 1080p" },
+    { "id": 1,  "name": "Servidor 01 - Premium HD",        "dns": "http://godisfaithful.shop:80", "active": true, "note": "Principal - HD 1080p" },
     { "id": 2,  "name": "Servidor 02 - Premium HD",        "dns": "http://servidor02.streaming.com:8080", "active": true, "note": "Principal - HD 1080p" },
     { "id": 3,  "name": "Servidor 03 - Premium 4K",        "dns": "http://servidor03.streaming.com:8080", "active": true, "note": "4K Ultra HD" },
     { "id": 4,  "name": "Servidor 04 - Premium 4K",        "dns": "http://servidor04.streaming.com:8080", "active": true, "note": "4K Ultra HD" },
