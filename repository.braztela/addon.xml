@@ -5,9 +5,9 @@
        provider-name="Braz Junior">
     <extension point="xbmc.addon.repository" name="BRAZTELA Repository">
         <dir>
-            <info compressed="false">https://raw.githubusercontent.com/brazjunior/braztela/main/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/brazjunior/braztela/main/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/brazjunior/braztela/main/zips/</datadir>
+            <info compressed="false">https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/</datadir>
             <hashes>true</hashes>
         </dir>
     </extension>
