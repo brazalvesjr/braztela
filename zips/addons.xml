@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.braztela"
-       name="BRAZTELA"
-       version="1.0.0"
-       provider-name="Braz Junior">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
-        <import addon="script.module.requests" version="2.22.0" optional="true"/>
-        <import addon="inputstream.adaptive" version="2.0.0" optional="true"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="pt_BR">BRAZTELA — Plataforma de entretenimento premium por Braz Junior.</summary>
-        <summary lang="en_GB">BRAZTELA — Premium entertainment platform by Braz Junior.</summary>
-        <description lang="pt_BR">[COLOR red][B]BRAZTELA[/B][/COLOR] é uma plataforma completa de streaming desenvolvida por [B]Braz Junior[/B]. Inclui TV ao Vivo, Filmes, Séries com sinopse, capas e metadados completos, 20 servidores configuráveis via GitHub, autenticação individual por cliente, controle parental e player avançado anti-travamento com InputStream Adaptive.</description>
-        <description lang="en_GB">[COLOR red][B]BRAZTELA[/B][/COLOR] is a full streaming platform by [B]Braz Junior[/B]. It includes Live TV, Movies and Series with full synopsis and metadata, 20 configurable servers via GitHub, per-client password authentication, parental control and an advanced anti-buffering player using InputStream Adaptive.</description>
-        <language>pt_BR en_GB</language>
-        <platform>all</platform>
-        <license>Proprietary — Braz Junior © 2026</license>
-        <forum></forum>
-        <website></website>
-        <email></email>
-        <source></source>
-        <news>v1.0.0 - Lançamento oficial do BRAZTELA com 20 servidores, autenticação individual, controle parental e player avançado.</news>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
-</addon>
-
-<addon id="repository.braztela"
-       name="BRAZTELA Repository"
-       version="1.0.0"
-       provider-name="Braz Junior">
-    <extension point="xbmc.addon.repository" name="BRAZTELA Repository">
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/brazjunior/braztela/main/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/brazjunior/braztela/main/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/brazjunior/braztela/main/zips/</datadir>
-            <hashes>true</hashes>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="pt_BR">Repositório oficial BRAZTELA - atualizações automáticas.</summary>
-        <description lang="pt_BR">Repositório oficial do addon BRAZTELA por Braz Junior. Instale este repositório para receber atualizações automáticas do addon.</description>
-        <platform>all</platform>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
-</addon>
+    <addon id="plugin.video.braztela"
+           name="BRAZTELA"
+           version="1.0.0"
+           provider-name="Braz Junior">
+        <extension point="xbmc.python.pluginsource" library="default.py">
+            <provides>video</provides>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary lang="pt_BR">Plataforma completa de streaming com TV ao vivo, filmes, séries e controle parental.</summary>
+            <description lang="pt_BR">BRAZTELA é uma plataforma premium de streaming desenvolvida por Braz Junior. Inclui TV ao vivo, filmes, séries com sinopse completa, 20 servidores configuráveis via GitHub, autenticação individual por cliente, controle parental avançado e player anti-travamento com InputStream Adaptive.</description>
+            <disclaimer lang="pt_BR">Use este addon apenas com conteúdo autorizado. O desenvolvedor não é responsável pelo uso indevido.</disclaimer>
+            <language>pt_BR en</language>
+            <platform>all</platform>
+            <license>GPL-2.0-only</license>
+            <forum>https://github.com/brazalvesjr/braztela</forum>
+            <source>https://github.com/brazalvesjr/braztela</source>
+            <assets>
+                <icon>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/plugin.video.braztela/icon.png</icon>
+                <fanart>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/plugin.video.braztela/fanart.jpg</fanart>
+                <banner>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/plugin.video.braztela/fanart.jpg</banner>
+            </assets>
+            <reuselanguageinvoker>true</reuselanguageinvoker>
+            <requires>
+                <import addon="xbmc.python" version="3.0.0"/>
+                <import addon="script.module.requests" version="2.25.1"/>
+                <import addon="inputstream.adaptive" version="19.0.0"/>
+            </requires>
+        </extension>
+    </addon>
+    <addon id="repository.braztela"
+           name="BRAZTELA Repository"
+           version="1.0.0"
+           provider-name="Braz Junior">
+        <extension point="xbmc.addon.repository" name="BRAZTELA Repository">
+            <dir>
+                <info compressed="false">https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/</datadir>
+                <hashes>true</hashes>
+            </dir>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary lang="pt_BR">Repositório oficial BRAZTELA - atualizações automáticas.</summary>
+            <description lang="pt_BR">Repositório oficial do addon BRAZTELA por Braz Junior. Instale este repositório para receber atualizações automáticas do addon.</description>
+            <platform>all</platform>
+            <assets>
+                <icon>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/repository.braztela/icon.png</icon>
+                <fanart>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/repository.braztela/fanart.jpg</fanart>
+            </assets>
+        </extension>
+    </addon>
 </addons>

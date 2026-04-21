@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <category label="30100">
+        <!-- Autenticação do cliente -->
+        <setting id="client_code"     type="text" label="30101" default=""/>
+        <setting id="client_password" type="text" label="30102" option="hidden" default=""/>
+        <setting id="client_label"    type="text" label="30103" enable="false" default=""/>
+        <setting id="client_expires"  type="text" label="30104" enable="false" default=""/>
+        <setting id="session_token"   type="text" visible="false" default=""/>
+    </category>
+    <category label="30110">
+        <!-- Servidor ativo -->
+        <setting id="active_server_id"   type="number" label="30111" enable="false" default="0"/>
+        <setting id="active_server_name" type="text"   label="30112" enable="false" default="Nenhum"/>
+        <setting id="xtream_username"    type="text"   label="30113" default=""/>
+        <setting id="xtream_password"    type="text"   label="30114" option="hidden" default=""/>
+    </category>
+    <category label="30120">
+        <!-- Controle parental -->
+        <setting id="parental_enabled"  type="bool" label="30121" default="true"/>
+        <setting id="parental_pin"      type="text" label="30122" option="hidden" default="0000"/>
+        <setting id="parental_settings" type="bool" label="30123" default="false"/>
+        <setting id="hide_adult"        type="bool" label="30124" default="true"/>
+    </category>
+    <category label="30130">
+        <!-- Player avançado -->
+        <setting id="use_inputstream"  type="bool"   label="30131" default="true"/>
+        <setting id="auto_reconnect"   type="bool"   label="30132" default="true"/>
+        <setting id="reconnect_tries"  type="slider" label="30133" default="3" range="1,10" option="int"/>
+        <setting id="cache_size"       type="enum"   label="30134" lvalues="30135|30136|30137|30138" default="2"/>
+        <setting id="write_advanced"   type="action" label="30139" action="RunPlugin(plugin://plugin.video.braztela/?mode=write_advanced)"/>
+        <setting id="user_agent"       type="text"   label="30140" default="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"/>
+    </category>
+    <category label="30150">
+        <!-- Geral / Repositório -->
+        <setting id="repo_base_url" type="text"   label="30151" default="https://raw.githubusercontent.com/brazjunior/braztela/main/"/>
+        <setting id="show_meta"     type="bool"   label="30152" default="true"/>
+        <setting id="cache_minutes" type="slider" label="30153" default="60" range="10,240" option="int"/>
+        <setting id="force_refresh" type="action" label="30154" action="RunPlugin(plugin://plugin.video.braztela/?mode=refresh_cache)"/>
+        <setting id="logout"        type="action" label="30155" action="RunPlugin(plugin://plugin.video.braztela/?mode=logout)"/>
+    </category>
+</settings>
