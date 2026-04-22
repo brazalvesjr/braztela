@@ -1,142 +1,90 @@
-# 🔴 BRAZTELA — Addon Kodi
+# BRAZTELA - Addon Premium para Kodi
 
-> **Plataforma de streaming premium desenvolvida por Braz Junior.**
-> Cores: Vermelho e Preto | Versão: 1.0.0 | Kodi 19+ (Matrix) e 20+ (Nexus)
+**Desenvolvido por Braz Junior**
 
----
-
-## Estrutura do Repositório
-
-```
-braztela/                          ← raiz do repositório GitHub
-├── servers.json                   ← lista dos 20 servidores (edite aqui)
-├── passwords.json                 ← senhas individuais dos clientes
-├── parental.json                  ← palavras-chave para controle parental
-├── README.md                      ← este arquivo
-├── repository.braztela/           ← addon do repositório Kodi
-│   ├── addon.xml
-│   ├── icon.png
-│   └── fanart.jpg
-└── zips/                          ← pacotes para instalação via Kodi
-    ├── addons.xml
-    ├── addons.xml.md5
-    ├── plugin.video.braztela/
-    │   └── plugin.video.braztela-1.0.0.zip
-    └── repository.braztela/
-        └── repository.braztela-1.0.0.zip
-```
+Plataforma completa de streaming para Kodi com TV ao vivo, filmes, séries, autenticação por cliente e controle parental.
 
 ---
 
-## Como Instalar no Kodi
+## Instalação no Kodi
 
-### Passo 1 — Habilitar fontes desconhecidas
+### Método 1 - Via Repositório (Recomendado)
 
-No Kodi: **Configurações → Sistema → Complementos → Fontes desconhecidas → Ativar**
+1. No Kodi, vá em **Configurações** → **Sistema** → **Add-ons**
+2. Ative **Fontes Desconhecidas**
+3. Volte para **Configurações** → **Gerenciador de Arquivos** → **Adicionar fonte**
+4. Cole esta URL:
+   ```
+   https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/
+   ```
+5. Nomeie como `BRAZTELA` e clique em **OK**
+6. Volte ao menu principal → **Add-ons** → **Instalar de arquivo zip**
+7. Selecione `BRAZTELA` → `repository.braztela-1.0.0.zip`
+8. Aguarde a notificação "Add-on instalado"
+9. Clique em **Instalar do repositório** → **BRAZTELA Repository** → **Add-ons de Vídeo** → **BRAZTELA** → **Instalar**
 
-### Passo 2 — Instalar o Repositório
+### Método 2 - Direto via ZIP
 
-1. Vá em **Complementos → Instalar a partir de arquivo zip**
-2. Selecione o arquivo `repository.braztela-1.0.0.zip`
-3. Aguarde a mensagem de confirmação
-
-### Passo 3 — Instalar o Addon
-
-1. Vá em **Complementos → Instalar a partir do repositório → BRAZTELA Repository**
-2. Selecione **Complementos de vídeo → BRAZTELA → Instalar**
-3. Aguarde a instalação
-
-### Passo 4 — Primeiro Acesso
-
-1. Abra o addon BRAZTELA
-2. Insira o **Código do Cliente** e a **Senha** fornecidos por Braz Junior
-3. Configure um **PIN de 4 dígitos** para o Controle Parental
-4. Selecione um servidor em **TROCAR SERVIDOR**
-5. Informe o usuário e senha do painel Xtream do servidor escolhido
+1. Baixe o arquivo: [plugin.video.braztela-1.0.0.zip](https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/plugin.video.braztela-1.0.0.zip)
+2. No Kodi: **Add-ons** → **Instalar de arquivo zip** → Selecione o arquivo
 
 ---
 
-## Gerenciar Servidores (`servers.json`)
+## Clientes Padrão
 
-Edite o arquivo `servers.json` diretamente no GitHub. Cada servidor tem os campos:
-
-| Campo    | Descrição                                       |
-|----------|-------------------------------------------------|
-| `id`     | Número único de 1 a 20                          |
-| `name`   | Nome exibido no menu                            |
-| `dns`    | URL completa do painel (ex: `http://ip:porta`)  |
-| `active` | `true` para exibir, `false` para ocultar        |
-| `note`   | Observação opcional (ex: "HD", "4K", "Backup")  |
-
-**Exemplo:**
-```json
-{ "id": 1, "name": "Servidor Brasil HD", "dns": "http://192.168.1.1:8080", "active": true, "note": "Principal" }
-```
+| Código | Senha | Status |
+|--------|-------|--------|
+| TESTE | 123456 | Ativo |
+| BRAZ | admin2026 | Ativo (Admin) |
+| CLIENTE001 | senha123456 | Ativo |
+| CLIENTE002 | acesso2026 | Ativo |
+| CLIENTE003 | premium789 | Ativo |
+| CLIENTE004 | streaming001 | Ativo |
+| CLIENTE005 | braztela2026 | Ativo |
 
 ---
 
-## Gerenciar Clientes (`passwords.json`)
+## Recursos
 
-Cada cliente tem um registro com os campos:
+- **TV ao Vivo** com categorias (Esportes, Filmes, Notícias, Variedades, Infantil)
+- **Filmes** com sinopse, capa e metadados
+- **Séries** com episódios e categorias
+- **20 servidores** configuráveis
+- **Autenticação individual** por cliente
+- **Controle Parental** com PIN de 4 dígitos
+- **Cores oficiais**: Vermelho e Preto
 
-| Campo      | Descrição                                          |
-|------------|----------------------------------------------------|
-| `code`     | Código único do cliente (maiúsculas, ex: `CLI001`) |
-| `password` | Senha de acesso do cliente                         |
-| `expires`  | Data de expiração no formato `YYYY-MM-DD`          |
-| `active`   | `true` = ativo, `false` = bloqueado                |
-| `label`    | Nome do cliente para exibição                      |
+---
 
-**Para criar um novo cliente**, adicione uma entrada ao array `passwords`:
-```json
-{
-  "code": "CLIENTE002",
-  "password": "minhasenha123",
-  "expires": "2027-12-31",
-  "active": true,
-  "label": "João Silva"
+## Como adicionar/bloquear clientes
+
+Edite o arquivo `plugin.video.braztela/default.py` na seção `CLIENTES`:
+
+```python
+CLIENTES = {
+    "NOVOCLIENTE": {
+        "senha": "minhasenha",
+        "nome": "Nome do Cliente",
+        "ativo": True,         # False para bloquear
+        "validade": "2026-12-31"
+    },
 }
 ```
 
-**Para bloquear um cliente**, altere `"active": false`.
-
-> As senhas são verificadas em tempo real a cada abertura do addon (cache de 15 minutos).
+Depois faça commit no GitHub. Os usuários receberão a atualização automaticamente pelo Kodi.
 
 ---
 
-## Controle Parental (`parental.json`)
+## Como configurar os servidores
 
-Adicione palavras-chave ao array `adult_keywords` para filtrar categorias/canais adultos. O addon oculta automaticamente qualquer item cujo nome contenha uma dessas palavras (em minúsculo).
+Edite a seção `SERVIDORES` no `default.py`:
 
----
-
-## Player Avançado — Anti-Travamento
-
-O BRAZTELA usa uma combinação de tecnologias para garantir reprodução contínua:
-
-| Recurso                     | Descrição                                                          |
-|-----------------------------|--------------------------------------------------------------------|
-| **InputStream Adaptive**    | Player HLS/DASH nativo do Kodi, sem dependência de player externo  |
-| **Reconexão Automática**    | Detecta parada inesperada e reconecta em até N tentativas          |
-| **Fallback de extensão**    | Tenta `.m3u8` → `.ts` → `.mp4` automaticamente                    |
-| **advancedsettings.xml**    | Buffer de 50–250 MB configurável, otimizado para streaming         |
-| **Cache inteligente**       | Dados do servidor em cache local com TTL configurável              |
-
-Para aplicar as otimizações de buffer, acesse **Configurações → Gravar advancedsettings.xml** e reinicie o Kodi.
+```python
+SERVIDORES = [
+    {"id": 1, "nome": "Premium HD #1", "dns": "http://seu-servidor-real.com:8080", "ativo": True},
+]
+```
 
 ---
 
-## Atualizar o Addon
-
-Após editar qualquer arquivo neste repositório:
-
-1. O Kodi buscará automaticamente as atualizações via repositório instalado.
-2. Para forçar atualização imediata: **Addon → Configurações → Atualizar Servidores/Senhas Agora**.
-3. Para publicar nova versão do addon: edite a versão em `addon.xml`, reempacote com `build.sh` e faça commit/push dos novos zips.
-
----
-
-## Créditos
-
-**Desenvolvido por Braz Junior — 2026**
-Todos os direitos reservados. Uso não autorizado é proibido.
+**BRAZTELA v1.0.0 - 2026 © Braz Junior**

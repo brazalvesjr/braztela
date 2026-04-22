@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+    <category label="Geral">
+        <setting id="servidor_atual" type="text" label="Servidor Atual" default="1" visible="false"/>
+        <setting id="qualidade" type="enum" label="Qualidade Preferida" values="Auto|HD|Full HD|4K" default="0"/>
+        <setting id="buffer_size" type="enum" label="Tamanho do Buffer" values="Pequeno|Medio|Grande" default="1"/>
+    </category>
+    <category label="Sobre">
+        <setting type="lsep" label="BRAZTELA v1.0.0"/>
+        <setting type="lsep" label="Desenvolvido por Braz Junior"/>
+        <setting type="lsep" label="github.com/brazalvesjr/braztela"/>
+    </category>
+</settings>
