@@ -1,6 +1,0 @@
-v1.0.0
-- Versao inicial do BRAZTELA
-- Login por codigo e senha individual por cliente
-- 20 servidores configuraveis
-- Controle parental com PIN
-- TV ao vivo, Filmes e Series

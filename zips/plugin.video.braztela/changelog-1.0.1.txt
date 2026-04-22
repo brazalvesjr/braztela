@@ -1,0 +1,8 @@
+v1.0.1
+- Tela de configuracoes com 20 slots de servidores (nome + URL M3U)
+- Parser M3U para TV ao vivo, Filmes e Series
+- Item CONFIGURACOES abre settings do addon
+- Melhor tratamento de erros de rede
+
+v1.0.0
+- Versao inicial
