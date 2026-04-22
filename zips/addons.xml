@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.braztela" name="[COLOR red]BRAZ[/COLOR][COLOR white]TELA[/COLOR]" version="1.0.0" provider-name="[COLOR red]Braz Junior[/COLOR]">
-  <extension point="xbmc.python.pluginsource"
-			library="default.py">
-		<provides>video</provides>
+<addon id="plugin.video.braztela" name="BRAZTELA" version="1.0.0" provider-name="Braz Junior">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-	<summary>BRAZTELA - Streaming Premium</summary>
-	<language>pt</language>
-	<description>BRAZTELA - Plataforma premium de streaming desenvolvida por Braz Junior</description>
-	<platform>all</platform>
-	<assets>
-		<icon>icon.png</icon>
-		<fanart>fanart.jpg</fanart>
-	</assets>
+    <summary lang="pt_BR">BRAZTELA - Streaming Premium</summary>
+    <description lang="pt_BR">BRAZTELA - Plataforma premium de streaming desenvolvida por Braz Junior. TV ao vivo, filmes e series com 20 servidores.</description>
+    <language>pt</language>
+    <platform>all</platform>
+    <license>MIT</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
   </extension>
 </addon>
 <addon id="repository.braztela" name="BRAZTELA Repository" version="1.0.0" provider-name="Braz Junior">
