@@ -3,27 +3,17 @@
        name="BRAZTELA"
        version="1.0.0"
        provider-name="Braz Junior">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
-        <import addon="script.module.requests" version="2.22.0" optional="true"/>
-        <import addon="inputstream.adaptive" version="2.0.0" optional="true"/>
-    </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="pt_BR">BRAZTELA — Plataforma de entretenimento premium por Braz Junior.</summary>
-        <summary lang="en_GB">BRAZTELA — Premium entertainment platform by Braz Junior.</summary>
-        <description lang="pt_BR">[COLOR red][B]BRAZTELA[/B][/COLOR] é uma plataforma completa de streaming desenvolvida por [B]Braz Junior[/B]. Inclui TV ao Vivo, Filmes, Séries com sinopse, capas e metadados completos, 20 servidores configuráveis via GitHub, autenticação individual por cliente, controle parental e player avançado anti-travamento com InputStream Adaptive.</description>
-        <description lang="en_GB">[COLOR red][B]BRAZTELA[/B][/COLOR] is a full streaming platform by [B]Braz Junior[/B]. It includes Live TV, Movies and Series with full synopsis and metadata, 20 configurable servers via GitHub, per-client password authentication, parental control and an advanced anti-buffering player using InputStream Adaptive.</description>
-        <language>pt_BR en_GB</language>
+        <summary lang="pt_BR">Plataforma de streaming com TV ao vivo, filmes e séries</summary>
+        <description lang="pt_BR">BRAZTELA - Plataforma premium de streaming desenvolvida por Braz Junior. Inclui TV ao vivo, filmes, séries com sinopse, 20 servidores configuráveis, autenticação por cliente, controle parental e player avançado.</description>
+        <disclaimer lang="pt_BR">Use apenas com conteúdo autorizado.</disclaimer>
+        <language>pt_BR en</language>
         <platform>all</platform>
-        <license>Proprietary — Braz Junior © 2026</license>
-        <forum></forum>
-        <website></website>
-        <email></email>
-        <source></source>
-        <news>v1.0.0 - Lançamento oficial do BRAZTELA com 20 servidores, autenticação individual, controle parental e player avançado.</news>
+        <license>GPL-2.0-only</license>
+        <source>https://github.com/brazalvesjr/braztela</source>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>

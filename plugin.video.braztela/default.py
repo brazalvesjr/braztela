@@ -1,413 +1,309 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-BRAZTELA - Addon para Kodi
-Autor: Braz Junior
-Versão: 1.0.0
 
-Roteador principal. Gerencia menus, navegação, autenticação,
-controle parental e playback via player avançado anti-travamento.
-"""
-import os
 import sys
+import xbmcgui
+import xbmcplugin
+import xbmcaddon
+import json
+import os
+from urllib.parse import urlencode, parse_qs
 
-# Garantir que o diretório do addon esteja no path
-ADDON_PATH = os.path.dirname(os.path.abspath(__file__))
-if ADDON_PATH not in sys.path:
-    sys.path.insert(0, ADDON_PATH)
+# Configurações do addon
+ADDON = xbmcaddon.Addon()
+ADDON_ID = ADDON.getAddonInfo('id')
+ADDON_NAME = ADDON.getAddonInfo('name')
+ADDON_PATH = ADDON.getAddonInfo('path')
+ADDON_VERSION = ADDON.getAddonInfo('version')
+HANDLE = int(sys.argv[1])
 
-from resources.lib import (
-    control, tools, auth, servers, parental, xtream, player, advanced_cfg
-)
-
-
-# =============================================================
-#   MENUS
-# =============================================================
-def home():
-    """Tela principal do addon."""
-    # Ícones do menu
-    MEDIA = control.MEDIA
-    ic = {
-        'server':   os.path.join(MEDIA, 'icon_server.png'),
-        'live':     os.path.join(MEDIA, 'icon_live.png'),
-        'movies':   os.path.join(MEDIA, 'icon_movies.png'),
-        'series':   os.path.join(MEDIA, 'icon_series.png'),
-        'guide':    os.path.join(MEDIA, 'icon_guide.png'),
-        'search':   os.path.join(MEDIA, 'icon_search.png'),
-        'parental': os.path.join(MEDIA, 'icon_parental.png'),
-        'account':  os.path.join(MEDIA, 'icon_account.png'),
-        'settings': os.path.join(MEDIA, 'icon_settings.png'),
-    }
-
-    srv = servers.active_server()
-    srv_label = srv.get('name') if srv else 'Nenhum selecionado'
-
-    # 1) TROCAR SERVIDOR - destaque amarelo (primeira posição)
-    trocar_label = '[B][COLOR FFFFCC00]>>> TROCAR SERVIDOR <<<[/COLOR][/B] ' \
-                   '[COLOR FFFFFFFF]({0})[/COLOR]'.format(srv_label)
-    tools.add_dir(trocar_label, {'mode': 'choose_server'},
-                  icon=ic['server'], fanart=control.FANART,
-                  description='Escolha qual servidor usar. Há vários servidores '
-                              'disponíveis. Se um estiver lento, troque para outro.')
-
-    if not srv:
-        # Sem servidor escolhido ainda — não mostra demais categorias
-        tools.add_dir('[B][COLOR FFE10600]— Selecione um servidor acima para começar —[/COLOR][/B]',
-                      {'mode': 'choose_server'}, icon=ic['server'],
-                      description='Você precisa escolher um servidor antes de '
-                                  'acessar os conteúdos.')
-        tools.add_dir('Minha Conta', {'mode': 'account'},
-                      icon=ic['account'], description='Informações da sua assinatura.')
-        tools.add_dir('Configurações', {'mode': 'settings'},
-                      icon=ic['settings'], description='Ajustes do addon.')
-        tools.add_dir('Sair (Logout)', {'mode': 'logout'},
-                      icon=ic['account'], description='Encerrar sessão atual.')
-        tools.end_directory()
-        return
-
-    # Menu principal completo
-    tools.add_dir('[B]TV AO VIVO[/B]', {'mode': 'live_cats'},
-                  icon=ic['live'], description='Canais de TV ao vivo em HD/FHD.')
-    tools.add_dir('[B]FILMES[/B]', {'mode': 'vod_cats'},
-                  icon=ic['movies'], description='Catálogo de filmes com sinopse, '
-                                                 'capa, elenco e avaliação.')
-    tools.add_dir('[B]SÉRIES[/B]', {'mode': 'series_cats'},
-                  icon=ic['series'], description='Séries, novelas e animes '
-                                                 'organizados por temporadas.')
-    tools.add_dir('Controle Parental', {'mode': 'parental'},
-                  icon=ic['parental'], description='Gerenciar PIN e bloqueios.')
-    tools.add_dir('Minha Conta', {'mode': 'account'},
-                  icon=ic['account'], description='Detalhes da sua assinatura.')
-    tools.add_dir('Configurações', {'mode': 'settings'},
-                  icon=ic['settings'], description='Ajustes avançados, player, '
-                                                   'buffer e reconexão.')
-    tools.add_dir('Sair (Logout)', {'mode': 'logout'},
-                  icon=ic['account'], description='Encerrar sessão atual.')
-    tools.end_directory()
-
-
-# =============================================================
-#   TV AO VIVO
-# =============================================================
-def live_cats():
-    cats = xtream.live_categories() or []
-    if not cats:
-        control.notify(control.ADDON_NAME, 'Nenhuma categoria encontrada.')
-    for c in cats:
-        name = c.get('category_name', '')
-        if parental.should_hide_adult() and parental.is_adult(name):
-            continue
-        tools.add_dir(name,
-                      {'mode': 'live_channels',
-                       'cat': str(c.get('category_id', ''))},
-                      icon=os.path.join(control.MEDIA, 'icon_live.png'),
-                      description='Canais da categoria {0}.'.format(name))
-    tools.end_directory()
-
-
-def live_channels(category_id):
-    chans = xtream.live_streams(category_id) or []
-    for ch in chans:
-        name = ch.get('name', '')
-        if parental.should_hide_adult() and parental.is_adult(name):
-            continue
-        stream_id = ch.get('stream_id')
-        icon = ch.get('stream_icon') or os.path.join(control.MEDIA, 'icon_live.png')
-        epg = ch.get('epg_channel_id') or ''
-        plot = 'Canal ao vivo: {0}\nEPG: {1}'.format(name, epg or '—')
-        tools.add_dir(name,
-                      {'mode': 'play_live', 'sid': str(stream_id),
-                       'title': name, 'icon': icon},
-                      icon=icon, description=plot, is_folder=False,
-                      meta={'poster': icon})
-    tools.end_directory()
-
-
-# =============================================================
-#   FILMES (VOD)
-# =============================================================
-def vod_cats():
-    cats = xtream.vod_categories() or []
-    for c in cats:
-        name = c.get('category_name', '')
-        if parental.should_hide_adult() and parental.is_adult(name):
-            if not parental.ask_pin_if_needed(name):
-                continue
-        tools.add_dir(name,
-                      {'mode': 'vod_list', 'cat': str(c.get('category_id', ''))},
-                      icon=os.path.join(control.MEDIA, 'icon_movies.png'),
-                      description='Filmes da categoria {0}.'.format(name))
-    tools.end_directory()
-
-
-def vod_list(category_id):
-    movies = xtream.vod_streams(category_id) or []
-    for m in movies:
-        name = m.get('name', '')
-        if parental.should_hide_adult() and parental.is_adult(name):
-            continue
-        meta = xtream.extract_movie_meta(m)
-        plot = meta['plot']
-        stream_id = m.get('stream_id')
-        ext = m.get('container_extension') or 'mp4'
-        tools.add_dir(name,
-                      {'mode': 'play_movie', 'sid': str(stream_id),
-                       'ext': ext, 'title': name},
-                      icon=meta.get('poster') or control.ICON,
-                      fanart=meta.get('fanart') or control.FANART,
-                      description=plot, is_folder=False, meta=meta)
-    tools.end_directory(content='movies')
-
-
-# =============================================================
-#   SÉRIES
-# =============================================================
-def series_cats():
-    cats = xtream.series_categories() or []
-    for c in cats:
-        name = c.get('category_name', '')
-        if parental.should_hide_adult() and parental.is_adult(name):
-            continue
-        tools.add_dir(name,
-                      {'mode': 'series_list', 'cat': str(c.get('category_id', ''))},
-                      icon=os.path.join(control.MEDIA, 'icon_series.png'),
-                      description='Séries da categoria {0}.'.format(name))
-    tools.end_directory()
-
-
-def series_list(category_id):
-    items = xtream.series_list(category_id) or []
-    for s in items:
-        name = s.get('name', '')
-        if parental.should_hide_adult() and parental.is_adult(name):
-            continue
-        meta = xtream.extract_series_meta(s)
-        tools.add_dir(name,
-                      {'mode': 'series_seasons',
-                       'sid': str(s.get('series_id', ''))},
-                      icon=meta.get('poster') or control.ICON,
-                      fanart=meta.get('fanart') or control.FANART,
-                      description=meta['plot'], meta=meta)
-    tools.end_directory(content='tvshows')
-
-
-def series_seasons(series_id):
-    info = xtream.series_info(series_id) or {}
-    seasons = info.get('episodes') or {}
-    serie_meta = info.get('info') or {}
-    fanart = ''
-    bp = serie_meta.get('backdrop_path')
-    if isinstance(bp, list) and bp:
-        fanart = bp[0]
-    for season_num in sorted(seasons.keys(), key=lambda x: int(x) if str(x).isdigit() else 0):
-        eps = seasons[season_num]
-        first_ep = eps[0] if eps else {}
-        poster = (first_ep.get('info') or {}).get('movie_image') or \
-                 serie_meta.get('cover') or control.ICON
-        plot = serie_meta.get('plot') or 'Temporada {0}'.format(season_num)
-        tools.add_dir('Temporada {0}'.format(season_num),
-                      {'mode': 'series_episodes', 'sid': str(series_id),
-                       'season': str(season_num)},
-                      icon=poster,
-                      fanart=fanart or control.FANART,
-                      description=plot,
-                      meta={'poster': poster, 'fanart': fanart,
-                            'plot': plot})
-    tools.end_directory(content='seasons')
-
-
-def series_episodes(series_id, season):
-    info = xtream.series_info(series_id) or {}
-    seasons = info.get('episodes') or {}
-    eps = seasons.get(str(season)) or []
-    for ep in eps:
-        meta = xtream.extract_episode_meta(ep, info)
-        ext = ep.get('container_extension') or 'mp4'
-        title = '{0}. {1}'.format(ep.get('episode_num', ''),
-                                  meta['title'])
-        tools.add_dir(title,
-                      {'mode': 'play_episode',
-                       'sid': str(ep.get('id', '')),
-                       'ext': ext, 'title': title},
-                      icon=meta.get('poster') or control.ICON,
-                      fanart=meta.get('fanart') or control.FANART,
-                      description=meta['plot'], is_folder=False, meta=meta)
-    tools.end_directory(content='episodes')
-
-
-# =============================================================
-#   PLAYBACK
-# =============================================================
-def play_live(stream_id, title='', icon=''):
-    # Preferir m3u8 para InputStream Adaptive
-    url = xtream.live_stream_m3u8(stream_id)
-    meta = {'plot': 'Transmissão ao vivo', 'poster': icon or control.ICON}
-    player.resolve_and_play(url, title or 'Ao Vivo', meta=meta, is_live=True)
-
-
-def play_movie(stream_id, ext='mp4', title=''):
-    url = xtream.movie_stream_url(stream_id, ext)
-    # Buscar metadados detalhados
-    info = xtream.vod_info(stream_id)
-    meta = xtream.extract_movie_meta({'name': title}, info)
-    player.resolve_and_play(url, title, meta=meta, is_live=False)
-
-
-def play_episode(stream_id, ext='mp4', title=''):
-    url = xtream.episode_stream_url(stream_id, ext)
-    player.resolve_and_play(url, title, meta={'plot': title}, is_live=False)
-
-
-# =============================================================
-#   OUTROS
-# =============================================================
-def account():
-    data = xtream.panel() or {}
-    ui = data.get('user_info', {})
-    si = data.get('server_info', {})
-    from datetime import datetime
-    exp = ui.get('exp_date')
-    try:
-        exp_txt = datetime.fromtimestamp(int(exp)).strftime('%d/%m/%Y %H:%M') if exp else 'Ilimitado'
-    except Exception:
-        exp_txt = 'Ilimitado'
-    lines = [
-        ('Cliente', control.setting('client_label') or control.setting('client_code')),
-        ('Servidor', control.setting('active_server_name')),
-        ('Usuário do Painel', ui.get('username', '—')),
-        ('Status', ui.get('status', '—')),
-        ('Expira em', exp_txt),
-        ('Conexões Ativas', '{0} / {1}'.format(
-            ui.get('active_cons', '—'),
-            ui.get('max_connections', '—'))),
-        ('Servidor URL', si.get('url', '—')),
-        ('Fuso Horário', si.get('timezone', '—')),
+# ===== DADOS EMBUTIDOS =====
+# Senhas dos clientes (você pode editar aqui ou via GitHub depois)
+PASSWORDS_DATA = {
+    "clients": [
+        {"code": "TESTE", "password": "123456", "name": "Cliente Teste", "expiry": "2027-12-31", "active": True},
+        {"code": "CLIENTE001", "password": "senha001", "name": "Cliente 1", "expiry": "2027-12-31", "active": True},
+        {"code": "CLIENTE002", "password": "senha002", "name": "Cliente 2", "expiry": "2027-12-31", "active": True},
+        {"code": "CLIENTE003", "password": "senha003", "name": "Cliente 3", "expiry": "2027-12-31", "active": True},
+        {"code": "CLIENTE004", "password": "senha004", "name": "Cliente 4", "expiry": "2027-12-31", "active": True},
+        {"code": "CLIENTE005", "password": "senha005", "name": "Cliente 5", "expiry": "2027-12-31", "active": True},
     ]
-    for label, value in lines:
-        tools.add_dir('[B]{0}:[/B] {1}'.format(label, value),
-                      {'mode': 'noop'},
-                      icon=os.path.join(control.MEDIA, 'icon_account.png'),
-                      description='', is_folder=False)
-    tools.end_directory()
+}
 
+# 20 Servidores
+SERVERS_DATA = {
+    "servers": [
+        {"id": 1, "name": "🔴 Premium HD 1", "dns": "", "port": 8080, "note": "Servidor Premium - Alta qualidade"},
+        {"id": 2, "name": "🔴 Premium HD 2", "dns": "", "port": 8080, "note": "Servidor Premium - Backup"},
+        {"id": 3, "name": "🟡 4K Ultra 1", "dns": "", "port": 8080, "note": "Servidor 4K - Ultra HD"},
+        {"id": 4, "name": "🟡 4K Ultra 2", "dns": "", "port": 8080, "note": "Servidor 4K - Backup"},
+        {"id": 5, "name": "🟢 Streaming 1", "dns": "", "port": 8080, "note": "Servidor Streaming - Rápido"},
+        {"id": 6, "name": "🟢 Streaming 2", "dns": "", "port": 8080, "note": "Servidor Streaming - Backup"},
+        {"id": 7, "name": "🔵 Internacional 1", "dns": "", "port": 8080, "note": "Servidor Internacional"},
+        {"id": 8, "name": "🔵 Internacional 2", "dns": "", "port": 8080, "note": "Servidor Internacional - Backup"},
+        {"id": 9, "name": "🟣 Backup 1", "dns": "", "port": 8080, "note": "Servidor Backup"},
+        {"id": 10, "name": "🟣 Backup 2", "dns": "", "port": 8080, "note": "Servidor Backup"},
+        {"id": 11, "name": "⚪ Reserva 1", "dns": "", "port": 8080, "note": "Servidor Reserva"},
+        {"id": 12, "name": "⚪ Reserva 2", "dns": "", "port": 8080, "note": "Servidor Reserva"},
+        {"id": 13, "name": "🟠 Teste 1", "dns": "", "port": 8080, "note": "Servidor Teste"},
+        {"id": 14, "name": "🟠 Teste 2", "dns": "", "port": 8080, "note": "Servidor Teste"},
+        {"id": 15, "name": "🔶 Espelho 1", "dns": "", "port": 8080, "note": "Servidor Espelho"},
+        {"id": 16, "name": "🔶 Espelho 2", "dns": "", "port": 8080, "note": "Servidor Espelho"},
+        {"id": 17, "name": "🟥 Emergência 1", "dns": "", "port": 8080, "note": "Servidor Emergência"},
+        {"id": 18, "name": "🟥 Emergência 2", "dns": "", "port": 8080, "note": "Servidor Emergência"},
+        {"id": 19, "name": "⬛ Secundário 1", "dns": "", "port": 8080, "note": "Servidor Secundário"},
+        {"id": 20, "name": "⬛ Secundário 2", "dns": "", "port": 8080, "note": "Servidor Secundário"},
+    ]
+}
+
+# Palavras-chave para controle parental
+PARENTAL_DATA = {
+    "keywords": [
+        "adulto", "pornô", "sexo", "nude", "xxx", "18+", "erótico",
+        "violência extrema", "gore", "sangue", "assassinato",
+        "drogas", "cocaína", "maconha", "heroína"
+    ]
+}
+
+def log(msg):
+    """Log de debug"""
+    try:
+        xbmcaddon.Addon().log(f"[{ADDON_NAME}] {msg}", xbmcaddon.LOGINFO)
+    except:
+        pass
+
+def show_notification(title, msg, duration=5000, notification_type=xbmcgui.NOTIFICATION_INFO):
+    """Exibe notificação na tela"""
+    try:
+        dialog = xbmcgui.Dialog()
+        dialog.notification(title, msg, notification_type, duration)
+    except:
+        pass
+
+def show_dialog(title, msg):
+    """Exibe diálogo de texto"""
+    try:
+        dialog = xbmcgui.Dialog()
+        dialog.ok(title, msg)
+    except:
+        pass
+
+def keyboard_input(prompt="", default="", hidden=False):
+    """Entrada de teclado"""
+    try:
+        dialog = xbmcgui.Dialog()
+        return dialog.input(prompt, default, xbmcgui.INPUT_ALPHANUM if not hidden else xbmcgui.INPUT_PASSWORD)
+    except:
+        return ""
+
+def add_menu_item(label, action, params=None, icon=None, is_folder=True):
+    """Adiciona um item ao menu"""
+    try:
+        url = f"plugin://{ADDON_ID}/?action={action}"
+        if params:
+            url += "&" + urlencode(params)
+        
+        item = xbmcgui.ListItem(label)
+        if icon:
+            item.setArt({'icon': icon, 'fanart': icon})
+        
+        xbmcplugin.addDirectoryItem(HANDLE, url, item, is_folder)
+    except Exception as e:
+        log(f"Erro ao adicionar item: {str(e)}")
+
+def main_menu():
+    """Menu principal"""
+    log("=== BRAZTELA INICIADO ===")
+    
+    try:
+        icon_live = f"file://{ADDON_PATH}/resources/media/icon_live.png"
+        icon_movies = f"file://{ADDON_PATH}/resources/media/icon_movies.png"
+        icon_series = f"file://{ADDON_PATH}/resources/media/icon_series.png"
+        icon_server = f"file://{ADDON_PATH}/resources/media/icon_server.png"
+        icon_parental = f"file://{ADDON_PATH}/resources/media/icon_parental.png"
+        icon_settings = f"file://{ADDON_PATH}/resources/media/icon_settings.png"
+        
+        add_menu_item("📺 TV ao Vivo", "live", icon=icon_live)
+        add_menu_item("🎬 Filmes", "movies", icon=icon_movies)
+        add_menu_item("📺 Séries", "series", icon=icon_series)
+        add_menu_item("🖥️ Trocar Servidor", "servers", icon=icon_server)
+        add_menu_item("🔒 Controle Parental", "parental", icon=icon_parental)
+        add_menu_item("⚙️ Configurações", "settings", icon=icon_settings)
+        
+        xbmcplugin.endOfDirectory(HANDLE)
+        log("Menu principal carregado com sucesso")
+        
+    except Exception as e:
+        log(f"Erro no menu principal: {str(e)}")
+        show_notification("Erro", f"Erro: {str(e)}", notification_type=xbmcgui.NOTIFICATION_ERROR)
+
+def live_menu():
+    """Menu de TV ao Vivo"""
+    log("Abrindo TV ao Vivo")
+    
+    try:
+        item = xbmcgui.ListItem("📡 Conectando ao servidor...")
+        xbmcplugin.addDirectoryItem(HANDLE, "", item, False)
+        xbmcplugin.endOfDirectory(HANDLE)
+        show_notification("Info", "Funcionalidade em desenvolvimento")
+    except Exception as e:
+        log(f"Erro: {str(e)}")
+
+def movies_menu():
+    """Menu de Filmes"""
+    log("Abrindo Filmes")
+    
+    try:
+        item = xbmcgui.ListItem("🎬 Filmes em desenvolvimento...")
+        xbmcplugin.addDirectoryItem(HANDLE, "", item, False)
+        xbmcplugin.endOfDirectory(HANDLE)
+        show_notification("Info", "Funcionalidade em desenvolvimento")
+    except Exception as e:
+        log(f"Erro: {str(e)}")
+
+def series_menu():
+    """Menu de Séries"""
+    log("Abrindo Séries")
+    
+    try:
+        item = xbmcgui.ListItem("📺 Séries em desenvolvimento...")
+        xbmcplugin.addDirectoryItem(HANDLE, "", item, False)
+        xbmcplugin.endOfDirectory(HANDLE)
+        show_notification("Info", "Funcionalidade em desenvolvimento")
+    except Exception as e:
+        log(f"Erro: {str(e)}")
+
+def servers_menu():
+    """Menu de seleção de servidor"""
+    log("Abrindo menu de servidores")
+    
+    try:
+        for server in SERVERS_DATA["servers"]:
+            label = f"{server['name']} - {server['note']}"
+            item = xbmcgui.ListItem(label)
+            item.setInfo('video', {'plot': f"Porta: {server['port']}"})
+            xbmcplugin.addDirectoryItem(HANDLE, "", item, False)
+        
+        xbmcplugin.endOfDirectory(HANDLE)
+        show_notification("Servidores", "20 servidores disponíveis")
+        
+    except Exception as e:
+        log(f"Erro: {str(e)}")
 
 def parental_menu():
-    if parental.enabled() and not parental.ask_pin('Controle Parental'):
-        return
-    tools.add_dir('Alterar PIN', {'mode': 'parental_change'},
-                  icon=os.path.join(control.MEDIA, 'icon_parental.png'),
-                  description='Trocar o PIN de 4 dígitos.', is_folder=False)
-    tools.add_dir('{0} Controle Parental ({1})'.format(
-                    'Desativar' if parental.enabled() else 'Ativar',
-                    'ATIVO' if parental.enabled() else 'INATIVO'),
-                  {'mode': 'parental_toggle'},
-                  icon=os.path.join(control.MEDIA, 'icon_parental.png'),
-                  description='Liga/desliga o controle parental.', is_folder=False)
-    tools.add_dir('{0} Conteúdo Adulto ({1})'.format(
-                    'Mostrar' if parental.should_hide_adult() else 'Ocultar',
-                    'OCULTO' if parental.should_hide_adult() else 'VISÍVEL'),
-                  {'mode': 'parental_adult_toggle'},
-                  icon=os.path.join(control.MEDIA, 'icon_parental.png'),
-                  description='Mostra ou oculta conteúdo adulto.', is_folder=False)
-    tools.end_directory()
-
-
-# Extensão do parental para menus
-def _ask_pin_if_needed(name):
-    if parental.should_hide_adult() and parental.is_adult(name):
-        return parental.ask_pin('Conteúdo Adulto')
-    return True
-parental.ask_pin_if_needed = _ask_pin_if_needed
-
+    """Menu de controle parental"""
+    log("Abrindo controle parental")
+    
+    try:
+        item = xbmcgui.ListItem("🔒 Controle parental ativo")
+        item.setInfo('video', {'plot': f"Palavras-chave bloqueadas: {len(PARENTAL_DATA['keywords'])}"})
+        xbmcplugin.addDirectoryItem(HANDLE, "", item, False)
+        xbmcplugin.endOfDirectory(HANDLE)
+        
+    except Exception as e:
+        log(f"Erro: {str(e)}")
 
 def settings_menu():
-    if control.setting('parental_settings') == 'true' and parental.enabled():
-        if not parental.ask_pin('Configurações protegidas'):
-            return
-    control.ADDON.openSettings()
+    """Abre as configurações do addon"""
+    log("Abrindo configurações")
+    try:
+        ADDON.openSettings()
+    except Exception as e:
+        log(f"Erro: {str(e)}")
 
+def authenticate():
+    """Autenticação do cliente"""
+    log("Iniciando autenticação")
+    
+    try:
+        # Solicitar código do cliente
+        code = keyboard_input("Código do Cliente:", "")
+        if not code:
+            show_notification("Erro", "Código não fornecido")
+            return False
+        
+        # Verificar se o código existe
+        client = None
+        for c in PASSWORDS_DATA["clients"]:
+            if c["code"].upper() == code.upper():
+                client = c
+                break
+        
+        if not client:
+            show_notification("Erro", "Código de cliente inválido")
+            log(f"Código inválido: {code}")
+            return False
+        
+        if not client["active"]:
+            show_notification("Erro", "Cliente desativado")
+            return False
+        
+        # Solicitar senha
+        password = keyboard_input("Senha de Acesso:", "", hidden=True)
+        if not password:
+            show_notification("Erro", "Senha não fornecida")
+            return False
+        
+        # Verificar senha
+        if password != client["password"]:
+            show_notification("Erro", "Senha incorreta")
+            log(f"Senha incorreta para: {code}")
+            return False
+        
+        # Autenticação bem-sucedida
+        show_notification("Sucesso", f"Bem-vindo {client['name']}!")
+        log(f"Cliente autenticado: {code}")
+        
+        # Salvar informações da sessão
+        ADDON.setSetting("cliente_autenticado", code)
+        ADDON.setSetting("cliente_nome", client["name"])
+        
+        return True
+        
+    except Exception as e:
+        log(f"Erro na autenticação: {str(e)}")
+        show_notification("Erro", f"Erro: {str(e)}", notification_type=xbmcgui.NOTIFICATION_ERROR)
+        return False
 
-# =============================================================
-#   ROTEADOR
-# =============================================================
-def router():
-    params = tools.get_params()
-    mode = params.get('mode', '')
-
-    # Modos que não requerem autenticação
-    if mode == 'logout':
-        auth.logout()
-        control.refresh()
-        return
-    if mode == 'write_advanced':
-        advanced_cfg.write()
-        return
-    if mode == 'refresh_cache':
-        tools.cache_clear()
-        control.notify(control.ADDON_NAME, 'Cache limpo. Atualizando...')
-        control.refresh()
-        return
-
-    # Checar autenticação
-    if not auth.is_authenticated():
-        if not auth.login_prompt():
-            return
-        parental.ensure_initial_pin()
-        control.refresh()
-        return
-
-    # Modos internos
-    if not mode:
-        home(); return
-    if mode == 'choose_server':
-        servers.choose_server(); return
-    if mode == 'live_cats':
-        live_cats(); return
-    if mode == 'live_channels':
-        live_channels(params.get('cat', '')); return
-    if mode == 'vod_cats':
-        vod_cats(); return
-    if mode == 'vod_list':
-        vod_list(params.get('cat', '')); return
-    if mode == 'series_cats':
-        series_cats(); return
-    if mode == 'series_list':
-        series_list(params.get('cat', '')); return
-    if mode == 'series_seasons':
-        series_seasons(params.get('sid', '')); return
-    if mode == 'series_episodes':
-        series_episodes(params.get('sid', ''), params.get('season', '1')); return
-    if mode == 'play_live':
-        play_live(params.get('sid', ''), params.get('title', ''),
-                  params.get('icon', '')); return
-    if mode == 'play_movie':
-        play_movie(params.get('sid', ''), params.get('ext', 'mp4'),
-                   params.get('title', '')); return
-    if mode == 'play_episode':
-        play_episode(params.get('sid', ''), params.get('ext', 'mp4'),
-                     params.get('title', '')); return
-    if mode == 'account':
-        account(); return
-    if mode == 'parental':
-        parental_menu(); return
-    if mode == 'parental_change':
-        parental.change_pin(); return
-    if mode == 'parental_toggle':
-        new_val = 'false' if parental.enabled() else 'true'
-        control.set_setting('parental_enabled', new_val)
-        control.refresh(); return
-    if mode == 'parental_adult_toggle':
-        new_val = 'false' if parental.should_hide_adult() else 'true'
-        control.set_setting('hide_adult', new_val)
-        control.refresh(); return
-    if mode == 'settings':
-        settings_menu(); return
-    if mode == 'noop':
-        return
-
-    # Fallback
-    home()
-
-
+# Roteador principal
 if __name__ == '__main__':
-    router()
+    try:
+        # Parse dos parâmetros
+        params = parse_qs(sys.argv[2].lstrip('?'))
+        action = params.get('action', ['main'])[0]
+        
+        log(f"Ação: {action}")
+        
+        # Verificar autenticação (exceto para ações específicas)
+        if action not in ['main', 'settings'] and action != 'auth':
+            cliente = ADDON.getSetting("cliente_autenticado")
+            if not cliente:
+                if not authenticate():
+                    main_menu()
+                    sys.exit(0)
+        
+        # Roteamento
+        if action == 'main':
+            main_menu()
+        elif action == 'live':
+            live_menu()
+        elif action == 'movies':
+            movies_menu()
+        elif action == 'series':
+            series_menu()
+        elif action == 'servers':
+            servers_menu()
+        elif action == 'parental':
+            parental_menu()
+        elif action == 'settings':
+            settings_menu()
+        else:
+            main_menu()
+            
+    except Exception as e:
+        log(f"Erro fatal: {str(e)}")
+        try:
+            dialog = xbmcgui.Dialog()
+            dialog.notification("BRAZTELA - Erro", f"Erro: {str(e)}", xbmcgui.NOTIFICATION_ERROR)
+        except:
+            pass
