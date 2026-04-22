@@ -7,7 +7,10 @@ import xbmcplugin
 import xbmcaddon
 import json
 import os
+import urllib.request
+import urllib.error
 from urllib.parse import urlencode, parse_qs
+from datetime import datetime
 
 # Configurações do addon
 ADDON = xbmcaddon.Addon()
@@ -17,51 +20,35 @@ ADDON_PATH = ADDON.getAddonInfo('path')
 ADDON_VERSION = ADDON.getAddonInfo('version')
 HANDLE = int(sys.argv[1])
 
-# ===== DADOS EMBUTIDOS =====
-# Senhas dos clientes (você pode editar aqui ou via GitHub depois)
-PASSWORDS_DATA = {
-    "clients": [
-        {"code": "TESTE", "password": "123456", "name": "Cliente Teste", "expiry": "2027-12-31", "active": True},
-        {"code": "CLIENTE001", "password": "senha001", "name": "Cliente 1", "expiry": "2027-12-31", "active": True},
-        {"code": "CLIENTE002", "password": "senha002", "name": "Cliente 2", "expiry": "2027-12-31", "active": True},
-        {"code": "CLIENTE003", "password": "senha003", "name": "Cliente 3", "expiry": "2027-12-31", "active": True},
-        {"code": "CLIENTE004", "password": "senha004", "name": "Cliente 4", "expiry": "2027-12-31", "active": True},
-        {"code": "CLIENTE005", "password": "senha005", "name": "Cliente 5", "expiry": "2027-12-31", "active": True},
+# URLs do GitHub
+GITHUB_RAW = "https://raw.githubusercontent.com/brazalvesjr/braztela/main"
+PASSWORDS_URL = f"{GITHUB_RAW}/passwords.json"
+SERVERS_URL = f"{GITHUB_RAW}/servers.json"
+PARENTAL_URL = f"{GITHUB_RAW}/parental.json"
+
+# Diretório de cache local
+ADDON_DATA_PATH = xbmcaddon.Addon().getAddonInfo('profile')
+if not os.path.exists(ADDON_DATA_PATH):
+    os.makedirs(ADDON_DATA_PATH)
+
+PASSWORDS_CACHE = os.path.join(ADDON_DATA_PATH, "passwords_cache.json")
+SERVERS_CACHE = os.path.join(ADDON_DATA_PATH, "servers_cache.json")
+
+# Senhas padrão embutidas (fallback se GitHub não responder)
+DEFAULT_PASSWORDS = {
+    "version": "1.0.0",
+    "passwords": [
+        {"code": "TESTE", "password": "123456", "expires": "2027-12-31", "active": True, "label": "Braz Junior"},
+        {"code": "CLIENTE001", "password": "senha123456", "expires": "2027-12-31", "active": True, "label": "Cliente 1"},
+        {"code": "CLIENTE002", "password": "acesso2026", "expires": "2027-12-31", "active": True, "label": "Cliente 2"},
     ]
 }
 
-# 20 Servidores
-SERVERS_DATA = {
+DEFAULT_SERVERS = {
+    "version": "1.0.0",
     "servers": [
-        {"id": 1, "name": "🔴 Premium HD 1", "dns": "", "port": 8080, "note": "Servidor Premium - Alta qualidade"},
-        {"id": 2, "name": "🔴 Premium HD 2", "dns": "", "port": 8080, "note": "Servidor Premium - Backup"},
-        {"id": 3, "name": "🟡 4K Ultra 1", "dns": "", "port": 8080, "note": "Servidor 4K - Ultra HD"},
-        {"id": 4, "name": "🟡 4K Ultra 2", "dns": "", "port": 8080, "note": "Servidor 4K - Backup"},
-        {"id": 5, "name": "🟢 Streaming 1", "dns": "", "port": 8080, "note": "Servidor Streaming - Rápido"},
-        {"id": 6, "name": "🟢 Streaming 2", "dns": "", "port": 8080, "note": "Servidor Streaming - Backup"},
-        {"id": 7, "name": "🔵 Internacional 1", "dns": "", "port": 8080, "note": "Servidor Internacional"},
-        {"id": 8, "name": "🔵 Internacional 2", "dns": "", "port": 8080, "note": "Servidor Internacional - Backup"},
-        {"id": 9, "name": "🟣 Backup 1", "dns": "", "port": 8080, "note": "Servidor Backup"},
-        {"id": 10, "name": "🟣 Backup 2", "dns": "", "port": 8080, "note": "Servidor Backup"},
-        {"id": 11, "name": "⚪ Reserva 1", "dns": "", "port": 8080, "note": "Servidor Reserva"},
-        {"id": 12, "name": "⚪ Reserva 2", "dns": "", "port": 8080, "note": "Servidor Reserva"},
-        {"id": 13, "name": "🟠 Teste 1", "dns": "", "port": 8080, "note": "Servidor Teste"},
-        {"id": 14, "name": "🟠 Teste 2", "dns": "", "port": 8080, "note": "Servidor Teste"},
-        {"id": 15, "name": "🔶 Espelho 1", "dns": "", "port": 8080, "note": "Servidor Espelho"},
-        {"id": 16, "name": "🔶 Espelho 2", "dns": "", "port": 8080, "note": "Servidor Espelho"},
-        {"id": 17, "name": "🟥 Emergência 1", "dns": "", "port": 8080, "note": "Servidor Emergência"},
-        {"id": 18, "name": "🟥 Emergência 2", "dns": "", "port": 8080, "note": "Servidor Emergência"},
-        {"id": 19, "name": "⬛ Secundário 1", "dns": "", "port": 8080, "note": "Servidor Secundário"},
-        {"id": 20, "name": "⬛ Secundário 2", "dns": "", "port": 8080, "note": "Servidor Secundário"},
-    ]
-}
-
-# Palavras-chave para controle parental
-PARENTAL_DATA = {
-    "keywords": [
-        "adulto", "pornô", "sexo", "nude", "xxx", "18+", "erótico",
-        "violência extrema", "gore", "sangue", "assassinato",
-        "drogas", "cocaína", "maconha", "heroína"
+        {"id": i, "name": f"Servidor {i}", "dns": "", "port": 8080, "note": f"Servidor {i}"} 
+        for i in range(1, 21)
     ]
 }
 
@@ -92,9 +79,53 @@ def keyboard_input(prompt="", default="", hidden=False):
     """Entrada de teclado"""
     try:
         dialog = xbmcgui.Dialog()
-        return dialog.input(prompt, default, xbmcgui.INPUT_ALPHANUM if not hidden else xbmcgui.INPUT_PASSWORD)
+        input_type = xbmcgui.INPUT_PASSWORD if hidden else xbmcgui.INPUT_ALPHANUM
+        return dialog.input(prompt, default, input_type)
     except:
         return ""
+
+def fetch_json_from_github(url, cache_file, default_data):
+    """Busca JSON do GitHub com fallback para cache local e dados padrão"""
+    try:
+        # Tentar buscar do GitHub
+        with urllib.request.urlopen(url, timeout=5) as response:
+            data = json.loads(response.read().decode('utf-8'))
+            
+            # Salvar no cache local
+            try:
+                with open(cache_file, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
+                log(f"Cache atualizado: {cache_file}")
+            except:
+                pass
+            
+            return data
+            
+    except Exception as e:
+        log(f"Erro ao buscar {url}: {str(e)}")
+        
+        # Tentar usar cache local
+        if os.path.exists(cache_file):
+            try:
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    log(f"Usando cache local: {cache_file}")
+                    show_notification("Info", "Usando dados em cache (sem internet)", duration=3000)
+                    return data
+            except:
+                pass
+        
+        # Usar dados padrão embutidos
+        log(f"Usando dados padrão para {cache_file}")
+        return default_data
+
+def load_passwords():
+    """Carrega as senhas (GitHub > Cache > Padrão)"""
+    return fetch_json_from_github(PASSWORDS_URL, PASSWORDS_CACHE, DEFAULT_PASSWORDS)
+
+def load_servers():
+    """Carrega os servidores (GitHub > Cache > Padrão)"""
+    return fetch_json_from_github(SERVERS_URL, SERVERS_CACHE, DEFAULT_SERVERS)
 
 def add_menu_item(label, action, params=None, icon=None, is_folder=True):
     """Adiciona um item ao menu"""
@@ -113,7 +144,7 @@ def add_menu_item(label, action, params=None, icon=None, is_folder=True):
 
 def main_menu():
     """Menu principal"""
-    log("=== BRAZTELA INICIADO ===")
+    log("=== BRAZTELA v2 INICIADO ===")
     
     try:
         icon_live = f"file://{ADDON_PATH}/resources/media/icon_live.png"
@@ -178,7 +209,9 @@ def servers_menu():
     log("Abrindo menu de servidores")
     
     try:
-        for server in SERVERS_DATA["servers"]:
+        servers_data = load_servers()
+        
+        for server in servers_data.get("servers", [])[:20]:
             label = f"{server['name']} - {server['note']}"
             item = xbmcgui.ListItem(label)
             item.setInfo('video', {'plot': f"Porta: {server['port']}"})
@@ -196,7 +229,7 @@ def parental_menu():
     
     try:
         item = xbmcgui.ListItem("🔒 Controle parental ativo")
-        item.setInfo('video', {'plot': f"Palavras-chave bloqueadas: {len(PARENTAL_DATA['keywords'])}"})
+        item.setInfo('video', {'plot': "Filtrando conteúdo adulto"})
         xbmcplugin.addDirectoryItem(HANDLE, "", item, False)
         xbmcplugin.endOfDirectory(HANDLE)
         
@@ -212,10 +245,13 @@ def settings_menu():
         log(f"Erro: {str(e)}")
 
 def authenticate():
-    """Autenticação do cliente"""
+    """Autenticação do cliente com senhas do GitHub"""
     log("Iniciando autenticação")
     
     try:
+        # Carregar senhas
+        passwords_data = load_passwords()
+        
         # Solicitar código do cliente
         code = keyboard_input("Código do Cliente:", "")
         if not code:
@@ -224,7 +260,7 @@ def authenticate():
         
         # Verificar se o código existe
         client = None
-        for c in PASSWORDS_DATA["clients"]:
+        for c in passwords_data.get("passwords", []):
             if c["code"].upper() == code.upper():
                 client = c
                 break
@@ -234,9 +270,20 @@ def authenticate():
             log(f"Código inválido: {code}")
             return False
         
-        if not client["active"]:
+        if not client.get("active", False):
             show_notification("Erro", "Cliente desativado")
+            log(f"Cliente desativado: {code}")
             return False
+        
+        # Verificar expiração
+        try:
+            expiry_date = datetime.strptime(client.get("expires", "2099-12-31"), "%Y-%m-%d")
+            if datetime.now() > expiry_date:
+                show_notification("Erro", "Acesso expirado")
+                log(f"Acesso expirado para: {code}")
+                return False
+        except:
+            pass
         
         # Solicitar senha
         password = keyboard_input("Senha de Acesso:", "", hidden=True)
@@ -251,12 +298,13 @@ def authenticate():
             return False
         
         # Autenticação bem-sucedida
-        show_notification("Sucesso", f"Bem-vindo {client['name']}!")
-        log(f"Cliente autenticado: {code}")
+        label = client.get("label", code)
+        show_notification("Sucesso", f"Bem-vindo {label}!")
+        log(f"Cliente autenticado: {code} ({label})")
         
         # Salvar informações da sessão
         ADDON.setSetting("cliente_autenticado", code)
-        ADDON.setSetting("cliente_nome", client["name"])
+        ADDON.setSetting("cliente_nome", label)
         
         return True
         
