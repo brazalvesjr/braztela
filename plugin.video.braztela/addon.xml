@@ -7,5 +7,6 @@
     <summary>BRAZTELA - Plataforma de Streaming Premium</summary>
     <description>Plataforma completa de streaming com TV ao vivo, filmes, séries, 20 servidores, autenticação por cliente e controle parental.</description>
     <platform>all</platform>
+    <language>pt</language>
   </extension>
 </addon>

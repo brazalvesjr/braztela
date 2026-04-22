@@ -1,165 +1,107 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import xbmcgui
 import xbmcplugin
-import xbmcaddon
+import sys
+import urllib.parse as urlparse
 
-addon = xbmcaddon.Addon()
-addon_id = addon.getAddonInfo('id')
-handle = int(sys.argv[1])
-
-# Dados dos clientes
+# Dados embutidos - Clientes
 CLIENTES = {
-    'TESTE': '123456',
-    'CLIENTE001': 'senha123456',
-    'CLIENTE002': 'acesso2026',
-    'CLIENTE003': 'premium789',
-    'CLIENTE004': 'streaming001',
-    'CLIENTE005': 'braztela2026',
+    "TESTE": {"senha": "123456", "nome": "Teste", "ativo": True},
+    "CLIENTE001": {"senha": "senha123456", "nome": "João Silva", "ativo": True},
+    "CLIENTE002": {"senha": "acesso2026", "nome": "Maria Santos", "ativo": True},
+    "CLIENTE003": {"senha": "premium789", "nome": "Carlos Oliveira", "ativo": True},
+    "CLIENTE004": {"senha": "streaming001", "nome": "Ana Costa", "ativo": True},
+    "CLIENTE005": {"senha": "braztela2026", "nome": "Pedro Ferreira", "ativo": True},
 }
 
-def menu_principal():
-    """Menu principal do addon"""
-    items = [
-        ('📺 TV ao Vivo', 'live'),
-        ('🎬 Filmes', 'movies'),
-        ('📺 Séries', 'series'),
-        ('🖥️ Trocar Servidor', 'servers'),
-        ('🔒 Controle Parental', 'parental'),
-        ('⚙️ Configurações', 'settings'),
-    ]
-    
-    for label, action in items:
-        url = f'plugin://{addon_id}/?action={action}'
-        item = xbmcgui.ListItem(label)
-        xbmcplugin.addDirectoryItem(handle, url, item, True)
-    
-    xbmcplugin.endOfDirectory(handle)
+# Dados embutidos - Servidores
+SERVIDORES = [
+    {"nome": "Premium HD 1", "dns": "http://servidor1.com:8080", "ativo": True},
+    {"nome": "Premium HD 2", "dns": "http://servidor2.com:8080", "ativo": True},
+    {"nome": "4K Ultra", "dns": "http://servidor3.com:8080", "ativo": True},
+    {"nome": "Backup 1", "dns": "http://servidor4.com:8080", "ativo": True},
+    {"nome": "Backup 2", "dns": "http://servidor5.com:8080", "ativo": True},
+    {"nome": "Reserva 1", "dns": "http://servidor6.com:8080", "ativo": False},
+    {"nome": "Reserva 2", "dns": "http://servidor7.com:8080", "ativo": False},
+    {"nome": "Reserva 3", "dns": "http://servidor8.com:8080", "ativo": False},
+    {"nome": "Reserva 4", "dns": "http://servidor9.com:8080", "ativo": False},
+    {"nome": "Reserva 5", "dns": "http://servidor10.com:8080", "ativo": False},
+]
 
-def autenticar():
-    """Autentica o cliente"""
+def show_login():
+    """Tela de login"""
     dialog = xbmcgui.Dialog()
     
-    # Pedir código
-    codigo = dialog.input('Código do Cliente:')
+    # Pedir código do cliente
+    codigo = dialog.input("Código do Cliente", type=xbmcgui.INPUT_ALPHANUMERIC)
     if not codigo:
         return False
     
-    if codigo not in CLIENTES:
-        dialog.notification('Erro', 'Código inválido!', xbmcgui.NOTIFICATION_ERROR)
-        return False
-    
     # Pedir senha
-    senha = dialog.input('Senha:', option=xbmcgui.INPUT_PASSWORD)
+    senha = dialog.input("Senha de Acesso", type=xbmcgui.INPUT_PASSWORD)
     if not senha:
         return False
     
-    if CLIENTES[codigo] != senha:
-        dialog.notification('Erro', 'Senha incorreta!', xbmcgui.NOTIFICATION_ERROR)
+    # Validar
+    if codigo in CLIENTES:
+        cliente = CLIENTES[codigo]
+        if cliente["senha"] == senha and cliente["ativo"]:
+            dialog.notification("BRAZTELA", "Bem-vindo, " + cliente["nome"] + "!", xbmcgui.NOTIFICATION_INFO, 3000)
+            return True
+        else:
+            dialog.notification("BRAZTELA", "Código ou senha inválidos!", xbmcgui.NOTIFICATION_ERROR, 3000)
+            return False
+    else:
+        dialog.notification("BRAZTELA", "Cliente não encontrado!", xbmcgui.NOTIFICATION_ERROR, 3000)
         return False
-    
-    dialog.notification('Sucesso', f'Bem-vindo {codigo}!', xbmcgui.NOTIFICATION_INFO)
-    addon.setSetting('cliente', codigo)
-    return True
 
-def tv_ao_vivo():
-    """Menu de TV ao Vivo"""
-    item = xbmcgui.ListItem('📡 TV ao Vivo - Em desenvolvimento')
-    xbmcplugin.addDirectoryItem(handle, '', item, False)
-    xbmcplugin.endOfDirectory(handle)
-
-def filmes():
-    """Menu de Filmes"""
-    item = xbmcgui.ListItem('🎬 Filmes - Em desenvolvimento')
-    xbmcplugin.addDirectoryItem(handle, '', item, False)
-    xbmcplugin.endOfDirectory(handle)
-
-def series():
-    """Menu de Séries"""
-    item = xbmcgui.ListItem('📺 Séries - Em desenvolvimento')
-    xbmcplugin.addDirectoryItem(handle, '', item, False)
-    xbmcplugin.endOfDirectory(handle)
-
-def servidores():
-    """Menu de Servidores"""
-    servidores_list = [
-        ('🔴 Premium HD 1', 'Servidor Premium'),
-        ('🔴 Premium HD 2', 'Servidor Premium - Backup'),
-        ('🟡 4K Ultra 1', 'Servidor 4K'),
-        ('🟡 4K Ultra 2', 'Servidor 4K - Backup'),
-        ('🟢 Streaming 1', 'Servidor Streaming'),
-        ('🟢 Streaming 2', 'Servidor Streaming - Backup'),
-        ('🔵 Internacional 1', 'Servidor Internacional'),
-        ('🔵 Internacional 2', 'Servidor Internacional - Backup'),
-        ('🟣 Backup 1', 'Servidor Backup'),
-        ('🟣 Backup 2', 'Servidor Backup'),
-        ('⚪ Reserva 1', 'Servidor Reserva'),
-        ('⚪ Reserva 2', 'Servidor Reserva'),
-        ('🟠 Teste 1', 'Servidor Teste'),
-        ('🟠 Teste 2', 'Servidor Teste'),
-        ('🔶 Espelho 1', 'Servidor Espelho'),
-        ('🔶 Espelho 2', 'Servidor Espelho'),
-        ('🟥 Emergência 1', 'Servidor Emergência'),
-        ('🟥 Emergência 2', 'Servidor Emergência'),
-        ('⬛ Secundário 1', 'Servidor Secundário'),
-        ('⬛ Secundário 2', 'Servidor Secundário'),
+def show_menu():
+    """Menu principal"""
+    dialog = xbmcgui.Dialog()
+    opcoes = [
+        "📺 TV ao Vivo",
+        "🎬 Filmes",
+        "📺 Séries",
+        "🖥️ Trocar Servidor",
+        "🔒 Controle Parental",
+        "⚙️ Configurações"
     ]
     
-    for nome, desc in servidores_list:
-        item = xbmcgui.ListItem(nome)
-        item.setInfo('video', {'plot': desc})
-        xbmcplugin.addDirectoryItem(handle, '', item, False)
+    escolha = dialog.select("BRAZTELA - Menu Principal", opcoes)
     
-    xbmcplugin.endOfDirectory(handle)
+    if escolha == 0:
+        xbmcgui.Dialog().notification("BRAZTELA", "TV ao Vivo - Em desenvolvimento", xbmcgui.NOTIFICATION_INFO, 2000)
+    elif escolha == 1:
+        xbmcgui.Dialog().notification("BRAZTELA", "Filmes - Em desenvolvimento", xbmcgui.NOTIFICATION_INFO, 2000)
+    elif escolha == 2:
+        xbmcgui.Dialog().notification("BRAZTELA", "Séries - Em desenvolvimento", xbmcgui.NOTIFICATION_INFO, 2000)
+    elif escolha == 3:
+        show_servers()
+    elif escolha == 4:
+        xbmcgui.Dialog().notification("BRAZTELA", "Controle Parental - Em desenvolvimento", xbmcgui.NOTIFICATION_INFO, 2000)
+    elif escolha == 5:
+        xbmcgui.Dialog().notification("BRAZTELA", "Configurações - Em desenvolvimento", xbmcgui.NOTIFICATION_INFO, 2000)
 
-def controle_parental():
-    """Menu de Controle Parental"""
-    item = xbmcgui.ListItem('🔒 Controle Parental - Ativo')
-    xbmcplugin.addDirectoryItem(handle, '', item, False)
-    xbmcplugin.endOfDirectory(handle)
+def show_servers():
+    """Mostrar lista de servidores"""
+    dialog = xbmcgui.Dialog()
+    servidores_ativos = [s["nome"] for s in SERVIDORES if s["ativo"]]
+    
+    if not servidores_ativos:
+        dialog.notification("BRAZTELA", "Nenhum servidor disponível", xbmcgui.NOTIFICATION_ERROR, 2000)
+        return
+    
+    escolha = dialog.select("Selecione um Servidor", servidores_ativos)
+    if escolha >= 0:
+        servidor = servidores_ativos[escolha]
+        dialog.notification("BRAZTELA", "Servidor: " + servidor, xbmcgui.NOTIFICATION_INFO, 2000)
 
-def configuracoes():
-    """Abre configurações"""
-    addon.openSettings()
+def main():
+    """Função principal"""
+    if show_login():
+        show_menu()
 
-# Main
-if __name__ == '__main__':
-    try:
-        params = {}
-        if len(sys.argv) > 2:
-            params_str = sys.argv[2].lstrip('?')
-            for param in params_str.split('&'):
-                if '=' in param:
-                    k, v = param.split('=', 1)
-                    params[k] = v
-        
-        action = params.get('action', 'main')
-        
-        # Verificar autenticação
-        cliente = addon.getSetting('cliente')
-        if action not in ['main', 'settings'] and not cliente:
-            if not autenticar():
-                menu_principal()
-                sys.exit(0)
-        
-        # Roteamento
-        if action == 'main':
-            menu_principal()
-        elif action == 'live':
-            tv_ao_vivo()
-        elif action == 'movies':
-            filmes()
-        elif action == 'series':
-            series()
-        elif action == 'servers':
-            servidores()
-        elif action == 'parental':
-            controle_parental()
-        elif action == 'settings':
-            configuracoes()
-        else:
-            menu_principal()
-    except Exception as e:
-        xbmcgui.Dialog().notification('Erro', str(e), xbmcgui.NOTIFICATION_ERROR)
+if __name__ == "__main__":
+    main()
