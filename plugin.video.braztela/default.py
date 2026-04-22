@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
 BRAZTELA - Addon Premium para Kodi
@@ -8,23 +9,15 @@ import sys
 import os
 import json
 import xbmc
+import xbmcaddon
 import xbmcgui
 import xbmcplugin
-import xbmcaddon
 import xbmcvfs
+from urllib.parse import urlencode, parse_qsl
 
-try:
-    from urllib.parse import urlencode, parse_qsl, quote, unquote
-except ImportError:
-    from urllib import urlencode, quote, unquote
-    from urlparse import parse_qsl
-
-# ================================================================
-# CONFIGURACOES
-# ================================================================
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
-ADDON_NAME = ADDON.getAddonInfo('name')
+ADDON_NAME = "BRAZTELA"
 ADDON_VERSION = ADDON.getAddonInfo('version')
 ADDON_PATH = xbmcvfs.translatePath(ADDON.getAddonInfo('path'))
 PROFILE_PATH = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
@@ -32,156 +25,96 @@ ICON = os.path.join(ADDON_PATH, 'icon.png')
 FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
 
 if not os.path.exists(PROFILE_PATH):
-    os.makedirs(PROFILE_PATH)
+    try:
+        os.makedirs(PROFILE_PATH)
+    except:
+        pass
 
 HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 else -1
 BASE_URL = sys.argv[0] if len(sys.argv) > 0 else 'plugin://plugin.video.braztela/'
 
-# ================================================================
-# DADOS EMBUTIDOS - SENHAS DOS CLIENTES
-# ================================================================
+# CLIENTES
 CLIENTES = {
-    "TESTE": {"senha": "123456", "nome": "Cliente Teste", "ativo": True, "validade": "2027-12-31"},
-    "BRAZ": {"senha": "admin2026", "nome": "Braz Junior", "ativo": True, "validade": "2099-12-31"},
-    "CLIENTE001": {"senha": "senha123456", "nome": "Joao Silva", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE002": {"senha": "acesso2026", "nome": "Maria Santos", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE003": {"senha": "premium789", "nome": "Carlos Oliveira", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE004": {"senha": "streaming001", "nome": "Ana Costa", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE005": {"senha": "braztela2026", "nome": "Pedro Ferreira", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE006": {"senha": "vip123456", "nome": "Fernanda Gomes", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE007": {"senha": "premium2026", "nome": "Roberto Alves", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE008": {"senha": "acesso123", "nome": "Juliana Rocha", "ativo": True, "validade": "2026-12-31"},
-    "CLIENTE009": {"senha": "streaming789", "nome": "Lucas Martins", "ativo": False, "validade": "2026-06-30"},
-    "CLIENTE010": {"senha": "braztv2026", "nome": "Beatriz Lima", "ativo": True, "validade": "2026-12-31"},
+    "TESTE": {"senha": "123456", "nome": "Cliente Teste", "ativo": True},
+    "BRAZ": {"senha": "admin2026", "nome": "Braz Junior (Admin)", "ativo": True},
+    "CLIENTE001": {"senha": "senha123456", "nome": "Cliente 001", "ativo": True},
+    "CLIENTE002": {"senha": "acesso2026", "nome": "Cliente 002", "ativo": True},
+    "CLIENTE003": {"senha": "premium789", "nome": "Cliente 003", "ativo": True},
+    "CLIENTE004": {"senha": "streaming001", "nome": "Cliente 004", "ativo": True},
+    "CLIENTE005": {"senha": "braztela2026", "nome": "Cliente 005", "ativo": True},
+    "CLIENTE006": {"senha": "vip123456", "nome": "Cliente 006", "ativo": True},
+    "CLIENTE007": {"senha": "premium2026", "nome": "Cliente 007", "ativo": True},
+    "CLIENTE008": {"senha": "acesso123", "nome": "Cliente 008", "ativo": True},
+    "CLIENTE010": {"senha": "braztv2026", "nome": "Cliente 010", "ativo": True},
 }
 
-# ================================================================
-# DADOS EMBUTIDOS - SERVIDORES (20 SLOTS)
-# ================================================================
-SERVIDORES = [
-    {"id": 1, "nome": "Premium HD #1", "dns": "http://servidor1.example.com:8080", "ativo": True},
-    {"id": 2, "nome": "Premium HD #2", "dns": "http://servidor2.example.com:8080", "ativo": True},
-    {"id": 3, "nome": "Premium 4K #1", "dns": "http://servidor3.example.com:8080", "ativo": True},
-    {"id": 4, "nome": "Premium 4K #2", "dns": "http://servidor4.example.com:8080", "ativo": True},
-    {"id": 5, "nome": "Backup #1", "dns": "http://servidor5.example.com:8080", "ativo": True},
-    {"id": 6, "nome": "Backup #2", "dns": "http://servidor6.example.com:8080", "ativo": True},
-    {"id": 7, "nome": "Backup #3", "dns": "http://servidor7.example.com:8080", "ativo": True},
-    {"id": 8, "nome": "Backup #4", "dns": "http://servidor8.example.com:8080", "ativo": True},
-    {"id": 9, "nome": "Reserva #1", "dns": "http://servidor9.example.com:8080", "ativo": False},
-    {"id": 10, "nome": "Reserva #2", "dns": "http://servidor10.example.com:8080", "ativo": False},
-    {"id": 11, "nome": "Servidor #11", "dns": "http://servidor11.example.com:8080", "ativo": False},
-    {"id": 12, "nome": "Servidor #12", "dns": "http://servidor12.example.com:8080", "ativo": False},
-    {"id": 13, "nome": "Servidor #13", "dns": "http://servidor13.example.com:8080", "ativo": False},
-    {"id": 14, "nome": "Servidor #14", "dns": "http://servidor14.example.com:8080", "ativo": False},
-    {"id": 15, "nome": "Servidor #15", "dns": "http://servidor15.example.com:8080", "ativo": False},
-    {"id": 16, "nome": "Servidor #16", "dns": "http://servidor16.example.com:8080", "ativo": False},
-    {"id": 17, "nome": "Servidor #17", "dns": "http://servidor17.example.com:8080", "ativo": False},
-    {"id": 18, "nome": "Servidor #18", "dns": "http://servidor18.example.com:8080", "ativo": False},
-    {"id": 19, "nome": "Servidor #19", "dns": "http://servidor19.example.com:8080", "ativo": False},
-    {"id": 20, "nome": "Servidor #20", "dns": "http://servidor20.example.com:8080", "ativo": False},
-]
+# SERVIDORES
+SERVIDORES = []
+for i in range(1, 21):
+    SERVIDORES.append({
+        "id": i,
+        "nome": "Servidor #" + str(i),
+        "dns": "http://servidor" + str(i) + ".example.com:8080",
+        "ativo": (i <= 8),
+    })
 
-# ================================================================
-# UTILITARIOS
-# ================================================================
+
 def log(msg):
-    """Log no Kodi"""
     xbmc.log("[BRAZTELA] " + str(msg), xbmc.LOGINFO)
 
-def notify(title, msg, icon=None, time=3000):
-    """Notificacao na tela"""
-    if icon is None:
-        icon = ICON
-    xbmcgui.Dialog().notification(title, msg, icon, time)
 
 def build_url(action, **kwargs):
-    """Construir URL para navegacao interna"""
     params = {'action': action}
     params.update(kwargs)
     return BASE_URL + '?' + urlencode(params)
 
-def add_dir(label, action, icon=None, fanart=None, info=None, is_folder=True, **kwargs):
-    """Adicionar item ao diretorio"""
-    list_item = xbmcgui.ListItem(label=label)
-    
-    if icon is None:
-        icon = ICON
-    if fanart is None:
-        fanart = FANART
-    
-    list_item.setArt({
-        'icon': icon,
-        'thumb': icon,
-        'fanart': fanart,
-        'poster': icon
-    })
-    
-    if info:
+
+def add_item(label, action, is_folder=True, plot="", **kwargs):
+    li = xbmcgui.ListItem(label=label)
+    li.setArt({'icon': ICON, 'thumb': ICON, 'fanart': FANART})
+    if plot:
         try:
-            video_info = list_item.getVideoInfoTag()
-            if 'plot' in info:
-                video_info.setPlot(info['plot'])
-            if 'title' in info:
-                video_info.setTitle(info['title'])
-            if 'year' in info:
-                video_info.setYear(info['year'])
+            li.getVideoInfoTag().setPlot(plot)
         except:
             pass
-    
     url = build_url(action, **kwargs)
-    xbmcplugin.addDirectoryItem(handle=HANDLE, url=url, listitem=list_item, isFolder=is_folder)
+    xbmcplugin.addDirectoryItem(handle=HANDLE, url=url, listitem=li, isFolder=is_folder)
 
-# ================================================================
+
 # AUTENTICACAO
-# ================================================================
-def get_auth_file():
-    """Caminho do arquivo de autenticacao salva"""
+def auth_file_path():
     return os.path.join(PROFILE_PATH, 'auth.json')
 
-def is_authenticated():
-    """Verifica se ja esta autenticado"""
-    auth_file = get_auth_file()
-    if os.path.exists(auth_file):
+
+def is_logged_in():
+    f = auth_file_path()
+    if os.path.exists(f):
         try:
-            with open(auth_file, 'r') as f:
-                data = json.load(f)
-            codigo = data.get('codigo', '')
-            if codigo in CLIENTES and CLIENTES[codigo]['ativo']:
+            with open(f, 'r') as fh:
+                data = json.load(fh)
+            cod = data.get('codigo', '')
+            if cod in CLIENTES and CLIENTES[cod].get('ativo', False):
                 return True
         except:
             pass
     return False
 
-def save_auth(codigo, nome):
-    """Salvar autenticacao"""
-    auth_file = get_auth_file()
-    try:
-        with open(auth_file, 'w') as f:
-            json.dump({'codigo': codigo, 'nome': nome}, f)
-        return True
-    except:
-        return False
 
-def get_current_user():
-    """Obter usuario atual"""
-    auth_file = get_auth_file()
-    if os.path.exists(auth_file):
+def get_user_name():
+    f = auth_file_path()
+    if os.path.exists(f):
         try:
-            with open(auth_file, 'r') as f:
-                data = json.load(f)
+            with open(f, 'r') as fh:
+                data = json.load(fh)
             return data.get('nome', 'Usuario')
         except:
             pass
     return 'Usuario'
 
+
 def do_login():
-    """Realizar login"""
     dialog = xbmcgui.Dialog()
-    
-    dialog.ok(
-        ADDON_NAME,
-        "Bem-vindo ao BRAZTELA!\n\nInforme seu Codigo de Cliente e Senha de Acesso.\n(Fornecidos por Braz Junior)"
-    )
+    dialog.ok(ADDON_NAME, "Bem-vindo ao BRAZTELA!\n\nInforme seu Codigo de Cliente e Senha de Acesso.\n(Fornecidos por Braz Junior)")
     
     codigo = dialog.input("Codigo do Cliente", type=xbmcgui.INPUT_ALPHANUMERIC)
     if not codigo:
@@ -193,263 +126,164 @@ def do_login():
         return False
     
     if codigo not in CLIENTES:
-        dialog.ok(ADDON_NAME, "Codigo de cliente invalido!\n\nVerifique e tente novamente.")
+        dialog.ok(ADDON_NAME, "Codigo invalido!")
         return False
     
     cliente = CLIENTES[codigo]
-    
-    if not cliente['ativo']:
-        dialog.ok(ADDON_NAME, "Cliente bloqueado!\n\nEntre em contato com Braz Junior.")
+    if not cliente.get('ativo', False):
+        dialog.ok(ADDON_NAME, "Cliente bloqueado!\n\nContate Braz Junior.")
         return False
     
     if cliente['senha'] != senha:
-        dialog.ok(ADDON_NAME, "Senha incorreta!\n\nVerifique e tente novamente.")
+        dialog.ok(ADDON_NAME, "Senha incorreta!")
         return False
     
-    save_auth(codigo, cliente['nome'])
-    notify(ADDON_NAME, "Bem-vindo, " + cliente['nome'] + "!", time=3000)
+    try:
+        with open(auth_file_path(), 'w') as fh:
+            json.dump({'codigo': codigo, 'nome': cliente['nome']}, fh)
+    except:
+        pass
+    
+    dialog.notification(ADDON_NAME, "Bem-vindo, " + cliente['nome'] + "!", ICON, 3000)
     return True
 
+
 def do_logout():
-    """Sair (logout)"""
-    auth_file = get_auth_file()
-    if os.path.exists(auth_file):
-        os.remove(auth_file)
-    notify(ADDON_NAME, "Sessao encerrada", time=2000)
-
-# ================================================================
-# CONTROLE PARENTAL
-# ================================================================
-def get_parental_file():
-    return os.path.join(PROFILE_PATH, 'parental.json')
-
-def get_parental_pin():
-    """Obter PIN parental salvo"""
-    pf = get_parental_file()
-    if os.path.exists(pf):
+    f = auth_file_path()
+    if os.path.exists(f):
         try:
-            with open(pf, 'r') as f:
-                data = json.load(f)
-            return data.get('pin', None)
+            os.remove(f)
         except:
             pass
-    return None
+    xbmcgui.Dialog().notification(ADDON_NAME, "Sessao encerrada", ICON, 2000)
 
-def set_parental_pin(pin):
-    """Salvar PIN parental"""
-    pf = get_parental_file()
-    try:
-        with open(pf, 'w') as f:
-            json.dump({'pin': pin, 'enabled': True}, f)
-        return True
-    except:
-        return False
+
+# CONTROLE PARENTAL
+def parental_file_path():
+    return os.path.join(PROFILE_PATH, 'parental.json')
+
 
 def show_parental_menu():
-    """Menu de controle parental"""
     dialog = xbmcgui.Dialog()
-    pin_atual = get_parental_pin()
+    pf = parental_file_path()
+    pin_atual = None
+    if os.path.exists(pf):
+        try:
+            with open(pf, 'r') as fh:
+                pin_atual = json.load(fh).get('pin')
+        except:
+            pass
     
     if pin_atual is None:
-        # Configurar PIN pela primeira vez
-        novo_pin = dialog.input("Crie um PIN de 4 digitos", type=xbmcgui.INPUT_NUMERIC)
-        if novo_pin and len(novo_pin) >= 4:
-            set_parental_pin(novo_pin)
-            dialog.ok(ADDON_NAME, "PIN parental criado com sucesso!")
-        else:
-            dialog.ok(ADDON_NAME, "PIN deve ter pelo menos 4 digitos.")
-    else:
-        opcoes = ["Alterar PIN", "Desativar Controle Parental", "Cancelar"]
-        escolha = dialog.select("Controle Parental", opcoes)
-        
-        if escolha == 0:
-            pin_check = dialog.input("Digite o PIN atual", type=xbmcgui.INPUT_NUMERIC)
-            if pin_check == pin_atual:
-                novo = dialog.input("Novo PIN (4 digitos)", type=xbmcgui.INPUT_NUMERIC)
-                if novo and len(novo) >= 4:
-                    set_parental_pin(novo)
-                    dialog.ok(ADDON_NAME, "PIN alterado com sucesso!")
-            else:
-                dialog.ok(ADDON_NAME, "PIN incorreto!")
-        elif escolha == 1:
-            pin_check = dialog.input("Digite o PIN para desativar", type=xbmcgui.INPUT_NUMERIC)
-            if pin_check == pin_atual:
-                pf = get_parental_file()
-                if os.path.exists(pf):
-                    os.remove(pf)
-                dialog.ok(ADDON_NAME, "Controle parental desativado.")
-
-# ================================================================
-# SERVIDORES
-# ================================================================
-def get_servidor_atual():
-    """Obter servidor selecionado"""
-    return ADDON.getSetting('servidor_atual') or '1'
-
-def set_servidor_atual(server_id):
-    """Definir servidor selecionado"""
-    ADDON.setSetting('servidor_atual', str(server_id))
-
-def show_servers():
-    """Mostrar lista de servidores ativos"""
-    dialog = xbmcgui.Dialog()
-    
-    # Filtrar apenas servidores ativos
-    servidores_ativos = [s for s in SERVIDORES if s['ativo']]
-    
-    if not servidores_ativos:
-        dialog.ok(ADDON_NAME, "Nenhum servidor disponivel no momento.")
+        novo = dialog.input("Crie um PIN de 4 digitos", type=xbmcgui.INPUT_NUMERIC)
+        if novo and len(novo) >= 4:
+            try:
+                with open(pf, 'w') as fh:
+                    json.dump({'pin': novo}, fh)
+                dialog.ok(ADDON_NAME, "PIN parental criado!")
+            except:
+                dialog.ok(ADDON_NAME, "Erro ao salvar PIN")
         return
     
-    nomes = [s['nome'] for s in servidores_ativos]
-    atual = get_servidor_atual()
-    
-    # Marcar o servidor atual
-    for i, s in enumerate(servidores_ativos):
-        if str(s['id']) == atual:
-            nomes[i] = "[ATIVO] " + nomes[i]
-    
+    opcoes = ["Alterar PIN", "Desativar Controle Parental", "Cancelar"]
+    escolha = dialog.select("Controle Parental", opcoes)
+    if escolha == 0:
+        check = dialog.input("PIN atual", type=xbmcgui.INPUT_NUMERIC)
+        if check == pin_atual:
+            novo = dialog.input("Novo PIN (4 digitos)", type=xbmcgui.INPUT_NUMERIC)
+            if novo and len(novo) >= 4:
+                with open(pf, 'w') as fh:
+                    json.dump({'pin': novo}, fh)
+                dialog.ok(ADDON_NAME, "PIN alterado!")
+        else:
+            dialog.ok(ADDON_NAME, "PIN incorreto!")
+    elif escolha == 1:
+        check = dialog.input("PIN para desativar", type=xbmcgui.INPUT_NUMERIC)
+        if check == pin_atual:
+            os.remove(pf)
+            dialog.ok(ADDON_NAME, "Controle parental desativado.")
+
+
+# SERVIDORES
+def get_current_server():
+    return ADDON.getSetting('servidor_atual') or '1'
+
+
+def show_servers():
+    dialog = xbmcgui.Dialog()
+    ativos = [s for s in SERVIDORES if s.get('ativo', False)]
+    if not ativos:
+        dialog.ok(ADDON_NAME, "Nenhum servidor disponivel.")
+        return
+    nomes = []
+    atual = get_current_server()
+    for s in ativos:
+        prefixo = "[ATIVO] " if str(s['id']) == atual else ""
+        nomes.append(prefixo + s['nome'])
     escolha = dialog.select("Selecione um Servidor", nomes)
-    
     if escolha >= 0:
-        servidor = servidores_ativos[escolha]
-        set_servidor_atual(servidor['id'])
-        notify(ADDON_NAME, "Servidor ativo: " + servidor['nome'], time=3000)
+        s = ativos[escolha]
+        ADDON.setSetting('servidor_atual', str(s['id']))
+        dialog.notification(ADDON_NAME, "Servidor: " + s['nome'], ICON, 3000)
 
-# ================================================================
+
 # MENUS
-# ================================================================
 def show_main_menu():
-    """Menu principal do BRAZTELA"""
-    user = get_current_user()
-    
-    xbmcplugin.setPluginCategory(HANDLE, ADDON_NAME + " - " + user)
+    user = get_user_name()
+    xbmcplugin.setPluginCategory(HANDLE, "BRAZTELA - " + user)
     xbmcplugin.setContent(HANDLE, 'videos')
     
-    add_dir("[B][COLOR red]TV AO VIVO[/COLOR][/B]", "tv_live", 
-            info={'plot': 'Acesse canais de TV ao vivo do servidor selecionado.'})
-    
-    add_dir("[B][COLOR red]FILMES[/COLOR][/B]", "movies",
-            info={'plot': 'Biblioteca completa de filmes com sinopse, capa e metadados.'})
-    
-    add_dir("[B][COLOR red]SERIES[/COLOR][/B]", "series",
-            info={'plot': 'Biblioteca de series com episodios, sinopse e capa.'})
-    
-    add_dir("[B][COLOR yellow]TROCAR SERVIDOR[/COLOR][/B]", "servers",
-            info={'plot': 'Selecione entre os 20 servidores disponiveis.'},
-            is_folder=False)
-    
-    add_dir("[B][COLOR cyan]CONTROLE PARENTAL[/COLOR][/B]", "parental",
-            info={'plot': 'Configure PIN para controle parental.'},
-            is_folder=False)
-    
-    add_dir("[B][COLOR white]CONFIGURACOES[/COLOR][/B]", "settings",
-            info={'plot': 'Configuracoes do addon BRAZTELA.'},
-            is_folder=False)
-    
-    add_dir("[COLOR gray]SAIR (Logout)[/COLOR]", "logout",
-            info={'plot': 'Encerrar sessao atual.'},
-            is_folder=False)
+    add_item("[B][COLOR red]TV AO VIVO[/COLOR][/B]", "tv_live",
+             plot="Acesse os canais de TV ao vivo do servidor atual.")
+    add_item("[B][COLOR red]FILMES[/COLOR][/B]", "movies",
+             plot="Biblioteca completa de filmes com sinopse, capa e metadados.")
+    add_item("[B][COLOR red]SERIES[/COLOR][/B]", "series",
+             plot="Series com episodios, sinopse e capa.")
+    add_item("[B][COLOR yellow]TROCAR SERVIDOR[/COLOR][/B]", "servers",
+             plot="Selecione entre os 20 servidores disponiveis.", is_folder=False)
+    add_item("[B][COLOR cyan]CONTROLE PARENTAL[/COLOR][/B]", "parental",
+             plot="Configure PIN para controle parental.", is_folder=False)
+    add_item("[B][COLOR white]CONFIGURACOES[/COLOR][/B]", "settings",
+             plot="Configuracoes do addon.", is_folder=False)
+    add_item("[COLOR gray]SAIR (Logout)[/COLOR]", "logout",
+             plot="Encerrar sessao atual.", is_folder=False)
     
     xbmcplugin.endOfDirectory(HANDLE)
 
-def show_tv_live():
-    """Mostrar TV ao vivo (placeholder)"""
-    xbmcplugin.setPluginCategory(HANDLE, "TV ao Vivo")
+
+def show_placeholder(title):
+    xbmcplugin.setPluginCategory(HANDLE, title)
     xbmcplugin.setContent(HANDLE, 'videos')
-    
-    servidor = get_servidor_atual()
-    add_dir("[I]Conectado ao Servidor #" + str(servidor) + "[/I]", "tv_live",
-            info={'plot': 'Aguardando configuracao do DNS do servidor pelo administrador.'},
-            is_folder=False)
-    
-    add_dir("Esportes", "tv_category", category="esportes",
-            info={'plot': 'Canais de esportes ao vivo.'})
-    add_dir("Filmes", "tv_category", category="filmes",
-            info={'plot': 'Canais de filmes 24h.'})
-    add_dir("Noticias", "tv_category", category="noticias",
-            info={'plot': 'Canais de noticias.'})
-    add_dir("Variedades", "tv_category", category="variedades",
-            info={'plot': 'Canais de variedades.'})
-    add_dir("Infantil", "tv_category", category="infantil",
-            info={'plot': 'Canais infantis.'})
-    
+    add_item("[I]Aguardando configuracao do servidor...[/I]", "main",
+             plot="O administrador esta configurando os servidores. Em breve voce tera acesso ao conteudo.",
+             is_folder=False)
     xbmcplugin.endOfDirectory(HANDLE)
 
-def show_movies():
-    """Mostrar filmes (placeholder)"""
-    xbmcplugin.setPluginCategory(HANDLE, "Filmes")
-    xbmcplugin.setContent(HANDLE, 'movies')
-    
-    add_dir("Lancamentos", "movies_cat", category="lancamentos",
-            info={'plot': 'Os filmes mais recentes em alta qualidade.'})
-    add_dir("Acao", "movies_cat", category="acao",
-            info={'plot': 'Filmes de acao e aventura.'})
-    add_dir("Comedia", "movies_cat", category="comedia",
-            info={'plot': 'Filmes de comedia.'})
-    add_dir("Drama", "movies_cat", category="drama",
-            info={'plot': 'Filmes de drama.'})
-    add_dir("Terror", "movies_cat", category="terror",
-            info={'plot': 'Filmes de terror e suspense.'})
-    add_dir("Animacao", "movies_cat", category="animacao",
-            info={'plot': 'Filmes de animacao para toda a familia.'})
-    
-    xbmcplugin.endOfDirectory(HANDLE)
 
-def show_series():
-    """Mostrar series (placeholder)"""
-    xbmcplugin.setPluginCategory(HANDLE, "Series")
-    xbmcplugin.setContent(HANDLE, 'tvshows')
-    
-    add_dir("Series Brasileiras", "series_cat", category="brasileiras",
-            info={'plot': 'Series produzidas no Brasil.'})
-    add_dir("Series Internacionais", "series_cat", category="internacionais",
-            info={'plot': 'Series internacionais dubladas e legendadas.'})
-    add_dir("Animes", "series_cat", category="animes",
-            info={'plot': 'Animes japoneses.'})
-    add_dir("Reality Shows", "series_cat", category="reality",
-            info={'plot': 'Reality shows nacionais e internacionais.'})
-    
-    xbmcplugin.endOfDirectory(HANDLE)
-
-def show_category_placeholder(category):
-    """Placeholder para categorias"""
-    xbmcplugin.setPluginCategory(HANDLE, category.upper())
-    
-    item = xbmcgui.ListItem(label="[I]Aguardando configuracao do servidor pelo administrador[/I]")
-    item.setArt({'icon': ICON, 'fanart': FANART})
-    xbmcplugin.addDirectoryItem(handle=HANDLE, url='', listitem=item, isFolder=False)
-    
-    xbmcplugin.endOfDirectory(HANDLE)
-
-# ================================================================
-# ROTEADOR PRINCIPAL
-# ================================================================
 def router():
-    """Roteador de acoes do plugin"""
-    # Verificar autenticacao
-    if not is_authenticated():
+    if not is_logged_in():
         if not do_login():
             xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
             return
     
-    # Parsear parametros
     params = {}
     if len(sys.argv) > 2 and sys.argv[2]:
-        params = dict(parse_qsl(sys.argv[2][1:]))
+        try:
+            params = dict(parse_qsl(sys.argv[2][1:]))
+        except:
+            params = {}
     
     action = params.get('action', 'main')
-    
-    log("Acao executada: " + action)
+    log("Acao: " + action)
     
     if action == 'main':
         show_main_menu()
     elif action == 'tv_live':
-        show_tv_live()
+        show_placeholder("TV AO VIVO")
     elif action == 'movies':
-        show_movies()
+        show_placeholder("FILMES")
     elif action == 'series':
-        show_series()
+        show_placeholder("SERIES")
     elif action == 'servers':
         show_servers()
     elif action == 'parental':
@@ -459,21 +293,16 @@ def router():
     elif action == 'logout':
         do_logout()
         xbmc.executebuiltin('Container.Refresh')
-    elif action == 'tv_category':
-        show_category_placeholder(params.get('category', ''))
-    elif action == 'movies_cat':
-        show_category_placeholder(params.get('category', ''))
-    elif action == 'series_cat':
-        show_category_placeholder(params.get('category', ''))
     else:
         show_main_menu()
 
-# ================================================================
-# EXECUCAO
-# ================================================================
+
 if __name__ == '__main__':
     try:
         router()
     except Exception as e:
         log("ERRO: " + str(e))
-        xbmcgui.Dialog().notification(ADDON_NAME, "Erro: " + str(e), xbmcgui.NOTIFICATION_ERROR, 5000)
+        try:
+            xbmcgui.Dialog().notification(ADDON_NAME, "Erro: " + str(e)[:50], xbmcgui.NOTIFICATION_ERROR, 5000)
+        except:
+            pass
