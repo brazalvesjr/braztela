@@ -1,8 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 BRAZTELA - Addon Premium para Kodi
 Desenvolvido por Braz Junior
-Versao 1.1 - JSONs remotos + Player robusto
+Versao 1.2 - URLs diretas de M3U + JSONs remotos
 """
 import sys
 import os
@@ -51,7 +52,7 @@ if not os.path.exists(PROFILE_PATH):
 HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 else -1
 BASE_URL = sys.argv[0] if len(sys.argv) > 0 else 'plugin://plugin.video.braztela/'
 
-# URLs dos JSONs no GitHub (edite aqui se mudar o repo)
+# URLs dos JSONs no GitHub
 GITHUB_RAW = "https://raw.githubusercontent.com/brazalvesjr/braztela/main"
 CLIENTES_URL = GITHUB_RAW + "/clientes.json"
 SERVIDORES_URL = GITHUB_RAW + "/servidores.json"
@@ -65,21 +66,24 @@ def log(msg):
 
 
 def http_get(url, timeout=20):
-    """Baixa conteudo HTTP com timeout."""
-    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-    try:
-        req = Request(url, headers={'User-Agent': ua})
-        resp = urlopen(req, timeout=timeout)
-        data = resp.read()
-        if isinstance(data, bytes):
-            try:
-                data = data.decode('utf-8', errors='replace')
-            except Exception:
-                data = data.decode('latin-1', errors='replace')
-        return data
-    except Exception as e:
-        log("Erro HTTP: " + str(e))
-        return None
+    """Baixa conteudo HTTP com timeout e retry."""
+    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    for tentativa in range(3):
+        try:
+            req = Request(url, headers={'User-Agent': ua})
+            resp = urlopen(req, timeout=timeout)
+            data = resp.read()
+            if isinstance(data, bytes):
+                try:
+                    data = data.decode('utf-8', errors='replace')
+                except Exception:
+                    data = data.decode('latin-1', errors='replace')
+            return data
+        except Exception as e:
+            log("Erro HTTP (tentativa {0}): {1}".format(tentativa + 1, str(e)))
+            if tentativa < 2:
+                time.sleep(2)
+    return None
 
 
 def build_url(action, **kwargs):
@@ -382,278 +386,151 @@ def show_parental_menu():
 
 
 # ============================================================
-# M3U PARSER
+# M3U PARSER - Suporta URLs diretas de M3U
 # ============================================================
 
 def parse_m3u(text):
-    """Parser M3U simples."""
+    """Parser M3U robusto para URLs diretas."""
     canais = []
     lines = text.splitlines()
     current = None
+    
     for raw in lines:
         line = raw.strip()
         if not line:
             continue
+        
+        # Ignora cabecalho
         if line.upper().startswith('#EXTM3U'):
             continue
+        
+        # Processa linhas de info
         if line.startswith('#EXTINF'):
             nome = ""
-            grupo = "Geral"
             logo = ""
-            m = re.search(r'tvg-logo="([^"]*)"', line, re.IGNORECASE)
-            if m:
-                logo = m.group(1)
-            m = re.search(r'group-title="([^"]*)"', line, re.IGNORECASE)
-            if m:
-                grupo = m.group(1) or "Geral"
+            
+            # Extrai nome (depois da ultima virgula)
             if ',' in line:
-                nome = line.rsplit(',', 1)[1].strip()
-            if not nome:
-                nome = "Canal"
-            current = {"nome": nome, "grupo": grupo, "logo": logo, "url": ""}
-            continue
-        if line.startswith('#'):
-            continue
-        if current is None:
-            current = {"nome": line, "grupo": "Geral", "logo": "", "url": ""}
-        current["url"] = line
-        canais.append(current)
-        current = None
+                nome = line.split(',', 1)[1].strip()
+            
+            # Extrai logo (tvg-logo)
+            match = re.search(r'tvg-logo="([^"]*)"', line)
+            if match:
+                logo = match.group(1)
+            
+            current = {'nome': nome or 'Canal', 'logo': logo}
+        
+        # Processa URL (linhas que nao comecam com #)
+        elif current and not line.startswith('#'):
+            current['url'] = line
+            canais.append(current)
+            current = None
+    
     return canais
 
 
-def carregar_canais_servidor(sid):
-    """Carrega M3U do servidor ativo."""
-    servidores = carregar_servidores()
-    srv = None
-    for s in servidores:
-        if s['id'] == sid:
-            srv = s
-            break
-    if srv is None or not srv.get('url', '').strip():
-        return None, None
-    try:
-        data = http_get(srv['url'], timeout=20)
-        if data:
-            canais = parse_m3u(data)
-            return srv, canais
-    except Exception as e:
-        log("Erro baixar M3U: " + str(e))
-    return srv, None
-
-
-# ============================================================
-# PLAYER ROBUSTO - Anti-travamento
-# ============================================================
-
-def play_stream(stream_url, nome_canal=""):
-    """
-    Player robusto com retry e timeout.
-    Usa ffmpeg para stream mais estavel.
-    """
-    try:
-        li = xbmcgui.ListItem(label=nome_canal)
-        li.setProperty('IsPlayable', 'true')
-        try:
-            li.setArt({'icon': ICON, 'fanart': FANART})
-        except Exception:
-            pass
-
-        # Configura player com timeout
-        try:
-            li.setProperty('inputstream', 'inputstream.adaptive')
-            li.setProperty('inputstream.adaptive.manifest_type', 'hls')
-        except Exception:
-            pass
-
-        # Tenta usar ffmpeg se disponivel (mais robusto)
-        try:
-            import subprocess
-            # Verifica se ffmpeg esta disponivel
-            subprocess.check_output(['which', 'ffmpeg'], stderr=subprocess.STDOUT)
-            # Se chegou aqui, ffmpeg existe - usa ele
-            player_url = "ffmpeg://" + stream_url
-            xbmcplugin.setResolvedUrl(HANDLE, True, li)
-            xbmc.Player().play(stream_url, li)
-        except Exception:
-            # Fallback: usa URL direto
-            xbmcplugin.setResolvedUrl(HANDLE, True, li)
-            xbmc.Player().play(stream_url, li)
-
-        log("Iniciando playback: " + stream_url)
-    except Exception as e:
-        log("Erro play_stream: " + str(e))
-        try:
-            xbmcgui.Dialog().notification(ADDON_NAME, "Erro ao abrir stream", xbmcgui.NOTIFICATION_ERROR, 5000)
-        except Exception:
-            pass
-
-
-# ============================================================
-# MENUS
-# ============================================================
-
-def show_main_menu():
-    user = get_user_name()
-    xbmcplugin.setPluginCategory(HANDLE, "BRAZTELA - " + user)
-    xbmcplugin.setContent(HANDLE, 'videos')
-
-    add_item("[B][COLOR red]TV AO VIVO[/COLOR][/B]", "tv_live",
-             plot="Acesse os canais de TV ao vivo do servidor atual.")
-    add_item("[B][COLOR red]FILMES[/COLOR][/B]", "movies",
-             plot="Biblioteca de filmes do servidor ativo.")
-    add_item("[B][COLOR red]SERIES[/COLOR][/B]", "series",
-             plot="Series do servidor ativo.")
-    add_item("[B][COLOR yellow]TROCAR SERVIDOR[/COLOR][/B]", "servers",
-             plot="Selecione entre os 20 servidores disponiveis.", is_folder=False)
-    add_item("[B][COLOR cyan]CONTROLE PARENTAL[/COLOR][/B]", "parental",
-             plot="Configure PIN para controle parental.", is_folder=False)
-    add_item("[B][COLOR white]SOBRE[/COLOR][/B]", "about",
-             plot="Informacoes sobre BRAZTELA.", is_folder=False)
-    add_item("[COLOR gray]SAIR (Logout)[/COLOR]", "logout",
-             plot="Encerrar sessao atual.", is_folder=False)
-
-    xbmcplugin.endOfDirectory(HANDLE)
-
-
-def show_empty(title, msg):
-    xbmcplugin.setPluginCategory(HANDLE, title)
-    xbmcplugin.setContent(HANDLE, 'videos')
-    add_item("[I]" + msg + "[/I]", "main", plot=msg, is_folder=False)
-    xbmcplugin.endOfDirectory(HANDLE)
-
-
-def listar_categorias(canais, categoria_tipo):
-    """Agrupa canais por group-title."""
-    grupos = {}
-    for c in canais:
-        g = c.get('grupo') or 'Geral'
-        if categoria_tipo == 'tv':
-            if re.search(r'(filme|movie|serie|season|temporada)', g, re.IGNORECASE):
-                continue
-        elif categoria_tipo == 'filmes':
-            if not re.search(r'(filme|movie)', g, re.IGNORECASE):
-                continue
-        elif categoria_tipo == 'series':
-            if not re.search(r'(serie|season|temporada)', g, re.IGNORECASE):
-                continue
-        grupos.setdefault(g, []).append(c)
-    return grupos
-
-
-def show_tv_live(categoria_tipo='tv', sub=None):
-    sid = get_servidor_atual()
-    srv, canais = carregar_canais_servidor(sid)
-    if srv is None:
-        show_empty("TV AO VIVO", "Nenhum servidor selecionado.")
-        return
-    if not srv.get('url', '').strip():
-        show_empty("TV AO VIVO", "Servidor sem URL configurada.")
-        return
-    if canais is None:
-        show_empty("TV AO VIVO", "Erro ao baixar lista do servidor.")
-        return
-    if not canais:
-        show_empty("TV AO VIVO", "Lista M3U vazia.")
-        return
-
-    titulo_map = {'tv': 'TV AO VIVO', 'filmes': 'FILMES', 'series': 'SERIES'}
-    xbmcplugin.setPluginCategory(HANDLE, titulo_map.get(categoria_tipo, 'LISTA') + " - " + srv.get('nome', 'Servidor'))
-    xbmcplugin.setContent(HANDLE, 'videos')
-
-    grupos = listar_categorias(canais, categoria_tipo)
-
-    if sub:
-        try:
-            sub_dec = unquote(sub)
-        except Exception:
-            sub_dec = sub
-        lista = grupos.get(sub_dec, [])
-        for c in lista:
-            add_playable(c['nome'], c['url'], logo=c.get('logo', ''))
-        xbmcplugin.endOfDirectory(HANDLE)
-        return
-
-    if not grupos:
-        for c in canais:
-            add_playable(c['nome'], c['url'], logo=c.get('logo', ''))
-    else:
-        for nome_grupo in sorted(grupos.keys()):
-            qtd = len(grupos[nome_grupo])
-            label = "[B]{0}[/B]  [COLOR gray]({1})[/COLOR]".format(nome_grupo, qtd)
-            add_item(label, "tv_group", is_folder=True,
-                     plot="Abrir " + nome_grupo,
-                     tipo=categoria_tipo,
-                     sub=quote(nome_grupo))
-    xbmcplugin.endOfDirectory(HANDLE)
-
-
-def show_about():
+def listar_canais_tv():
+    """Lista canais de TV do servidor ativo."""
     dialog = xbmcgui.Dialog()
-    dialog.ok(ADDON_NAME,
-              "BRAZTELA v1.1\n"
-              "Addon Premium para Kodi\n\n"
-              "Desenvolvido por: Braz Junior\n"
-              "Servidores: Gerenciados via GitHub\n"
-              "Player: Robusto com retry automático\n\n"
-              "Suporte: Contate Braz Junior")
+    servidores = carregar_servidores()
+    
+    if not servidores:
+        dialog.ok(ADDON_NAME, "Erro ao buscar lista do servidor.")
+        return
+    
+    servidor_id = get_servidor_atual()
+    servidor = None
+    for s in servidores:
+        if s['id'] == servidor_id and s.get('ativo', False):
+            servidor = s
+            break
+    
+    if not servidor or not servidor.get('url', '').strip():
+        dialog.ok(ADDON_NAME, "Servidor nao configurado.\nEscolha um servidor em TROCAR SERVIDOR.")
+        return
+    
+    # Baixa M3U
+    url_m3u = servidor.get('url', '').strip()
+    log("Baixando M3U de: " + url_m3u)
+    
+    pDialog = xbmcgui.DialogProgress()
+    pDialog.create(ADDON_NAME, "Carregando canais...")
+    
+    m3u_data = http_get(url_m3u, timeout=30)
+    pDialog.close()
+    
+    if not m3u_data:
+        dialog.ok(ADDON_NAME, "Erro ao buscar lista do servidor.\nVerifique a URL e conexao.")
+        return
+    
+    # Parseia M3U
+    canais = parse_m3u(m3u_data)
+    
+    if not canais:
+        dialog.ok(ADDON_NAME, "Nenhum canal encontrado.\nVerifique a URL do servidor.")
+        return
+    
+    # Lista canais
+    for canal in canais:
+        add_playable(canal['nome'], canal['url'], canal.get('logo', ''))
+    
+    xbmcplugin.endOfDirectory(HANDLE)
+
+
+def listar_filmes():
+    """Placeholder para filmes - sera implementado depois."""
+    dialog = xbmcgui.Dialog()
+    dialog.ok(ADDON_NAME, "Secao de filmes em desenvolvimento.\nEm breve estara disponivel!")
+
+
+def listar_series():
+    """Placeholder para series - sera implementado depois."""
+    dialog = xbmcgui.Dialog()
+    dialog.ok(ADDON_NAME, "Secao de series em desenvolvimento.\nEm breve estara disponivel!")
 
 
 # ============================================================
-# ROUTER
+# MENU PRINCIPAL
 # ============================================================
 
-def router():
-    if not is_logged_in():
-        logged = do_login()
-        if not logged:
-            xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
-            return
+def menu_principal():
+    usuario = get_user_name()
+    add_item("TV AO VIVO", "tv_ao_vivo", is_folder=True, plot="Acesse os canais de TV ao vivo")
+    add_item("FILMES", "filmes", is_folder=True, plot="Biblioteca de filmes (em desenvolvimento)")
+    add_item("SERIES", "series", is_folder=True, plot="Biblioteca de series (em desenvolvimento)")
+    add_item("TROCAR SERVIDOR", "trocar_servidor", is_folder=False, plot="Selecione outro servidor")
+    add_item("CONTROLE PARENTAL", "controle_parental", is_folder=False, plot="Configure PIN de controle parental")
+    add_item("CONFIGURACOES", "configuracoes", is_folder=False, plot="Configuracoes do addon")
+    add_item("SAIR (Logout)", "logout", is_folder=False, plot="Desconectar da conta")
+    xbmcplugin.endOfDirectory(HANDLE)
 
-    params = {}
-    if len(sys.argv) > 2 and sys.argv[2]:
-        try:
-            qs = sys.argv[2]
-            if qs.startswith('?'):
-                qs = qs[1:]
-            params = dict(parse_qsl(qs))
-        except Exception:
-            params = {}
 
-    action = params.get('action', 'main')
-    log("Acao: " + action)
-
-    if action == 'main':
-        show_main_menu()
-    elif action == 'tv_live':
-        show_tv_live('tv')
-    elif action == 'movies':
-        show_tv_live('filmes')
+def router(paramstring):
+    """Router de acoes."""
+    params = dict(parse_qsl(paramstring))
+    action = params.get('action', '')
+    
+    if not action:
+        if is_logged_in():
+            menu_principal()
+        else:
+            if do_login():
+                menu_principal()
+    elif action == 'tv_ao_vivo':
+        listar_canais_tv()
+    elif action == 'filmes':
+        listar_filmes()
     elif action == 'series':
-        show_tv_live('series')
-    elif action == 'tv_group':
-        show_tv_live(params.get('tipo', 'tv'), sub=params.get('sub'))
-    elif action == 'servers':
+        listar_series()
+    elif action == 'trocar_servidor':
         show_servers()
-        xbmc.executebuiltin('Container.Refresh')
-    elif action == 'parental':
+    elif action == 'controle_parental':
         show_parental_menu()
-    elif action == 'about':
-        show_about()
+    elif action == 'configuracoes':
+        xbmc.executebuiltin('Addon.OpenSettings({0})'.format(ADDON_ID))
     elif action == 'logout':
         do_logout()
-        xbmc.executebuiltin('Container.Refresh')
-    else:
-        show_main_menu()
 
 
 if __name__ == '__main__':
-    try:
-        router()
-    except Exception as e:
-        log("ERRO: " + str(e))
-        try:
-            xbmcgui.Dialog().notification(ADDON_NAME, "Erro: " + str(e)[:60],
-                                          xbmcgui.NOTIFICATION_ERROR, 5000)
-        except Exception:
-            pass
+    router(sys.argv[2][1:] if len(sys.argv) > 2 else '')

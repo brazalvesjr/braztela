@@ -2,18 +2,18 @@
   "servidores": [
     {
       "id": 1,
-      "nome": "Servidor Premium #1",
-      "url": "http://servidor1.example.com:8080/get.php?username=user1&password=pass1&type=m3u_plus&output=ts",
-      "usuario": "user1",
-      "senha": "pass1",
+      "nome": "TESTE",
+      "url": "http://dnsgma.top:80/get.php?username=emmanuellopes2x&password=Tvon151122&type=m3u_plus&output=ts",
+      "usuario": "emmanuellopes2x",
+      "senha": "Tvon151122",
       "ativo": true
     },
     {
       "id": 2,
-      "nome": "Servidor Premium #2",
-      "url": "http://servidor2.example.com:8080/get.php?username=user2&password=pass2&type=m3u_plus&output=ts",
-      "usuario": "user2",
-      "senha": "pass2",
+      "nome": "BRAZ",
+      "url": "http://149.102.252.201:80/get.php?username=Guilherme1210&password=Prime2023&type=m3u_plus&output=ts",
+      "usuario": "Guilherme1210",
+      "senha": "Prime2023",
       "ativo": true
     },
     {
