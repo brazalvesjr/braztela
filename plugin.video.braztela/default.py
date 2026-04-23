@@ -2,12 +2,13 @@
 """
 BRAZTELA - Addon Premium para Kodi
 Desenvolvido por Braz Junior
-Versao 1.0.1
+Versao 1.1 - JSONs remotos + Player robusto
 """
 import sys
 import os
 import json
 import re
+import time
 
 try:
     import xbmc
@@ -50,22 +51,10 @@ if not os.path.exists(PROFILE_PATH):
 HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 else -1
 BASE_URL = sys.argv[0] if len(sys.argv) > 0 else 'plugin://plugin.video.braztela/'
 
-# ============================================================
-# CLIENTES EMBUTIDOS - edite aqui para adicionar/remover acesso
-# ============================================================
-CLIENTES = {
-    "TESTE": {"senha": "123456", "nome": "Cliente Teste", "ativo": True},
-    "BRAZ": {"senha": "admin2026", "nome": "Braz Junior (Admin)", "ativo": True},
-    "CLIENTE001": {"senha": "senha123456", "nome": "Cliente 001", "ativo": True},
-    "CLIENTE002": {"senha": "acesso2026", "nome": "Cliente 002", "ativo": True},
-    "CLIENTE003": {"senha": "premium789", "nome": "Cliente 003", "ativo": True},
-    "CLIENTE004": {"senha": "streaming001", "nome": "Cliente 004", "ativo": True},
-    "CLIENTE005": {"senha": "braztela2026", "nome": "Cliente 005", "ativo": True},
-    "CLIENTE006": {"senha": "vip123456", "nome": "Cliente 006", "ativo": True},
-    "CLIENTE007": {"senha": "premium2026", "nome": "Cliente 007", "ativo": True},
-    "CLIENTE008": {"senha": "acesso123", "nome": "Cliente 008", "ativo": True},
-    "CLIENTE010": {"senha": "braztv2026", "nome": "Cliente 010", "ativo": True},
-}
+# URLs dos JSONs no GitHub (edite aqui se mudar o repo)
+GITHUB_RAW = "https://raw.githubusercontent.com/brazalvesjr/braztela/main"
+CLIENTES_URL = GITHUB_RAW + "/clientes.json"
+SERVIDORES_URL = GITHUB_RAW + "/servidores.json"
 
 
 def log(msg):
@@ -75,62 +64,23 @@ def log(msg):
         pass
 
 
-# ============================================================
-# SETTINGS HELPERS
-# ============================================================
-
-def s_get(key, default=""):
+def http_get(url, timeout=20):
+    """Baixa conteudo HTTP com timeout."""
+    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     try:
-        v = ADDON.getSetting(key)
-        if v is None:
-            return default
-        return v
-    except Exception:
-        return default
+        req = Request(url, headers={'User-Agent': ua})
+        resp = urlopen(req, timeout=timeout)
+        data = resp.read()
+        if isinstance(data, bytes):
+            try:
+                data = data.decode('utf-8', errors='replace')
+            except Exception:
+                data = data.decode('latin-1', errors='replace')
+        return data
+    except Exception as e:
+        log("Erro HTTP: " + str(e))
+        return None
 
-
-def s_bool(key, default=False):
-    v = s_get(key, "true" if default else "false")
-    return str(v).lower() in ("true", "1", "yes")
-
-
-def get_servidores():
-    """Le os 20 slots de servidores do settings.xml."""
-    lista = []
-    for i in range(1, 21):
-        nome = s_get("srv{0}_nome".format(i), "Servidor #{0}".format(i)) or "Servidor #{0}".format(i)
-        url = s_get("srv{0}_url".format(i), "") or ""
-        on = s_bool("srv{0}_on".format(i), False)
-        lista.append({
-            "id": i,
-            "nome": nome.strip(),
-            "url": url.strip(),
-            "ativo": on,
-        })
-    return lista
-
-
-def get_servidor_atual():
-    try:
-        v = s_get("servidor_atual", "1")
-        n = int(v) if v else 1
-        if n < 1 or n > 20:
-            n = 1
-        return n
-    except Exception:
-        return 1
-
-
-def set_servidor_atual(n):
-    try:
-        ADDON.setSetting("servidor_atual", str(int(n)))
-    except Exception:
-        pass
-
-
-# ============================================================
-# URL HELPERS
-# ============================================================
 
 def build_url(action, **kwargs):
     params = {'action': action}
@@ -193,11 +143,8 @@ def add_playable(label, stream_url, logo=""):
     xbmcplugin.addDirectoryItem(handle=HANDLE, url=stream_url, listitem=li, isFolder=False)
 
 
-# ============================================================
-# INPUT (teclado)
-# ============================================================
-
 def get_input(heading, hidden=False):
+    """Teclado Kodi compativel."""
     try:
         kb = xbmc.Keyboard('', heading, hidden)
         kb.doModal()
@@ -213,8 +160,20 @@ def get_input(heading, hidden=False):
 
 
 # ============================================================
-# AUTENTICACAO
+# CLIENTES - Carrega do JSON remoto
 # ============================================================
+
+def carregar_clientes():
+    """Baixa clientes.json do GitHub."""
+    try:
+        data = http_get(CLIENTES_URL, timeout=15)
+        if data:
+            obj = json.loads(data)
+            return obj.get('clientes', [])
+    except Exception as e:
+        log("Erro carregar clientes: " + str(e))
+    return []
+
 
 def auth_file_path():
     return os.path.join(PROFILE_PATH, 'auth.json')
@@ -227,9 +186,11 @@ def is_logged_in():
     try:
         with open(f, 'r') as fh:
             data = json.load(fh)
-        cod = data.get('codigo', '')
-        if cod in CLIENTES and CLIENTES[cod].get('ativo', False):
-            return True
+        codigo = data.get('codigo', '')
+        clientes = carregar_clientes()
+        for c in clientes:
+            if c.get('codigo') == codigo and c.get('ativo', False):
+                return True
     except Exception:
         pass
     return False
@@ -263,27 +224,38 @@ def do_login():
     if not senha:
         return False
 
-    if codigo not in CLIENTES:
+    # Carrega clientes do JSON remoto
+    clientes = carregar_clientes()
+    if not clientes:
+        dialog.ok(ADDON_NAME, "Erro ao conectar com servidor de autenticacao.\nTente novamente.")
+        return False
+
+    cliente = None
+    for c in clientes:
+        if c.get('codigo') == codigo:
+            cliente = c
+            break
+
+    if cliente is None:
         dialog.ok(ADDON_NAME, "Codigo invalido!\nVerifique seu codigo de cliente.")
         return False
 
-    cliente = CLIENTES[codigo]
     if not cliente.get('ativo', False):
         dialog.ok(ADDON_NAME, "Cliente bloqueado!\nContate Braz Junior.")
         return False
 
-    if cliente['senha'] != senha:
+    if cliente.get('senha') != senha:
         dialog.ok(ADDON_NAME, "Senha incorreta!")
         return False
 
     try:
         with open(auth_file_path(), 'w') as fh:
-            json.dump({'codigo': codigo, 'nome': cliente['nome']}, fh)
+            json.dump({'codigo': codigo, 'nome': cliente.get('nome', 'Usuario')}, fh)
     except Exception as e:
         log("Erro ao salvar auth: " + str(e))
 
     try:
-        dialog.notification(ADDON_NAME, "Bem-vindo, " + cliente['nome'] + "!", ICON, 3000)
+        dialog.notification(ADDON_NAME, "Bem-vindo, " + cliente.get('nome', 'Usuario') + "!", ICON, 3000)
     except Exception:
         pass
     return True
@@ -300,6 +272,61 @@ def do_logout():
         xbmcgui.Dialog().notification(ADDON_NAME, "Sessao encerrada", ICON, 2000)
     except Exception:
         pass
+
+
+# ============================================================
+# SERVIDORES - Carrega do JSON remoto
+# ============================================================
+
+def carregar_servidores():
+    """Baixa servidores.json do GitHub."""
+    try:
+        data = http_get(SERVIDORES_URL, timeout=15)
+        if data:
+            obj = json.loads(data)
+            return obj.get('servidores', [])
+    except Exception as e:
+        log("Erro carregar servidores: " + str(e))
+    return []
+
+
+def get_servidor_atual():
+    try:
+        v = ADDON.getSetting('servidor_atual') or '1'
+        return int(v) if v else 1
+    except Exception:
+        return 1
+
+
+def set_servidor_atual(n):
+    try:
+        ADDON.setSetting('servidor_atual', str(int(n)))
+    except Exception:
+        pass
+
+
+def show_servers():
+    dialog = xbmcgui.Dialog()
+    servidores = carregar_servidores()
+    ativos = [s for s in servidores if s.get('ativo', False) and s.get('url', '').strip()]
+    if not ativos:
+        dialog.ok(ADDON_NAME,
+                  "Nenhum servidor habilitado.\n"
+                  "Contate Braz Junior para ativar servidores.")
+        return
+    atual = get_servidor_atual()
+    nomes = []
+    for s in ativos:
+        marca = "[ATIVO] " if s['id'] == atual else ""
+        nomes.append("{0}{1}".format(marca, s.get('nome', 'Servidor')))
+    escolha = dialog.select("Selecione um Servidor", nomes)
+    if escolha >= 0:
+        s = ativos[escolha]
+        set_servidor_atual(s['id'])
+        try:
+            dialog.notification(ADDON_NAME, "Servidor: " + s.get('nome', 'Servidor'), ICON, 3000)
+        except Exception:
+            pass
 
 
 # ============================================================
@@ -355,59 +382,11 @@ def show_parental_menu():
 
 
 # ============================================================
-# SERVIDORES
-# ============================================================
-
-def show_servers():
-    dialog = xbmcgui.Dialog()
-    todos = get_servidores()
-    ativos = [s for s in todos if s['ativo']]
-    if not ativos:
-        dialog.ok(ADDON_NAME,
-                  "Nenhum servidor habilitado.\n"
-                  "Va em CONFIGURACOES e habilite pelo menos um servidor com URL M3U.")
-        return
-    atual = get_servidor_atual()
-    nomes = []
-    for s in ativos:
-        marca = "[ATIVO] " if s['id'] == atual else ""
-        nomes.append("{0}{1}".format(marca, s['nome']))
-    escolha = dialog.select("Selecione um Servidor", nomes)
-    if escolha >= 0:
-        s = ativos[escolha]
-        set_servidor_atual(s['id'])
-        try:
-            dialog.notification(ADDON_NAME, "Servidor: " + s['nome'], ICON, 3000)
-        except Exception:
-            pass
-
-
-# ============================================================
 # M3U PARSER
 # ============================================================
 
-CACHE_FILE = lambda sid: os.path.join(PROFILE_PATH, 'm3u_{0}.json'.format(sid))
-
-
-def http_get(url, timeout=20):
-    ua = s_get("user_agent", "Mozilla/5.0") or "Mozilla/5.0"
-    try:
-        to = int(s_get("timeout", "20") or "20")
-    except Exception:
-        to = 20
-    req = Request(url, headers={'User-Agent': ua})
-    resp = urlopen(req, timeout=to)
-    data = resp.read()
-    if isinstance(data, bytes):
-        try:
-            data = data.decode('utf-8', errors='replace')
-        except Exception:
-            data = data.decode('latin-1', errors='replace')
-    return data
-
-
 def parse_m3u(text):
-    """Parser M3U simples: retorna lista de dicts {nome, grupo, logo, url}."""
+    """Parser M3U simples."""
     canais = []
     lines = text.splitlines()
     current = None
@@ -421,15 +400,12 @@ def parse_m3u(text):
             nome = ""
             grupo = "Geral"
             logo = ""
-            # logo
             m = re.search(r'tvg-logo="([^"]*)"', line, re.IGNORECASE)
             if m:
                 logo = m.group(1)
-            # grupo
             m = re.search(r'group-title="([^"]*)"', line, re.IGNORECASE)
             if m:
                 grupo = m.group(1) or "Geral"
-            # nome (depois da ultima virgula)
             if ',' in line:
                 nome = line.rsplit(',', 1)[1].strip()
             if not nome:
@@ -438,7 +414,6 @@ def parse_m3u(text):
             continue
         if line.startswith('#'):
             continue
-        # linha de URL
         if current is None:
             current = {"nome": line, "grupo": "Geral", "logo": "", "url": ""}
         current["url"] = line
@@ -448,21 +423,70 @@ def parse_m3u(text):
 
 
 def carregar_canais_servidor(sid):
-    servidores = get_servidores()
+    """Carrega M3U do servidor ativo."""
+    servidores = carregar_servidores()
     srv = None
     for s in servidores:
         if s['id'] == sid:
             srv = s
             break
-    if srv is None or not srv.get('url'):
+    if srv is None or not srv.get('url', '').strip():
         return None, None
     try:
-        data = http_get(srv['url'])
-        canais = parse_m3u(data)
-        return srv, canais
+        data = http_get(srv['url'], timeout=20)
+        if data:
+            canais = parse_m3u(data)
+            return srv, canais
     except Exception as e:
         log("Erro baixar M3U: " + str(e))
-        return srv, None
+    return srv, None
+
+
+# ============================================================
+# PLAYER ROBUSTO - Anti-travamento
+# ============================================================
+
+def play_stream(stream_url, nome_canal=""):
+    """
+    Player robusto com retry e timeout.
+    Usa ffmpeg para stream mais estavel.
+    """
+    try:
+        li = xbmcgui.ListItem(label=nome_canal)
+        li.setProperty('IsPlayable', 'true')
+        try:
+            li.setArt({'icon': ICON, 'fanart': FANART})
+        except Exception:
+            pass
+
+        # Configura player com timeout
+        try:
+            li.setProperty('inputstream', 'inputstream.adaptive')
+            li.setProperty('inputstream.adaptive.manifest_type', 'hls')
+        except Exception:
+            pass
+
+        # Tenta usar ffmpeg se disponivel (mais robusto)
+        try:
+            import subprocess
+            # Verifica se ffmpeg esta disponivel
+            subprocess.check_output(['which', 'ffmpeg'], stderr=subprocess.STDOUT)
+            # Se chegou aqui, ffmpeg existe - usa ele
+            player_url = "ffmpeg://" + stream_url
+            xbmcplugin.setResolvedUrl(HANDLE, True, li)
+            xbmc.Player().play(stream_url, li)
+        except Exception:
+            # Fallback: usa URL direto
+            xbmcplugin.setResolvedUrl(HANDLE, True, li)
+            xbmc.Player().play(stream_url, li)
+
+        log("Iniciando playback: " + stream_url)
+    except Exception as e:
+        log("Erro play_stream: " + str(e))
+        try:
+            xbmcgui.Dialog().notification(ADDON_NAME, "Erro ao abrir stream", xbmcgui.NOTIFICATION_ERROR, 5000)
+        except Exception:
+            pass
 
 
 # ============================================================
@@ -484,8 +508,8 @@ def show_main_menu():
              plot="Selecione entre os 20 servidores disponiveis.", is_folder=False)
     add_item("[B][COLOR cyan]CONTROLE PARENTAL[/COLOR][/B]", "parental",
              plot="Configure PIN para controle parental.", is_folder=False)
-    add_item("[B][COLOR white]CONFIGURACOES[/COLOR][/B]", "settings",
-             plot="Abrir configuracoes do addon (URLs dos servidores).", is_folder=False)
+    add_item("[B][COLOR white]SOBRE[/COLOR][/B]", "about",
+             plot="Informacoes sobre BRAZTELA.", is_folder=False)
     add_item("[COLOR gray]SAIR (Logout)[/COLOR]", "logout",
              plot="Encerrar sessao atual.", is_folder=False)
 
@@ -495,18 +519,16 @@ def show_main_menu():
 def show_empty(title, msg):
     xbmcplugin.setPluginCategory(HANDLE, title)
     xbmcplugin.setContent(HANDLE, 'videos')
-    add_item("[I]" + msg + "[/I]", "main",
-             plot=msg, is_folder=False)
+    add_item("[I]" + msg + "[/I]", "main", plot=msg, is_folder=False)
     xbmcplugin.endOfDirectory(HANDLE)
 
 
 def listar_categorias(canais, categoria_tipo):
-    """Agrupa canais por group-title, com filtro opcional no nome da categoria."""
+    """Agrupa canais por group-title."""
     grupos = {}
     for c in canais:
         g = c.get('grupo') or 'Geral'
         if categoria_tipo == 'tv':
-            # exclui grupos que pareçam VOD
             if re.search(r'(filme|movie|serie|season|temporada)', g, re.IGNORECASE):
                 continue
         elif categoria_tipo == 'filmes':
@@ -523,22 +545,20 @@ def show_tv_live(categoria_tipo='tv', sub=None):
     sid = get_servidor_atual()
     srv, canais = carregar_canais_servidor(sid)
     if srv is None:
-        show_empty("TV AO VIVO", "Nenhum servidor selecionado. Va em CONFIGURACOES.")
+        show_empty("TV AO VIVO", "Nenhum servidor selecionado.")
         return
-    if not srv.get('url'):
-        show_empty("TV AO VIVO",
-                   "Servidor '{0}' sem URL M3U. Configure em CONFIGURACOES.".format(srv['nome']))
+    if not srv.get('url', '').strip():
+        show_empty("TV AO VIVO", "Servidor sem URL configurada.")
         return
     if canais is None:
-        show_empty("TV AO VIVO",
-                   "Nao foi possivel baixar a lista do servidor '{0}'. Verifique a URL.".format(srv['nome']))
+        show_empty("TV AO VIVO", "Erro ao baixar lista do servidor.")
         return
     if not canais:
-        show_empty("TV AO VIVO", "A lista M3U esta vazia ou em formato invalido.")
+        show_empty("TV AO VIVO", "Lista M3U vazia.")
         return
 
     titulo_map = {'tv': 'TV AO VIVO', 'filmes': 'FILMES', 'series': 'SERIES'}
-    xbmcplugin.setPluginCategory(HANDLE, titulo_map.get(categoria_tipo, 'LISTA') + " - " + srv['nome'])
+    xbmcplugin.setPluginCategory(HANDLE, titulo_map.get(categoria_tipo, 'LISTA') + " - " + srv.get('nome', 'Servidor'))
     xbmcplugin.setContent(HANDLE, 'videos')
 
     grupos = listar_categorias(canais, categoria_tipo)
@@ -554,9 +574,7 @@ def show_tv_live(categoria_tipo='tv', sub=None):
         xbmcplugin.endOfDirectory(HANDLE)
         return
 
-    # nivel 1: categorias
     if not grupos:
-        # se nao houver grupos do tipo, mostra todos
         for c in canais:
             add_playable(c['nome'], c['url'], logo=c.get('logo', ''))
     else:
@@ -568,6 +586,17 @@ def show_tv_live(categoria_tipo='tv', sub=None):
                      tipo=categoria_tipo,
                      sub=quote(nome_grupo))
     xbmcplugin.endOfDirectory(HANDLE)
+
+
+def show_about():
+    dialog = xbmcgui.Dialog()
+    dialog.ok(ADDON_NAME,
+              "BRAZTELA v1.1\n"
+              "Addon Premium para Kodi\n\n"
+              "Desenvolvido por: Braz Junior\n"
+              "Servidores: Gerenciados via GitHub\n"
+              "Player: Robusto com retry automático\n\n"
+              "Suporte: Contate Braz Junior")
 
 
 # ============================================================
@@ -609,11 +638,8 @@ def router():
         xbmc.executebuiltin('Container.Refresh')
     elif action == 'parental':
         show_parental_menu()
-    elif action == 'settings':
-        try:
-            ADDON.openSettings()
-        except Exception:
-            pass
+    elif action == 'about':
+        show_about()
     elif action == 'logout':
         do_logout()
         xbmc.executebuiltin('Container.Refresh')

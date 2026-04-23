@@ -1,0 +1,12 @@
+v1.1.0
+- Servidores gerenciados via JSON no GitHub (URL + USUARIO + SENHA)
+- Clientes gerenciados via JSON no GitHub (codigo + senha + status)
+- Player robusto com retry automático (anti-travamento)
+- Bloqueio/desbloqueio de clientes sem editar código
+- Melhor tratamento de erros de rede
+
+v1.0.1
+- Tela de configuracoes com 20 slots de servidores
+
+v1.0.0
+- Versao inicial

@@ -1,0 +1,53 @@
+{
+  "clientes": [
+    {
+      "codigo": "TESTE",
+      "senha": "123456",
+      "nome": "Cliente Teste",
+      "ativo": true,
+      "data_criacao": "2026-04-22"
+    },
+    {
+      "codigo": "BRAZ",
+      "senha": "admin2026",
+      "nome": "Braz Junior (Admin)",
+      "ativo": true,
+      "data_criacao": "2026-04-22"
+    },
+    {
+      "codigo": "CLIENTE001",
+      "senha": "senha123456",
+      "nome": "Cliente 001",
+      "ativo": true,
+      "data_criacao": "2026-04-22"
+    },
+    {
+      "codigo": "CLIENTE002",
+      "senha": "acesso2026",
+      "nome": "Cliente 002",
+      "ativo": true,
+      "data_criacao": "2026-04-22"
+    },
+    {
+      "codigo": "CLIENTE003",
+      "senha": "premium789",
+      "nome": "Cliente 003",
+      "ativo": true,
+      "data_criacao": "2026-04-22"
+    },
+    {
+      "codigo": "CLIENTE004",
+      "senha": "streaming001",
+      "nome": "Cliente 004",
+      "ativo": false,
+      "data_criacao": "2026-04-22"
+    },
+    {
+      "codigo": "CLIENTE005",
+      "senha": "braztela2026",
+      "nome": "Cliente 005",
+      "ativo": true,
+      "data_criacao": "2026-04-22"
+    }
+  ]
+}
