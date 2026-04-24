@@ -1,0 +1,39 @@
+{
+  "servidores": [
+    {
+      "id": 1,
+      "url": "http://repi.live:8080",
+      "usuario": "hNjHqEPTZZ",
+      "senha": "JvHpWTdBjS",
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "url": "http://ip10.cfd:80",
+      "usuario": "607385308",
+      "senha": "867678198",
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "url": "",
+      "usuario": "",
+      "senha": "",
+      "ativo": false
+    },
+    {
+      "id": 4,
+      "url": "",
+      "usuario": "",
+      "senha": "",
+      "ativo": false
+    },
+    {
+      "id": 5,
+      "url": "",
+      "usuario": "",
+      "senha": "",
+      "ativo": false
+    }
+  ]
+}
