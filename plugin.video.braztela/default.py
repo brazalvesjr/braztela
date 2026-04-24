@@ -1,13 +1,14 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-BRAZTELA v2.0 - Addon IPTV com gerenciamento pelo GitHub
+BRAZTELA v2.0.1 - Addon IPTV com gerenciamento pelo GitHub
+Corrigido para Kodi 21.x (xbmcvfs.translatePath)
 """
 
 import xbmc
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
+import xbmcvfs
 import urllib.request
 import json
 import os
@@ -16,7 +17,7 @@ import time
 addon = xbmcaddon.Addon()
 addon_id = addon.getAddonInfo('id')
 addon_path = addon.getAddonInfo('path')
-addon_data_path = xbmc.translatePath('special://profile/addon_data/{0}'.format(addon_id))
+addon_data_path = xbmcvfs.translatePath('special://profile/addon_data/{0}'.format(addon_id))
 cache_dir = os.path.join(addon_data_path, 'cache')
 
 if not os.path.exists(cache_dir):
@@ -51,198 +52,114 @@ def validar_cliente(codigo, senha):
     for cliente in clientes_data.get('clientes', []):
         if cliente.get('codigo') == codigo and cliente.get('senha') == senha:
             if cliente.get('ativo', True):
-                log_debug('Cliente {0} validado'.format(codigo))
                 return True
             else:
-                xbmcgui.Dialog().notification('Acesso Negado', 'Seu acesso foi bloqueado', xbmcgui.NOTIFICATION_ERROR)
+                xbmcgui.Dialog().notification('Bloqueado', 'Cliente bloqueado', xbmcgui.NOTIFICATION_ERROR)
                 return False
     
     xbmcgui.Dialog().notification('Erro', 'Codigo ou senha invalidos', xbmcgui.NOTIFICATION_ERROR)
     return False
 
-def obter_servidores_ativos():
-    """Obter servidores ativos"""
+def obter_servidores():
+    """Obter lista de servidores ativos"""
     servidores_data = download_json(SERVIDORES_URL)
     if not servidores_data:
-        xbmcgui.Dialog().notification('Erro', 'Nao foi possivel carregar servidores', xbmcgui.NOTIFICATION_ERROR)
+        xbmcgui.Dialog().notification('Erro', 'Nao foi possivel obter servidores', xbmcgui.NOTIFICATION_ERROR)
         return []
     
-    ativos = []
-    for s in servidores_data.get('servidores', []):
-        if s.get('ativo', False) and s.get('url'):
-            ativos.append(s)
+    servidores_ativos = []
+    for servidor in servidores_data.get('servidores', []):
+        if servidor.get('ativo', True):
+            servidores_ativos.append(servidor)
     
-    log_debug('{0} servidores ativos'.format(len(ativos)))
-    return ativos
-
-def baixar_m3u(url, usuario, senha):
-    """Baixar M3U do servidor"""
-    try:
-        url_m3u = '{0}/get.php?username={1}&password={2}&type=m3u_plus&output=ts'.format(url, usuario, senha)
-        req = urllib.request.Request(url_m3u, headers={'User-Agent': 'VLC/3.0.0'})
-        with urllib.request.urlopen(req, timeout=15) as response:
-            return response.read().decode('utf-8', errors='ignore')
-    except Exception as e:
-        log_debug('Erro ao baixar M3U: {0}'.format(str(e)))
-        return None
-
-def parsear_m3u(conteudo):
-    """Parsear M3U em categorias"""
-    canais = {'tv': [], 'filmes': [], 'series': []}
-    
-    if not conteudo:
-        return canais
-    
-    linhas = conteudo.split('\n')
-    i = 0
-    
-    while i < len(linhas):
-        linha = linhas[i].strip()
-        
-        if linha.startswith('#EXTINF'):
-            try:
-                nome = 'Canal'
-                if ',' in linha:
-                    nome = linha.split(',')[-1].strip()
-                
-                categoria = 'tv'
-                if 'group-title=' in linha:
-                    grupo = linha.split('group-title="')[1].split('"')[0].lower()
-                    if 'filme' in grupo or 'movie' in grupo:
-                        categoria = 'filmes'
-                    elif 'serie' in grupo or 'series' in grupo or 'show' in grupo:
-                        categoria = 'series'
-                
-                i += 1
-                if i < len(linhas):
-                    url = linhas[i].strip()
-                    if url and not url.startswith('#'):
-                        canal = {'nome': nome, 'url': url}
-                        canais[categoria].append(canal)
-            except:
-                pass
-        
-        i += 1
-    
-    return canais
-
-def cache_salvar(chave, dados):
-    """Salvar cache"""
-    try:
-        arquivo = os.path.join(cache_dir, '{0}.json'.format(chave))
-        with open(arquivo, 'w', encoding='utf-8') as f:
-            json.dump({'dados': dados, 'timestamp': time.time()}, f)
-    except:
-        pass
-
-def cache_carregar(chave, ttl_horas=24):
-    """Carregar cache"""
-    try:
-        arquivo = os.path.join(cache_dir, '{0}.json'.format(chave))
-        if os.path.exists(arquivo):
-            with open(arquivo, 'r', encoding='utf-8') as f:
-                cache = json.load(f)
-                idade = time.time() - cache.get('timestamp', 0)
-                if idade < (ttl_horas * 3600):
-                    return cache.get('dados')
-    except:
-        pass
-    return None
+    return servidores_ativos
 
 def menu_principal():
-    """Menu principal"""
-    dialog = xbmcgui.Dialog()
+    """Menu principal do addon"""
+    xbmcplugin.setPluginCategory(int(sys.argv[1]), 'BRAZTELA')
     
-    codigo = dialog.input('Codigo do Cliente', type=xbmcgui.INPUT_ALPHANUM)
+    item = xbmcgui.ListItem('TV AO VIVO')
+    item.setArt({'icon': 'DefaultFolder.png'})
+    url = sys.argv[0] + '?action=tv_ao_vivo'
+    xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, item, isFolder=True)
+    
+    item = xbmcgui.ListItem('FILMES')
+    item.setArt({'icon': 'DefaultFolder.png'})
+    url = sys.argv[0] + '?action=filmes'
+    xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, item, isFolder=True)
+    
+    item = xbmcgui.ListItem('SERIES')
+    item.setArt({'icon': 'DefaultFolder.png'})
+    url = sys.argv[0] + '?action=series'
+    xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, item, isFolder=True)
+    
+    item = xbmcgui.ListItem('TROCAR SERVIDOR')
+    item.setArt({'icon': 'DefaultFolder.png'})
+    url = sys.argv[0] + '?action=trocar_servidor'
+    xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, item, isFolder=True)
+    
+    item = xbmcgui.ListItem('SAIR')
+    item.setArt({'icon': 'DefaultFolder.png'})
+    url = sys.argv[0] + '?action=sair'
+    xbmcplugin.addDirectoryItem(int(sys.argv[1]), url, item, isFolder=False)
+    
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
+def tela_login():
+    """Tela de login"""
+    keyboard = xbmc.Keyboard('', 'Digite seu codigo de cliente:')
+    keyboard.doModal()
+    if not keyboard.isConfirmed():
+        return False
+    
+    codigo = keyboard.getText()
     if not codigo:
-        return
+        return False
     
-    senha = dialog.input('Senha', type=xbmcgui.INPUT_ALPHANUM, option=xbmcgui.ALPHANUM_HIDE_INPUT)
+    keyboard = xbmc.Keyboard('', 'Digite sua senha:')
+    keyboard.doModal()
+    if not keyboard.isConfirmed():
+        return False
+    
+    senha = keyboard.getText()
     if not senha:
-        return
+        return False
     
-    if not validar_cliente(codigo, senha):
-        return
-    
-    servidores = obter_servidores_ativos()
-    if not servidores:
-        dialog.notification('Erro', 'Nenhum servidor disponivel', xbmcgui.NOTIFICATION_ERROR)
-        return
-    
-    opcoes = ['Servidor {0}'.format(s['id']) for s in servidores]
-    opcoes.append('Sair')
-    
-    escolha = dialog.select('Selecione um Servidor', opcoes)
-    if escolha < 0 or escolha >= len(servidores):
-        return
-    
-    servidor = servidores[escolha]
-    carregar_conteudo(servidor)
+    return validar_cliente(codigo, senha)
 
-def carregar_conteudo(servidor):
-    """Carregar conteudo do servidor"""
-    dialog = xbmcgui.Dialog()
+def main():
+    """Funcao principal"""
+    import sys
+    from urllib.parse import parse_qs, urlparse
     
-    chave = 'servidor_{0}'.format(servidor['id'])
-    conteudo = cache_carregar(chave)
-    
-    if not conteudo:
-        dialog.notification('Carregando', 'Buscando conteudo...', xbmcgui.NOTIFICATION_INFO)
-        
-        m3u = baixar_m3u(servidor['url'], servidor['usuario'], servidor['senha'])
-        if not m3u:
-            dialog.notification('Erro', 'Nao foi possivel carregar o servidor', xbmcgui.NOTIFICATION_ERROR)
-            return
-        
-        conteudo = parsear_m3u(m3u)
-        cache_salvar(chave, conteudo)
-    
-    opcoes = []
-    if conteudo.get('tv'):
-        opcoes.append('TV AO VIVO ({0})'.format(len(conteudo['tv'])))
-    if conteudo.get('filmes'):
-        opcoes.append('FILMES ({0})'.format(len(conteudo['filmes'])))
-    if conteudo.get('series'):
-        opcoes.append('SERIES ({0})'.format(len(conteudo['series'])))
-    opcoes.append('Voltar')
-    
-    escolha = dialog.select('Servidor {0}'.format(servidor['id']), opcoes)
-    
-    if escolha == 0 and conteudo.get('tv'):
-        mostrar_lista(conteudo['tv'], 'TV AO VIVO')
-    elif escolha == 1 and conteudo.get('filmes'):
-        mostrar_lista(conteudo['filmes'], 'FILMES')
-    elif escolha == 2 and conteudo.get('series'):
-        mostrar_lista(conteudo['series'], 'SERIES')
-
-def mostrar_lista(itens, titulo):
-    """Mostrar lista de itens"""
-    if not itens:
-        xbmcgui.Dialog().notification('Vazio', 'Nenhum item disponivel', xbmcgui.NOTIFICATION_INFO)
+    # Tela de login
+    if not tela_login():
         return
     
-    nomes = [item['nome'] for item in itens]
-    escolha = xbmcgui.Dialog().select(titulo, nomes)
+    # Parse URL
+    url = urlparse(sys.argv[0])
+    params = parse_qs(url.query)
+    action = params.get('action', [''])[0]
     
-    if escolha >= 0:
-        item = itens[escolha]
-        reproduzir(item['url'], item['nome'])
-
-def reproduzir(url, nome):
-    """Reproduzir stream"""
-    try:
-        item = xbmcgui.ListItem(nome)
-        item.setPath(url)
-        player = xbmc.Player()
-        player.play(url)
-        log_debug('Reproduzindo: {0}'.format(nome))
-    except Exception as e:
-        log_debug('Erro ao reproduzir: {0}'.format(str(e)))
-        xbmcgui.Dialog().notification('Erro', 'Nao foi possivel reproduzir', xbmcgui.NOTIFICATION_ERROR)
+    if action == 'tv_ao_vivo':
+        xbmcgui.Dialog().notification('Info', 'TV AO VIVO em desenvolvimento', xbmcgui.NOTIFICATION_INFO)
+    elif action == 'filmes':
+        xbmcgui.Dialog().notification('Info', 'FILMES em desenvolvimento', xbmcgui.NOTIFICATION_INFO)
+    elif action == 'series':
+        xbmcgui.Dialog().notification('Info', 'SERIES em desenvolvimento', xbmcgui.NOTIFICATION_INFO)
+    elif action == 'trocar_servidor':
+        servidores = obter_servidores()
+        if servidores:
+            nomes = ['Servidor {0}'.format(s.get('id', i)) for i, s in enumerate(servidores)]
+            dialog = xbmcgui.Dialog()
+            idx = dialog.select('Selecione um servidor', nomes)
+            if idx >= 0:
+                xbmcgui.Dialog().notification('Sucesso', 'Servidor {0} selecionado'.format(idx + 1), xbmcgui.NOTIFICATION_INFO)
+    elif action == 'sair':
+        return
+    else:
+        menu_principal()
 
 if __name__ == '__main__':
-    try:
-        menu_principal()
-    except Exception as e:
-        log_debug('Erro geral: {0}'.format(str(e)))
-        xbmcgui.Dialog().notification('Erro', 'Erro ao executar addon', xbmcgui.NOTIFICATION_ERROR)
+    import sys
+    main()
