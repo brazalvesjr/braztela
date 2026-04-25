@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<?xml version="1.0.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.PluginstreamingVip" name="[COLOR blue]PluginStreaming[/COLOR][COLOR yellow]Vip[/COLOR]" version="1.0.0" provider-name="[COLOR red]BRAZ FERREIRA[/COLOR][COLOR blue]PluginStreaming[/COLOR]">
+  <extension point="xbmc.python.pluginsource"
+			library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary></summary>
+	<language>en</language>
+	<description></description>
+	<platform>all</platform>
+	<assets>
+		<icon>icon.png</icon>
+		<fanart>fanart.jpg</fanart>
+	</assets>
+  </extension>
+</addon>
 </addons>
