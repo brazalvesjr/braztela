@@ -1,0 +1,28 @@
+{
+  "series": [
+    {
+      "id": 1,
+      "nome": "Serie 1",
+      "url": "http://seu-servidor.com/serie1.mp4",
+      "poster": "",
+      "sinopse": "Descrição da série",
+      "ativo": true
+    },
+    {
+      "id": 2,
+      "nome": "Serie 2",
+      "url": "http://seu-servidor.com/serie2.mp4",
+      "poster": "",
+      "sinopse": "Descrição da série",
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "nome": "Serie 3",
+      "url": "http://seu-servidor.com/serie3.mp4",
+      "poster": "",
+      "sinopse": "Descrição da série",
+      "ativo": true
+    }
+  ]
+}

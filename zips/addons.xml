@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addons>
-<?xml version="1.0.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.PluginstreamingVip" name="[COLOR blue]PluginStreaming[/COLOR][COLOR yellow]Vip[/COLOR]" version="1.0.0" provider-name="[COLOR red]BRAZ FERREIRA[/COLOR][COLOR blue]PluginStreaming[/COLOR]">
-  <extension point="xbmc.python.pluginsource"
-			library="default.py">
-		<provides>video</provides>
+<addons><addon id="plugin.video.braztela" name="BRAZTELA" version="1.3.0" provider-name="Braz Junior">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-	<summary></summary>
-	<language>en</language>
-	<description></description>
-	<platform>all</platform>
-	<assets>
-		<icon>icon.png</icon>
-		<fanart>fanart.jpg</fanart>
-	</assets>
+    <summary lang="pt_BR">BRAZTELA - Streaming Premium</summary>
+    <description lang="pt_BR">BRAZTELA - Plataforma premium de streaming desenvolvida por Braz Junior. TV ao vivo, filmes e series com 20 servidores.</description>
+    <language>pt</language>
+    <platform>all</platform>
+    <license>MIT</license>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
   </extension>
-</addon>
-</addons>
+</addon><addon id="repository.braztela" name="BRAZTELA Repository" version="1.0.0" provider-name="Braz Junior">
+    <extension point="xbmc.addon.repository" name="BRAZTELA Repository">
+        <dir minversion="19.0.0">
+            <info compressed="false">https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/brazalvesjr/braztela/main/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="pt_BR">Repositorio oficial BRAZTELA</summary>
+        <description lang="pt_BR">Repositorio oficial do addon BRAZTELA, desenvolvido por Braz Junior. Receba atualizacoes automaticas.</description>
+        <platform>all</platform>
+        <license>MIT</license>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon></addons>
