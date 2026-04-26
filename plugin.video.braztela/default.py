@@ -2,7 +2,7 @@
 """
 BRAZTELA - Addon Premium para Kodi
 Desenvolvido por Braz Junior
-Versao 1.4 - Categorias, Busca e Interface Melhorada
+Versao 1.5 - Auto-atualizacao de Conteudo
 """
 import sys
 import os
@@ -77,9 +77,38 @@ def log(msg):
         pass
 
 
-def http_get(url, timeout=10):
-    """Baixa JSON com timeout."""
+def get_cache_path(filename):
+    """Retorna caminho do arquivo de cache."""
+    return os.path.join(PROFILE_PATH, 'cache_' + filename)
+
+
+def cache_is_valid(cache_file, ttl_seconds=300):
+    """Verifica se cache é válido (TTL em segundos, padrão 5 minutos)."""
+    if not os.path.exists(cache_file):
+        return False
+    try:
+        import time
+        mtime = os.path.getmtime(cache_file)
+        age = time.time() - mtime
+        return age < ttl_seconds
+    except Exception:
+        return False
+
+
+def http_get(url, timeout=10, cache_ttl=300):
+    """Baixa JSON com timeout e cache."""
     ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    
+    # Verificar cache
+    cache_file = get_cache_path(url.split('/')[-1])
+    if cache_is_valid(cache_file, cache_ttl):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                return f.read()
+        except Exception:
+            pass
+    
+    # Baixar do GitHub
     try:
         req = Request(url, headers={'User-Agent': ua})
         resp = urlopen(req, timeout=timeout)
@@ -89,9 +118,23 @@ def http_get(url, timeout=10):
                 data = data.decode('utf-8')
             except Exception:
                 data = data.decode('latin-1', errors='replace')
+        
+        # Salvar em cache
+        try:
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                f.write(data)
+        except Exception:
+            pass
+        
         return data
     except Exception as e:
         log("Erro HTTP: " + str(e))
+        # Tentar carregar cache antigo se disponível
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                return f.read()
+        except Exception:
+            pass
         return None
 
 
