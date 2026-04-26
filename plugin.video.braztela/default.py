@@ -470,7 +470,7 @@ def listar_categorias_filmes():
     # Extrair categorias únicas
     categorias = set()
     for filme in filmes:
-        cat = filme.get('genero', 'Sem categoria')
+        cat = filme.get('categoria', 'Sem categoria')
         if cat:
             categorias.add(cat)
     
@@ -503,7 +503,7 @@ def listar_filmes_por_categoria(categoria):
         return
     
     # Filtrar por categoria
-    filmes_filtrados = [f for f in filmes if f.get('genero') == categoria and f.get('ativo', False)]
+    filmes_filtrados = [f for f in filmes if f.get('categoria') == categoria and f.get('ativo', False)]
     
     if not filmes_filtrados:
         dialog.ok(ADDON_NAME, "Nenhum filme disponivel nesta categoria.")
