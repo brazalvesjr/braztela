@@ -82,8 +82,8 @@ def get_cache_path(filename):
     return os.path.join(PROFILE_PATH, 'cache_' + filename)
 
 
-def cache_is_valid(cache_file, ttl_seconds=300):
-    """Verifica se cache é válido (TTL em segundos, padrão 5 minutos)."""
+def cache_is_valid(cache_file, ttl_seconds=30):
+    """Verifica se cache é válido (TTL em segundos, padrão 30 segundos)."""
     if not os.path.exists(cache_file):
         return False
     try:
@@ -95,8 +95,8 @@ def cache_is_valid(cache_file, ttl_seconds=300):
         return False
 
 
-def http_get(url, timeout=10, cache_ttl=300):
-    """Baixa JSON com timeout e cache."""
+def http_get(url, timeout=10, cache_ttl=30):
+    """Baixa JSON com timeout e cache (30 segundos)."""
     ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     
     # Verificar cache
