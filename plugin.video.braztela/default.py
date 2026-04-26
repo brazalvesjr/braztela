@@ -1,9 +1,8 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 BRAZTELA - Addon Premium para Kodi
 Desenvolvido por Braz Junior
-Versao 1.3 - Listas pre-configuradas (TV, FILMES, SERIES)
+Versao 1.4 - Categorias, Busca e Interface Melhorada
 """
 import sys
 import os
@@ -56,6 +55,19 @@ CLIENTES_URL = GITHUB_RAW + "/clientes.json"
 CANAIS_URL = GITHUB_RAW + "/canais.json"
 FILMES_URL = GITHUB_RAW + "/filmes.json"
 SERIES_URL = GITHUB_RAW + "/series.json"
+
+# Categorias de SÉRIES (conforme solicitado)
+CATEGORIAS_SERIES = [
+    "TURCAS",
+    "NETFLIX",
+    "PRIME VÍDEO",
+    "NOVELAS",
+    "AMC",
+    "APPLE",
+    "BRASIL PARALELO",
+    "DISCOVERY PLUS",
+    "DISNEY PLUS"
+]
 
 
 def log(msg):
@@ -122,7 +134,7 @@ def add_item(label, action, is_folder=True, plot="", playable=False, **kwargs):
     xbmcplugin.addDirectoryItem(handle=HANDLE, url=url, listitem=li, isFolder=is_folder)
 
 
-def add_playable(label, stream_url, logo=""):
+def add_playable(label, stream_url, logo="", plot=""):
     li = xbmcgui.ListItem(label=label)
     art = {'icon': logo or ICON, 'thumb': logo or ICON, 'poster': logo or ICON, 'fanart': FANART}
     try:
@@ -136,9 +148,11 @@ def add_playable(label, stream_url, logo=""):
     try:
         info_tag = li.getVideoInfoTag()
         info_tag.setTitle(label)
+        if plot:
+            info_tag.setPlot(plot)
     except Exception:
         try:
-            li.setInfo('video', {'title': label})
+            li.setInfo('video', {'title': label, 'plot': plot or ''})
         except Exception:
             pass
     xbmcplugin.addDirectoryItem(handle=HANDLE, url=stream_url, listitem=li, isFolder=False)
@@ -323,11 +337,11 @@ def show_parental_menu():
 
 
 # ============================================================
-# CONTEUDO - Listas pre-configuradas
+# CATEGORIAS - TV AO VIVO
 # ============================================================
 
-def listar_canais_tv():
-    """Lista canais de TV do JSON."""
+def listar_categorias_canais():
+    """Lista categorias de canais para o usuário adicionar conteúdo no GitHub."""
     dialog = xbmcgui.Dialog()
     data = http_get(CANAIS_URL, timeout=10)
     
@@ -342,19 +356,60 @@ def listar_canais_tv():
         dialog.ok(ADDON_NAME, "Erro ao processar lista de canais.")
         return
     
-    if not canais:
-        dialog.ok(ADDON_NAME, "Nenhum canal disponivel.")
+    # Extrair categorias únicas
+    categorias = set()
+    for canal in canais:
+        cat = canal.get('categoria', 'Sem categoria')
+        if cat:
+            categorias.add(cat)
+    
+    if not categorias:
+        dialog.ok(ADDON_NAME, "Nenhuma categoria disponivel.")
         return
     
-    for canal in canais:
-        if canal.get('ativo', False):
-            add_playable(canal.get('nome', 'Canal'), canal.get('url', ''), canal.get('logo', ''))
+    # Mostrar categorias
+    for categoria in sorted(categorias):
+        add_item(categoria, "canais_categoria", is_folder=True, 
+                plot="Canais de " + categoria, categoria=categoria)
     
     xbmcplugin.endOfDirectory(HANDLE)
 
 
-def listar_filmes():
-    """Lista filmes do JSON."""
+def listar_canais_por_categoria(categoria):
+    """Lista canais de uma categoria específica."""
+    dialog = xbmcgui.Dialog()
+    data = http_get(CANAIS_URL, timeout=10)
+    
+    if not data:
+        dialog.ok(ADDON_NAME, "Erro ao carregar canais.\nVerifique sua conexao.")
+        return
+    
+    try:
+        obj = json.loads(data)
+        canais = obj.get('canais', [])
+    except Exception:
+        dialog.ok(ADDON_NAME, "Erro ao processar lista de canais.")
+        return
+    
+    # Filtrar por categoria
+    canais_filtrados = [c for c in canais if c.get('categoria') == categoria and c.get('ativo', False)]
+    
+    if not canais_filtrados:
+        dialog.ok(ADDON_NAME, "Nenhum canal disponivel nesta categoria.")
+        return
+    
+    for canal in canais_filtrados:
+        add_playable(canal.get('nome', 'Canal'), canal.get('url', ''), canal.get('logo', ''))
+    
+    xbmcplugin.endOfDirectory(HANDLE)
+
+
+# ============================================================
+# CATEGORIAS - FILMES
+# ============================================================
+
+def listar_categorias_filmes():
+    """Lista categorias de filmes."""
     dialog = xbmcgui.Dialog()
     data = http_get(FILMES_URL, timeout=10)
     
@@ -369,19 +424,71 @@ def listar_filmes():
         dialog.ok(ADDON_NAME, "Erro ao processar lista de filmes.")
         return
     
-    if not filmes:
-        dialog.ok(ADDON_NAME, "Nenhum filme disponivel.")
+    # Extrair categorias únicas
+    categorias = set()
+    for filme in filmes:
+        cat = filme.get('genero', 'Sem categoria')
+        if cat:
+            categorias.add(cat)
+    
+    if not categorias:
+        dialog.ok(ADDON_NAME, "Nenhuma categoria disponivel.")
         return
     
-    for filme in filmes:
-        if filme.get('ativo', False):
-            add_playable(filme.get('nome', 'Filme'), filme.get('url', ''), filme.get('poster', ''))
+    # Mostrar categorias
+    for categoria in sorted(categorias):
+        add_item(categoria, "filmes_categoria", is_folder=True, 
+                plot="Filmes de " + categoria, categoria=categoria)
     
     xbmcplugin.endOfDirectory(HANDLE)
 
 
-def listar_series():
-    """Lista series do JSON."""
+def listar_filmes_por_categoria(categoria):
+    """Lista filmes de uma categoria específica."""
+    dialog = xbmcgui.Dialog()
+    data = http_get(FILMES_URL, timeout=10)
+    
+    if not data:
+        dialog.ok(ADDON_NAME, "Erro ao carregar filmes.\nVerifique sua conexao.")
+        return
+    
+    try:
+        obj = json.loads(data)
+        filmes = obj.get('filmes', [])
+    except Exception:
+        dialog.ok(ADDON_NAME, "Erro ao processar lista de filmes.")
+        return
+    
+    # Filtrar por categoria
+    filmes_filtrados = [f for f in filmes if f.get('genero') == categoria and f.get('ativo', False)]
+    
+    if not filmes_filtrados:
+        dialog.ok(ADDON_NAME, "Nenhum filme disponivel nesta categoria.")
+        return
+    
+    for filme in filmes_filtrados:
+        add_playable(filme.get('nome', 'Filme'), filme.get('url', ''), 
+                    filme.get('logo', ''), filme.get('sinopse', ''))
+    
+    xbmcplugin.endOfDirectory(HANDLE)
+
+
+# ============================================================
+# CATEGORIAS - SÉRIES
+# ============================================================
+
+def listar_categorias_series():
+    """Lista categorias de séries."""
+    # Mostrar categorias pré-definidas
+    for categoria in CATEGORIAS_SERIES:
+        add_item(categoria, "series_categoria", is_folder=True, 
+                plot="Series de " + categoria, categoria=categoria)
+    
+    xbmcplugin.endOfDirectory(HANDLE)
+
+
+def listar_series_por_categoria(categoria):
+    """Lista séries de uma categoria específica."""
     dialog = xbmcgui.Dialog()
     data = http_get(SERIES_URL, timeout=10)
     
@@ -396,13 +503,68 @@ def listar_series():
         dialog.ok(ADDON_NAME, "Erro ao processar lista de series.")
         return
     
-    if not series:
-        dialog.ok(ADDON_NAME, "Nenhuma serie disponivel.")
+    # Filtrar por categoria
+    series_filtradas = [s for s in series if s.get('categoria') == categoria and s.get('ativo', False)]
+    
+    if not series_filtradas:
+        dialog.ok(ADDON_NAME, "Nenhuma serie disponivel nesta categoria.")
         return
     
-    for serie in series:
-        if serie.get('ativo', False):
-            add_playable(serie.get('nome', 'Serie'), serie.get('url', ''), serie.get('poster', ''))
+    for serie in series_filtradas:
+        add_playable(serie.get('nome', 'Serie'), serie.get('url', ''), 
+                    serie.get('logo', ''), serie.get('sinopse', ''))
+    
+    xbmcplugin.endOfDirectory(HANDLE)
+
+
+# ============================================================
+# BUSCA
+# ============================================================
+
+def buscar_conteudo():
+    """Busca filmes e séries."""
+    termo = get_input("Digite o nome do filme ou serie", hidden=False)
+    if not termo:
+        return
+    
+    termo = termo.lower().strip()
+    dialog = xbmcgui.Dialog()
+    
+    # Buscar filmes
+    data_filmes = http_get(FILMES_URL, timeout=10)
+    filmes_encontrados = []
+    if data_filmes:
+        try:
+            obj = json.loads(data_filmes)
+            filmes = obj.get('filmes', [])
+            filmes_encontrados = [f for f in filmes if termo in f.get('nome', '').lower() and f.get('ativo', False)]
+        except Exception:
+            pass
+    
+    # Buscar séries
+    data_series = http_get(SERIES_URL, timeout=10)
+    series_encontradas = []
+    if data_series:
+        try:
+            obj = json.loads(data_series)
+            series = obj.get('series', [])
+            series_encontradas = [s for s in series if termo in s.get('nome', '').lower() and s.get('ativo', False)]
+        except Exception:
+            pass
+    
+    if not filmes_encontrados and not series_encontradas:
+        dialog.ok(ADDON_NAME, "Nenhum resultado encontrado para: " + termo)
+        return
+    
+    # Mostrar filmes
+    for filme in filmes_encontrados:
+        add_playable("[FILME] " + filme.get('nome', 'Filme'), filme.get('url', ''), 
+                    filme.get('logo', ''), filme.get('sinopse', ''))
+    
+    # Mostrar séries
+    for serie in series_encontradas:
+        add_playable("[SERIE] " + serie.get('nome', 'Serie'), serie.get('url', ''), 
+                    serie.get('logo', ''), serie.get('sinopse', ''))
     
     xbmcplugin.endOfDirectory(HANDLE)
 
@@ -413,11 +575,11 @@ def listar_series():
 
 def menu_principal():
     usuario = get_user_name()
-    add_item("TV AO VIVO", "tv_ao_vivo", is_folder=True, plot="Acesse os canais de TV ao vivo")
-    add_item("FILMES", "filmes", is_folder=True, plot="Biblioteca de filmes")
-    add_item("SERIES", "series", is_folder=True, plot="Biblioteca de series")
+    add_item("TV AO VIVO", "tv_ao_vivo", is_folder=True, plot="Acesse os canais de TV ao vivo por categoria")
+    add_item("FILMES", "filmes", is_folder=True, plot="Biblioteca de filmes por categoria")
+    add_item("SERIES", "series", is_folder=True, plot="Biblioteca de series por categoria")
+    add_item("BUSCA", "busca", is_folder=False, plot="Buscar filmes e series")
     add_item("CONTROLE PARENTAL", "controle_parental", is_folder=False, plot="Configure PIN de controle parental")
-    add_item("CONFIGURACOES", "configuracoes", is_folder=False, plot="Configuracoes do addon")
     add_item("SAIR (Logout)", "logout", is_folder=False, plot="Desconectar da conta")
     xbmcplugin.endOfDirectory(HANDLE)
 
@@ -426,6 +588,7 @@ def router(paramstring):
     """Router de acoes."""
     params = dict(parse_qsl(paramstring))
     action = params.get('action', '')
+    categoria = params.get('categoria', '')
     
     if not action:
         if is_logged_in():
@@ -434,15 +597,21 @@ def router(paramstring):
             if do_login():
                 menu_principal()
     elif action == 'tv_ao_vivo':
-        listar_canais_tv()
+        listar_categorias_canais()
+    elif action == 'canais_categoria':
+        listar_canais_por_categoria(categoria)
     elif action == 'filmes':
-        listar_filmes()
+        listar_categorias_filmes()
+    elif action == 'filmes_categoria':
+        listar_filmes_por_categoria(categoria)
     elif action == 'series':
-        listar_series()
+        listar_categorias_series()
+    elif action == 'series_categoria':
+        listar_series_por_categoria(categoria)
+    elif action == 'busca':
+        buscar_conteudo()
     elif action == 'controle_parental':
         show_parental_menu()
-    elif action == 'configuracoes':
-        xbmc.executebuiltin('Addon.OpenSettings({0})'.format(ADDON_ID))
     elif action == 'logout':
         do_logout()
 
