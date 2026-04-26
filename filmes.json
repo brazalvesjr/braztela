@@ -9,20 +9,137 @@
   "filmes": [
     {
       "id": 1,
-      "nome": "Filme Exemplo 1",
+      "nome": "Filme Ação 1",
       "url": "http://seu-servidor.com/filme1.mp4",
       "logo": "http://seu-servidor.com/poster1.jpg",
       "categoria": "Ação",
-      "sinopse": "Descrição do filme",
+      "sinopse": "Um filme de ação emocionante",
       "ativo": true
     },
     {
       "id": 2,
-      "nome": "Filme Exemplo 2",
+      "nome": "Filme Ação 2",
       "url": "http://seu-servidor.com/filme2.mp4",
       "logo": "http://seu-servidor.com/poster2.jpg",
+      "categoria": "Ação",
+      "sinopse": "Outro filme de ação",
+      "ativo": true
+    },
+    {
+      "id": 3,
+      "nome": "Filme Ação 3",
+      "url": "http://seu-servidor.com/filme3.mp4",
+      "logo": "http://seu-servidor.com/poster3.jpg",
+      "categoria": "Ação",
+      "sinopse": "Mais um filme de ação",
+      "ativo": true
+    },
+    {
+      "id": 4,
+      "nome": "Comédia 1",
+      "url": "http://seu-servidor.com/filme4.mp4",
+      "logo": "http://seu-servidor.com/poster4.jpg",
       "categoria": "Comédia",
-      "sinopse": "Descrição do filme",
+      "sinopse": "Um filme engraçado",
+      "ativo": true
+    },
+    {
+      "id": 5,
+      "nome": "Comédia 2",
+      "url": "http://seu-servidor.com/filme5.mp4",
+      "logo": "http://seu-servidor.com/poster5.jpg",
+      "categoria": "Comédia",
+      "sinopse": "Mais risadas",
+      "ativo": true
+    },
+    {
+      "id": 6,
+      "nome": "Comédia 3",
+      "url": "http://seu-servidor.com/filme6.mp4",
+      "logo": "http://seu-servidor.com/poster6.jpg",
+      "categoria": "Comédia",
+      "sinopse": "Muita diversão",
+      "ativo": true
+    },
+    {
+      "id": 7,
+      "nome": "Drama 1",
+      "url": "http://seu-servidor.com/filme7.mp4",
+      "logo": "http://seu-servidor.com/poster7.jpg",
+      "categoria": "Drama",
+      "sinopse": "Uma história emocionante",
+      "ativo": true
+    },
+    {
+      "id": 8,
+      "nome": "Drama 2",
+      "url": "http://seu-servidor.com/filme8.mp4",
+      "logo": "http://seu-servidor.com/poster8.jpg",
+      "categoria": "Drama",
+      "sinopse": "Mais drama e emoção",
+      "ativo": true
+    },
+    {
+      "id": 9,
+      "nome": "Drama 3",
+      "url": "http://seu-servidor.com/filme9.mp4",
+      "logo": "http://seu-servidor.com/poster9.jpg",
+      "categoria": "Drama",
+      "sinopse": "Uma história tocante",
+      "ativo": true
+    },
+    {
+      "id": 10,
+      "nome": "Terror 1",
+      "url": "http://seu-servidor.com/filme10.mp4",
+      "logo": "http://seu-servidor.com/poster10.jpg",
+      "categoria": "Terror",
+      "sinopse": "Um filme assustador",
+      "ativo": true
+    },
+    {
+      "id": 11,
+      "nome": "Terror 2",
+      "url": "http://seu-servidor.com/filme11.mp4",
+      "logo": "http://seu-servidor.com/poster11.jpg",
+      "categoria": "Terror",
+      "sinopse": "Mais sustos",
+      "ativo": true
+    },
+    {
+      "id": 12,
+      "nome": "Terror 3",
+      "url": "http://seu-servidor.com/filme12.mp4",
+      "logo": "http://seu-servidor.com/poster12.jpg",
+      "categoria": "Terror",
+      "sinopse": "Muito medo",
+      "ativo": true
+    },
+    {
+      "id": 13,
+      "nome": "Filme 4K 1",
+      "url": "http://seu-servidor.com/filme13.mp4",
+      "logo": "http://seu-servidor.com/poster13.jpg",
+      "categoria": "4K",
+      "sinopse": "Filme em ultra alta definição",
+      "ativo": true
+    },
+    {
+      "id": 14,
+      "nome": "Filme 4K 2",
+      "url": "http://seu-servidor.com/filme14.mp4",
+      "logo": "http://seu-servidor.com/poster14.jpg",
+      "categoria": "4K",
+      "sinopse": "Qualidade 4K",
+      "ativo": true
+    },
+    {
+      "id": 15,
+      "nome": "Filme 4K 3",
+      "url": "http://seu-servidor.com/filme15.mp4",
+      "logo": "http://seu-servidor.com/poster15.jpg",
+      "categoria": "4K",
+      "sinopse": "Imagem perfeita",
       "ativo": true
     }
   ]
