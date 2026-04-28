@@ -4,7 +4,12 @@
     "Ação",
     "Comédia",
     "Drama",
-    "Terror"
+    "Terror",
+    "SUSPENSE",
+    "GUERRA",
+    "NACIONAL",
+    "LANÇAMENTOS",
+    "DOCUMENTÁRIOS"
   ],
   "filmes": [
     {
@@ -32495,6 +32500,87 @@
       "logo": "https://via.placeholder.com/300x450/1a1a2e/00d4ff?text=13-horas:",
       "categoria": "Ação",
       "sinopse": "Filme: 13 Horas: Os Soldados Secretos de Benghazi",
+      "ativo": true
+    },
+    {
+      "id": 3611,
+      "nome": "Ronaldo",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/375057.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/aTGCbtIMvAnVPCMeUfynxT7XI7X.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre a vida e carreira de Ronaldo",
+      "ativo": true
+    },
+    {
+      "id": 3612,
+      "nome": "Carne",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/375035.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/dzoHVgqyl9Xt7KDwMHmg1L8EuTX.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre a indústria da carne",
+      "ativo": true
+    },
+    {
+      "id": 3613,
+      "nome": "Brasil",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/375032.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/zk2PzO3aCW4uSpNNjST2tioduj.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre o Brasil",
+      "ativo": true
+    },
+    {
+      "id": 3614,
+      "nome": "Um Outro Francisco",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/374323.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/3nOOrWeWYjPSp79X1yahDgcKyRm.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre Francisco",
+      "ativo": true
+    },
+    {
+      "id": 3615,
+      "nome": "Tempo Ruy",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/374319.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/jCxtzX887B5PaCE7nzqUMJwZSqq.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre Ruy",
+      "ativo": true
+    },
+    {
+      "id": 3616,
+      "nome": "Rogai Por Nós",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/374314.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/m0pQFHUpyLa1Mmax3pRVsvUVCFl.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário religioso",
+      "ativo": true
+    },
+    {
+      "id": 3617,
+      "nome": "O Circo Voltou",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/374302.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/ayzBBBHehWOovGzV9hGJApe4Mkl.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre o circo",
+      "ativo": true
+    },
+    {
+      "id": 3618,
+      "nome": "A Paixão de JL",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/374282.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/eFvErfLXK0ADRWwNpbmmcVptWW6.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre JL",
+      "ativo": true
+    },
+    {
+      "id": 3619,
+      "nome": "Rumo",
+      "url": "https://neia87.xyz:80/movie/927283/KjpFMK/374282.mp4",
+      "logo": "http://file.gstaticontent.com//t/p/w600_and_h900_bestv2/zhZ3nadxphN0rJguDocHL0b18Rv.jpg",
+      "categoria": "DOCUMENTÁRIOS",
+      "sinopse": "Documentário sobre Rumo",
       "ativo": true
     }
   ]
