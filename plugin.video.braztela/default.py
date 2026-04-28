@@ -2,11 +2,13 @@
 """
 BRAZTELA - Addon Premium para Kodi
 Desenvolvido por Braz Junior
-Versao 1.5 - Auto-atualizacao de Conteudo
+Versao 1.5.1 - OTIMIZADO PARA PERFORMANCE
 """
 import sys
 import os
 import json
+import threading
+import time
 
 try:
     import xbmc
@@ -56,6 +58,10 @@ CANAIS_URL = GITHUB_RAW + "/canais.json"
 FILMES_URL = GITHUB_RAW + "/filmes.json"
 SERIES_URL = GITHUB_RAW + "/series.json"
 
+# CACHE OTIMIZADO: 5 minutos para canais/filmes/series (rápido)
+CACHE_TTL_DADOS = 300  # 5 minutos
+CACHE_TTL_CLIENTES = 3600  # 1 hora (menos crítico)
+
 # Categorias de SÉRIES (conforme solicitado)
 CATEGORIAS_SERIES = [
     "TURCAS",
@@ -68,6 +74,10 @@ CATEGORIAS_SERIES = [
     "DISCOVERY PLUS",
     "DISNEY PLUS"
 ]
+
+# Cache em memória (thread-safe)
+_cache_memoria = {}
+_cache_lock = threading.Lock()
 
 
 def log(msg):
@@ -82,12 +92,11 @@ def get_cache_path(filename):
     return os.path.join(PROFILE_PATH, 'cache_' + filename)
 
 
-def cache_is_valid(cache_file, ttl_seconds=0):
-    """Verifica se cache é válido (TTL em segundos, padrão 0 = SEM CACHE)."""
+def cache_is_valid(cache_file, ttl_seconds):
+    """Verifica se cache é válido (TTL em segundos)."""
     if not os.path.exists(cache_file):
         return False
     try:
-        import time
         mtime = os.path.getmtime(cache_file)
         age = time.time() - mtime
         return age < ttl_seconds
@@ -95,20 +104,35 @@ def cache_is_valid(cache_file, ttl_seconds=0):
         return False
 
 
-def http_get(url, timeout=5, cache_ttl=0):
-    """Baixa JSON com timeout e SEM CACHE (TTL=0)."""
-    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+def http_get(url, timeout=5, cache_ttl=300):
+    """
+    Baixa JSON com cache inteligente.
+    - Primeiro tenta cache em memória (instantâneo)
+    - Depois tenta cache em disco
+    - Se tudo falhar, faz download
+    """
+    # 1. Verificar cache em memória (SUPER RÁPIDO)
+    with _cache_lock:
+        if url in _cache_memoria:
+            cached_data, cached_time = _cache_memoria[url]
+            if time.time() - cached_time < cache_ttl:
+                return cached_data
     
-    # Verificar cache (desabilitado - cache_ttl=0)
+    # 2. Verificar cache em disco
     cache_file = get_cache_path(url.split('/')[-1])
-    if cache_ttl > 0 and cache_is_valid(cache_file, cache_ttl):
+    if cache_is_valid(cache_file, cache_ttl):
         try:
             with open(cache_file, 'r', encoding='utf-8') as f:
-                return f.read()
+                data = f.read()
+                # Salvar em memória para próxima vez
+                with _cache_lock:
+                    _cache_memoria[url] = (data, time.time())
+                return data
         except Exception:
             pass
     
-    # Baixar do GitHub
+    # 3. Download do GitHub
+    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     try:
         req = Request(url, headers={'User-Agent': ua})
         resp = urlopen(req, timeout=timeout)
@@ -119,12 +143,15 @@ def http_get(url, timeout=5, cache_ttl=0):
             except Exception:
                 data = data.decode('latin-1', errors='replace')
         
-        # Salvar em cache
+        # Salvar em cache (disco + memória)
         try:
             with open(cache_file, 'w', encoding='utf-8') as f:
                 f.write(data)
         except Exception:
             pass
+        
+        with _cache_lock:
+            _cache_memoria[url] = (data, time.time())
         
         return data
     except Exception as e:
@@ -132,7 +159,10 @@ def http_get(url, timeout=5, cache_ttl=0):
         # Tentar carregar cache antigo se disponível
         try:
             with open(cache_file, 'r', encoding='utf-8') as f:
-                return f.read()
+                data = f.read()
+                with _cache_lock:
+                    _cache_memoria[url] = (data, time.time())
+                return data
         except Exception:
             pass
         return None
@@ -218,9 +248,9 @@ def get_input(heading, hidden=False):
 # ============================================================
 
 def carregar_clientes():
-    """Baixa clientes.json do GitHub."""
+    """Baixa clientes.json do GitHub com cache."""
     try:
-        data = http_get(CLIENTES_URL, timeout=10)
+        data = http_get(CLIENTES_URL, timeout=10, cache_ttl=CACHE_TTL_CLIENTES)
         if data:
             obj = json.loads(data)
             return obj.get('clientes', [])
@@ -355,28 +385,33 @@ def show_parental_menu():
                 dialog.ok(ADDON_NAME, "PIN parental criado!")
             except Exception:
                 dialog.ok(ADDON_NAME, "Erro ao salvar PIN")
-        return
-
-    opcoes = ["Alterar PIN", "Desativar Controle Parental", "Cancelar"]
-    escolha = dialog.select("Controle Parental", opcoes)
-    if escolha == 0:
-        check = get_input("PIN atual", hidden=True)
-        if check == pin_atual:
-            novo = get_input("Novo PIN (4 digitos)", hidden=True)
-            if novo and len(novo) >= 4:
-                with open(pf, 'w') as fh:
-                    json.dump({'pin': novo}, fh)
-                dialog.ok(ADDON_NAME, "PIN alterado!")
-        else:
-            dialog.ok(ADDON_NAME, "PIN incorreto!")
-    elif escolha == 1:
-        check = get_input("PIN para desativar", hidden=True)
-        if check == pin_atual:
-            try:
-                os.remove(pf)
-            except Exception:
-                pass
-            dialog.ok(ADDON_NAME, "Controle parental desativado.")
+    else:
+        opcoes = ["Alterar PIN", "Desativar Controle Parental"]
+        escolha = dialog.select("Controle Parental", opcoes)
+        
+        if escolha == 0:
+            pin_teste = get_input("Digite o PIN atual", hidden=True)
+            if pin_teste == pin_atual:
+                novo = get_input("Digite o novo PIN", hidden=True)
+                if novo and len(novo) >= 4:
+                    try:
+                        with open(pf, 'w') as fh:
+                            json.dump({'pin': novo}, fh)
+                        dialog.ok(ADDON_NAME, "PIN alterado com sucesso!")
+                    except Exception:
+                        dialog.ok(ADDON_NAME, "Erro ao salvar PIN")
+            else:
+                dialog.ok(ADDON_NAME, "PIN incorreto!")
+        elif escolha == 1:
+            pin_teste = get_input("Digite o PIN para desativar", hidden=True)
+            if pin_teste == pin_atual:
+                try:
+                    os.remove(pf)
+                    dialog.ok(ADDON_NAME, "Controle parental desativado!")
+                except Exception:
+                    dialog.ok(ADDON_NAME, "Erro ao remover controle parental")
+            else:
+                dialog.ok(ADDON_NAME, "PIN incorreto!")
 
 
 # ============================================================
@@ -384,9 +419,9 @@ def show_parental_menu():
 # ============================================================
 
 def listar_categorias_canais():
-    """Lista categorias de canais para o usuário adicionar conteúdo no GitHub."""
+    """Lista categorias de canais com cache."""
     dialog = xbmcgui.Dialog()
-    data = http_get(CANAIS_URL, timeout=10)
+    data = http_get(CANAIS_URL, timeout=10, cache_ttl=CACHE_TTL_DADOS)
     
     if not data:
         dialog.ok(ADDON_NAME, "Erro ao carregar canais.\nVerifique sua conexao.")
@@ -421,7 +456,7 @@ def listar_categorias_canais():
 def listar_canais_por_categoria(categoria):
     """Lista canais de uma categoria específica."""
     dialog = xbmcgui.Dialog()
-    data = http_get(CANAIS_URL, timeout=10)
+    data = http_get(CANAIS_URL, timeout=10, cache_ttl=CACHE_TTL_DADOS)
     
     if not data:
         dialog.ok(ADDON_NAME, "Erro ao carregar canais.\nVerifique sua conexao.")
@@ -454,7 +489,7 @@ def listar_canais_por_categoria(categoria):
 def listar_categorias_filmes():
     """Lista categorias de filmes."""
     dialog = xbmcgui.Dialog()
-    data = http_get(FILMES_URL, timeout=10)
+    data = http_get(FILMES_URL, timeout=10, cache_ttl=CACHE_TTL_DADOS)
     
     if not data:
         dialog.ok(ADDON_NAME, "Erro ao carregar filmes.\nVerifique sua conexao.")
@@ -489,7 +524,7 @@ def listar_categorias_filmes():
 def listar_filmes_por_categoria(categoria):
     """Lista filmes de uma categoria específica."""
     dialog = xbmcgui.Dialog()
-    data = http_get(FILMES_URL, timeout=10)
+    data = http_get(FILMES_URL, timeout=10, cache_ttl=CACHE_TTL_DADOS)
     
     if not data:
         dialog.ok(ADDON_NAME, "Erro ao carregar filmes.\nVerifique sua conexao.")
@@ -533,7 +568,7 @@ def listar_categorias_series():
 def listar_series_por_categoria(categoria):
     """Lista séries de uma categoria específica."""
     dialog = xbmcgui.Dialog()
-    data = http_get(SERIES_URL, timeout=10)
+    data = http_get(SERIES_URL, timeout=10, cache_ttl=CACHE_TTL_DADOS)
     
     if not data:
         dialog.ok(ADDON_NAME, "Erro ao carregar series.\nVerifique sua conexao.")
@@ -561,58 +596,6 @@ def listar_series_por_categoria(categoria):
 
 
 # ============================================================
-# BUSCA
-# ============================================================
-
-def buscar_conteudo():
-    """Busca filmes e séries."""
-    termo = get_input("Digite o nome do filme ou serie", hidden=False)
-    if not termo:
-        return
-    
-    termo = termo.lower().strip()
-    dialog = xbmcgui.Dialog()
-    
-    # Buscar filmes
-    data_filmes = http_get(FILMES_URL, timeout=10)
-    filmes_encontrados = []
-    if data_filmes:
-        try:
-            obj = json.loads(data_filmes)
-            filmes = obj.get('filmes', [])
-            filmes_encontrados = [f for f in filmes if termo in f.get('nome', '').lower() and f.get('ativo', False)]
-        except Exception:
-            pass
-    
-    # Buscar séries
-    data_series = http_get(SERIES_URL, timeout=10)
-    series_encontradas = []
-    if data_series:
-        try:
-            obj = json.loads(data_series)
-            series = obj.get('series', [])
-            series_encontradas = [s for s in series if termo in s.get('nome', '').lower() and s.get('ativo', False)]
-        except Exception:
-            pass
-    
-    if not filmes_encontrados and not series_encontradas:
-        dialog.ok(ADDON_NAME, "Nenhum resultado encontrado para: " + termo)
-        return
-    
-    # Mostrar filmes
-    for filme in filmes_encontrados:
-        add_playable("[FILME] " + filme.get('nome', 'Filme'), filme.get('url', ''), 
-                    filme.get('logo', ''), filme.get('sinopse', ''))
-    
-    # Mostrar séries
-    for serie in series_encontradas:
-        add_playable("[SERIE] " + serie.get('nome', 'Serie'), serie.get('url', ''), 
-                    serie.get('logo', ''), serie.get('sinopse', ''))
-    
-    xbmcplugin.endOfDirectory(HANDLE)
-
-
-# ============================================================
 # MENU PRINCIPAL
 # ============================================================
 
@@ -621,7 +604,6 @@ def menu_principal():
     add_item("TV AO VIVO", "tv_ao_vivo", is_folder=True, plot="Acesse os canais de TV ao vivo por categoria")
     add_item("FILMES", "filmes", is_folder=True, plot="Biblioteca de filmes por categoria")
     add_item("SERIES", "series", is_folder=True, plot="Biblioteca de series por categoria")
-    add_item("BUSCA", "busca", is_folder=False, plot="Buscar filmes e series")
     add_item("CONTROLE PARENTAL", "controle_parental", is_folder=False, plot="Configure PIN de controle parental")
     add_item("SAIR (Logout)", "logout", is_folder=False, plot="Desconectar da conta")
     xbmcplugin.endOfDirectory(HANDLE)
@@ -651,8 +633,6 @@ def router(paramstring):
         listar_categorias_series()
     elif action == 'series_categoria':
         listar_series_por_categoria(categoria)
-    elif action == 'busca':
-        buscar_conteudo()
     elif action == 'controle_parental':
         show_parental_menu()
     elif action == 'logout':
