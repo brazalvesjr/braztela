@@ -1,80 +1,90 @@
 {
   "categorias": [
-    "Notícias",
-    "HBO",
-    "Esportes"
+    "GLOBO",
+    "RECORD",
+    "BAND",
+    "SBT",
+    "VARIADOS"
   ],
   "canais": [
     {
       "id": 1,
-      "nome": "FRANCE",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/104906.m3u8",
-      "logo": "",
-      "categoria": "Notícias",
+      "nome": "GLOBO 4K",
+      "url": "http://exemplo.com/globo4k.m3u8",
+      "logo": "http://exemplo.com/globo.png",
+      "categoria": "GLOBO",
       "ativo": true
     },
     {
       "id": 2,
-      "nome": "Band News FHD",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/71789.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/bandnews.png",
-      "categoria": "Notícias",
+      "nome": "GLOBO HD",
+      "url": "http://exemplo.com/globohd.m3u8",
+      "logo": "http://exemplo.com/globo.png",
+      "categoria": "GLOBO",
       "ativo": true
     },
     {
       "id": 3,
-      "nome": "CNN Brasil 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/71798.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/cnn.png",
-      "categoria": "Notícias",
+      "nome": "RECORD 4K",
+      "url": "http://exemplo.com/record4k.m3u8",
+      "logo": "http://exemplo.com/record.png",
+      "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 4,
-      "nome": "Globo News 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/90248.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/globonews.png",
-      "categoria": "Notícias",
+      "nome": "RECORD HD",
+      "url": "http://exemplo.com/recordhd.m3u8",
+      "logo": "http://exemplo.com/record.png",
+      "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 5,
-      "nome": "HBO 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/90247.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/hbo.png",
-      "categoria": "HBO",
+      "nome": "BAND 4K",
+      "url": "http://exemplo.com/band4k.m3u8",
+      "logo": "http://exemplo.com/band.png",
+      "categoria": "BAND",
       "ativo": true
     },
     {
       "id": 6,
-      "nome": "HBO 2 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/90246.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/hbo2.png",
-      "categoria": "HBO",
+      "nome": "BAND HD",
+      "url": "http://exemplo.com/bandhd.m3u8",
+      "logo": "http://exemplo.com/band.png",
+      "categoria": "BAND",
       "ativo": true
     },
     {
       "id": 7,
-      "nome": "HBO Family 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/90637.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/hbofamily.png",
-      "categoria": "HBO",
+      "nome": "SBT 4K",
+      "url": "http://exemplo.com/sbt4k.m3u8",
+      "logo": "http://exemplo.com/sbt.png",
+      "categoria": "SBT",
       "ativo": true
     },
     {
       "id": 8,
-      "nome": "HBO Plus 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/90635.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/hboplus.png",
-      "categoria": "HBO",
+      "nome": "SBT HD",
+      "url": "http://exemplo.com/sbthd.m3u8",
+      "logo": "http://exemplo.com/sbt.png",
+      "categoria": "SBT",
       "ativo": true
     },
     {
       "id": 9,
-      "nome": "Band Sports 4K",
-      "url": "http://taw6zvc.cloud/live/samoelcarvalho/A80858967x/103525.m3u8",
-      "logo": "http://taw6zvc.cloud/static/logos/canais/bandsports.png",
-      "categoria": "Esportes",
+      "nome": "CANAL VARIADO 1",
+      "url": "http://exemplo.com/variado1.m3u8",
+      "logo": "http://exemplo.com/variado.png",
+      "categoria": "VARIADOS",
+      "ativo": true
+    },
+    {
+      "id": 10,
+      "nome": "CANAL VARIADO 2",
+      "url": "http://exemplo.com/variado2.m3u8",
+      "logo": "http://exemplo.com/variado.png",
+      "categoria": "VARIADOS",
       "ativo": true
     }
   ]
