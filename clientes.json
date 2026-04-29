@@ -9,17 +9,17 @@
     },
     {
       "codigo": "BRAZ",
-      "senha": "admin2026",
+      "senha": "1212",
       "nome": "Braz Junior (Admin)",
       "ativo": true,
-      "data_criacao": "2026-04-22"
+      "data_criacao": "2026-04-29"
     },
     {
-      "codigo": "CLIENTE001",
-      "senha": "senha123456",
+      "codigo": "Junior",
+      "senha": "1313",
       "nome": "Cliente 001",
       "ativo": true,
-      "data_criacao": "2026-04-22"
+      "data_criacao": "2026-04-29"
     },
     {
       "codigo": "CLIENTE002",
