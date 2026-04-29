@@ -5,7 +5,8 @@
     "RECORD",
     "BAND",
     "SBT",
-    "VARIADOS"
+    "HBO",
+    "ABERTOS"
   ],
   "canais": [
     {
@@ -689,89 +690,41 @@
       "ativo": true
     },
     {
-      "id": 88,
-      "nome": "BAND 4K",
-      "url": "http://exemplo.com/band4k.m3u8",
-      "logo": "http://exemplo.com/band.png",
-      "categoria": "BAND",
-      "ativo": true
-    },
-    {
-      "id": 89,
-      "nome": "BAND HD",
-      "url": "http://exemplo.com/bandhd.m3u8",
-      "logo": "http://exemplo.com/band.png",
-      "categoria": "BAND",
-      "ativo": true
-    },
-    {
-      "id": 90,
-      "nome": "SBT 4K",
-      "url": "http://exemplo.com/sbt4k.m3u8",
-      "logo": "http://exemplo.com/sbt.png",
-      "categoria": "SBT",
-      "ativo": true
-    },
-    {
-      "id": 91,
-      "nome": "SBT HD",
-      "url": "http://exemplo.com/sbthd.m3u8",
-      "logo": "http://exemplo.com/sbt.png",
-      "categoria": "SBT",
-      "ativo": true
-    },
-    {
-      "id": 92,
-      "nome": "CANAL VARIADO 1",
-      "url": "http://exemplo.com/variado1.m3u8",
-      "logo": "http://exemplo.com/variado.png",
-      "categoria": "VARIADOS",
-      "ativo": true
-    },
-    {
-      "id": 93,
-      "nome": "CANAL VARIADO 2",
-      "url": "http://exemplo.com/variado2.m3u8",
-      "logo": "http://exemplo.com/variado.png",
-      "categoria": "VARIADOS",
-      "ativo": true
-    },
-    {
       "id": 101,
       "nome": "BAND NEWS 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/103526.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/bandnews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103526.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/bandnews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 102,
       "nome": "BAND NEWS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71789.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/bandnews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71789.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/bandnews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 103,
       "nome": "BAND NEWS FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71790.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/bandnews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71790.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/bandnews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 104,
       "nome": "BAND NEWS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71791.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/bandnews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71791.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/bandnews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 105,
       "nome": "BAND NEWS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71792.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71792.m3u8",
       "logo": "http://gstaticontent.com/images/abb329697106ebb6f051ab5ab2d39dfd.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -779,47 +732,47 @@
     {
       "id": 106,
       "nome": "CNN BRASIL 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71798.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/cnn.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71798.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/cnn.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 107,
       "nome": "CNN BRASIL FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71837.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/cnn.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71837.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/cnn.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 108,
       "nome": "CNN BRASIL FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71838.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/cnn.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71838.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/cnn.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 109,
       "nome": "CNN BRASIL HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71839.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/cnn.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71839.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/cnn.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 110,
       "nome": "CNN BRASIL SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71840.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/cnn.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71840.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/cnn.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 111,
       "nome": "EUROCHANNEL FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104910.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104910.m3u8",
       "logo": "http://gstaticontent.com/images/e319732e23a51cafb209d07c7a26c615.jpg",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -827,7 +780,7 @@
     {
       "id": 112,
       "nome": "EUROCHANNEL FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104913.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104913.m3u8",
       "logo": "http://gstaticontent.com/images/e319732e23a51cafb209d07c7a26c615.jpg",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -835,7 +788,7 @@
     {
       "id": 113,
       "nome": "EUROCHANNEL HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104911.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104911.m3u8",
       "logo": "http://gstaticontent.com/images/e319732e23a51cafb209d07c7a26c615.jpg",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -843,7 +796,7 @@
     {
       "id": 114,
       "nome": "EUROCHANNEL SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104912.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104912.m3u8",
       "logo": "http://gstaticontent.com/images/e319732e23a51cafb209d07c7a26c615.jpg",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -851,87 +804,87 @@
     {
       "id": 115,
       "nome": "FRANCE 24 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/103500.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103500.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 116,
       "nome": "FRANCE 24 FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104906.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104906.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 117,
       "nome": "FRANCE 24 FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104942.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104942.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 118,
       "nome": "FRANCE 24 HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104907.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104907.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 119,
       "nome": "FRANCE 24 SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104941.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104941.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 120,
       "nome": "GLOBO NEWS 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/90248.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/globonews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/90248.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globonews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 121,
       "nome": "GLOBO NEWS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71997.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/globonews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71997.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globonews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 122,
       "nome": "GLOBO NEWS FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71998.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/globonews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71998.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globonews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 123,
       "nome": "GLOBO NEWS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/71999.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/globonews.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71999.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globonews.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 124,
       "nome": "GLOBO NEWS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/131112.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/globo.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/131112.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 125,
       "nome": "JOVEM PAN NEWS 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/134021.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/134021.m3u8",
       "logo": "http://gstaticontent.com/images/1cd8c9455f7b030e1f95b27253dd070b.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -939,7 +892,7 @@
     {
       "id": 126,
       "nome": "JOVEM PAN NEWS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/134023.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/134023.m3u8",
       "logo": "http://gstaticontent.com/images/1cd8c9455f7b030e1f95b27253dd070b.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -947,7 +900,7 @@
     {
       "id": 127,
       "nome": "JOVEM PAN NEWS FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/134022.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/134022.m3u8",
       "logo": "https://i.imgur.com/2FLFlC5.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -955,7 +908,7 @@
     {
       "id": 128,
       "nome": "JOVEM PAN NEWS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/134024.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/134024.m3u8",
       "logo": "http://gstaticontent.com/images/1cd8c9455f7b030e1f95b27253dd070b.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -963,7 +916,7 @@
     {
       "id": 129,
       "nome": "JOVEM PAN NEWS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/134025.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/134025.m3u8",
       "logo": "http://gstaticontent.com/images/1cd8c9455f7b030e1f95b27253dd070b.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -971,7 +924,7 @@
     {
       "id": 130,
       "nome": "RECORD NEWS 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/178523.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178523.m3u8",
       "logo": "http://gstaticontent.com/images/2449a2b4976db3d6d8efdbd249a40971.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -979,7 +932,7 @@
     {
       "id": 131,
       "nome": "RECORD NEWS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72271.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72271.m3u8",
       "logo": "http://gstaticontent.com/images/2449a2b4976db3d6d8efdbd249a40971.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -987,7 +940,7 @@
     {
       "id": 132,
       "nome": "RECORD NEWS FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/178522.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178522.m3u8",
       "logo": "http://gstaticontent.com/images/2449a2b4976db3d6d8efdbd249a40971.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -995,7 +948,7 @@
     {
       "id": 133,
       "nome": "RECORD NEWS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72272.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72272.m3u8",
       "logo": "http://gstaticontent.com/images/2449a2b4976db3d6d8efdbd249a40971.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -1003,7 +956,7 @@
     {
       "id": 134,
       "nome": "RECORD NEWS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72273.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72273.m3u8",
       "logo": "http://gstaticontent.com/images/2449a2b4976db3d6d8efdbd249a40971.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
@@ -1011,175 +964,183 @@
     {
       "id": 135,
       "nome": "TV GAZETA SP SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/104918.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104918.m3u8",
       "logo": "http://gstaticontent.com/images/2baf5152b328307749ffbafedb684497.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 136,
-      "nome": "CNBC BRASIL HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295478.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNBC BRASIL FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295477.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 137,
-      "nome": "CNBC BRASIL SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295479.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNBC BRASIL HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295478.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 138,
-      "nome": "CNBC BRASIL 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295480.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNBC BRASIL SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295479.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 139,
-      "nome": "CNN BRASIL MONEY FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295482.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNBC BRASIL 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295480.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 140,
-      "nome": "CNN BRASIL MONEY HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295483.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNN BRASIL MONEY FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295482.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 141,
-      "nome": "CNN BRASIL MONEY SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295484.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNN BRASIL MONEY HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295483.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 142,
-      "nome": "CNN BRASIL MONEY FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295485.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNN BRASIL MONEY SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295484.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 143,
-      "nome": "CNN BRASIL MONEY 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295486.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "nome": "CNN BRASIL MONEY FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295485.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 144,
+      "nome": "CNN BRASIL MONEY 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295486.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "NOTÍCIAS",
+      "ativo": true
+    },
+    {
+      "id": 145,
       "nome": "CNBC BRASIL FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/295481.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/noticias.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/295481.m3u8",
+      "logo": "http://exemplo.com/logo.png",
       "categoria": "NOTÍCIAS",
       "ativo": true
     },
     {
       "id": 201,
       "nome": "RECORDTV ITAPOAN FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/157406.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/157406.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 202,
       "nome": "RECORDTV ITAPOAN HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72284.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72284.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 203,
       "nome": "RECORDTV ITAPOAN SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72285.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72285.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 204,
       "nome": "RECORDTV RJ FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/106638.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/106638.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 205,
       "nome": "RECORDTV RJ HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72594.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72594.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 206,
       "nome": "RECORDTV RJ SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/96526.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/96526.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 207,
       "nome": "RECORDTV SP FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/77654.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/77654.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 208,
       "nome": "RECORDTV SP FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72595.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72595.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 209,
       "nome": "RECORDTV SP HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72973.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72973.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 210,
       "nome": "RECORDTV SP SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/96522.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/96522.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 211,
       "nome": "TV CIDADE - RECORDTV 4K",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/103462.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103462.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 212,
       "nome": "TV CIDADE RECORDTV FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/92666.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/92666.m3u8",
       "logo": "https://imgur.com/DRX0wcK",
       "categoria": "RECORD",
       "ativo": true
@@ -1187,7 +1148,7 @@
     {
       "id": 213,
       "nome": "TV CIDADE - RECORDTV FHD [H265]",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/92667.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/92667.m3u8",
       "logo": "https://imgur.com/DRX0wcK",
       "categoria": "RECORD",
       "ativo": true
@@ -1195,7 +1156,7 @@
     {
       "id": 214,
       "nome": "TV CIDADE RECORDTV HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/92668.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/92668.m3u8",
       "logo": "https://imgur.com/DRX0wcK",
       "categoria": "RECORD",
       "ativo": true
@@ -1203,7 +1164,7 @@
     {
       "id": 215,
       "nome": "TV CIDADE RECORDTV SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/92669.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/92669.m3u8",
       "logo": "https://imgur.com/DRX0wcK",
       "categoria": "RECORD",
       "ativo": true
@@ -1211,7 +1172,7 @@
     {
       "id": 216,
       "nome": "RECORDTV VILA REAL FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218785.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218785.m3u8",
       "logo": "http://gstaticontent.com/images/772255b867c746a532039ecd6dbc6a72.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1219,7 +1180,7 @@
     {
       "id": 217,
       "nome": "RECORDTV VILA REAL HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218786.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218786.m3u8",
       "logo": "http://gstaticontent.com/images/772255b867c746a532039ecd6dbc6a72.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1227,7 +1188,7 @@
     {
       "id": 218,
       "nome": "RECORDTV THATHI CAMPINAS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218787.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218787.m3u8",
       "logo": "http://gstaticontent.com/images/772255b867c746a532039ecd6dbc6a72.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1235,7 +1196,7 @@
     {
       "id": 219,
       "nome": "RECORDTV THATHI CAMPINAS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218788.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218788.m3u8",
       "logo": "http://gstaticontent.com/images/772255b867c746a532039ecd6dbc6a72.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1243,7 +1204,7 @@
     {
       "id": 220,
       "nome": "RECORDTV SIC RONDONIA FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218789.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218789.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s104761_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1251,7 +1212,7 @@
     {
       "id": 221,
       "nome": "RECORDTV RJ INTERIOR FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218792.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218792.m3u8",
       "logo": "http://gstaticontent.com/images/772255b867c746a532039ecd6dbc6a72.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1259,7 +1220,7 @@
     {
       "id": 222,
       "nome": "RECORDTV RJ INTERIOR HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218793.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218793.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s76624_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1267,7 +1228,7 @@
     {
       "id": 223,
       "nome": "RECORDTV RIO PRETO FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218794.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218794.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s76737_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1275,7 +1236,7 @@
     {
       "id": 224,
       "nome": "RECORDTV RIO PRETO HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218795.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218795.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s76737_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1283,23 +1244,23 @@
     {
       "id": 225,
       "nome": "RECORDTV PARANAIBA DE UBERLANDIA FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218796.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218796.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 226,
       "nome": "RECORDTV PARANAIBA DE UBERLANDIA HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218797.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218797.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 227,
       "nome": "RECORDTV LITORAL VALE DO PARNAIBA FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218798.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218798.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s104761_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1307,7 +1268,7 @@
     {
       "id": 228,
       "nome": "RECORDTV LITORAL VALE DO PARNAIBA HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218815.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218815.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s104761_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1315,7 +1276,7 @@
     {
       "id": 229,
       "nome": "RECORDTV GOIAS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218822.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218822.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s104205_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1323,7 +1284,7 @@
     {
       "id": 230,
       "nome": "RECORDTV GOIAS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218823.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218823.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s104205_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1331,7 +1292,7 @@
     {
       "id": 231,
       "nome": "RECORDTV RS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72974.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72974.m3u8",
       "logo": "http://gstaticontent.com/images/772255b867c746a532039ecd6dbc6a72.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1339,7 +1300,7 @@
     {
       "id": 232,
       "nome": "RECORDTV RS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/218791.m3u8",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218791.m3u8",
       "logo": "http://fanc.tmsimg.com/assets/s76674_ll_h3_aa.png",
       "categoria": "RECORD",
       "ativo": true
@@ -1347,233 +1308,1129 @@
     {
       "id": 233,
       "nome": "RECORDTV RS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/72975.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72975.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 234,
       "nome": "RECORDTV PARANAIBA UBERLANDIA SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/349916.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/349916.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 235,
       "nome": "RECORDTV RIBEIRAO FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350008.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350008.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 236,
       "nome": "RECORDTV RIBEIRAO HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350009.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350009.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 237,
       "nome": "RECORDTV RIBEIRAO SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350010.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350010.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 238,
       "nome": "RECORDTV PIAUI A10 FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350011.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350011.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 239,
       "nome": "RECORDTV PIAUI A10 HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350012.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350012.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 240,
       "nome": "RECORDTV PIAUI A10 SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350013.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350013.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 241,
       "nome": "RECORDTV LESTE FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350034.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350034.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 242,
       "nome": "RECORDTV LESTE HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350058.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350058.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 243,
       "nome": "RECORDTV LESTE SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350059.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350059.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 244,
       "nome": "RECORDTV RORAIMA FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350060.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350060.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 245,
       "nome": "RECORDTV RORAIMA HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350061.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350061.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 246,
       "nome": "RECORDTV RORAIMA SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350062.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350062.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 247,
       "nome": "RECORDTV PAULISTA FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350063.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350063.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 248,
       "nome": "RECORDTV PAULISTA HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350064.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350064.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 249,
       "nome": "RECORDTV PAULISTA SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350065.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350065.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 250,
       "nome": "RECORDTV PARAIBA TV CORREIO FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350066.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350066.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 251,
       "nome": "RECORDTV PARAIBA TV CORREIO HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350067.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350067.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 252,
       "nome": "RECORDTV PARAIBA TV CORREIO SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350068.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350068.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 253,
       "nome": "RECORDTV MANAUS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350069.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350069.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 254,
       "nome": "RECORDTV MANAUS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350070.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350070.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 255,
       "nome": "RECORDTV MANAUS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350071.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350071.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 256,
       "nome": "RECORDTV GUARARAPES FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350072.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350072.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 257,
       "nome": "RECORDTV GUARARAPES HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350073.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350073.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 258,
       "nome": "RECORDTV GUARARAPES SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350074.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350074.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 259,
       "nome": "RECORDTV THATHI CAMPINAS FHD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350090.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350090.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 260,
       "nome": "RECORDTV THATHI CAMPINAS HD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350091.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350091.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
       "ativo": true
     },
     {
       "id": 261,
       "nome": "RECORDTV THATHI CAMPINAS SD",
-      "url": "http://teleflixhd.club/live/709310/znz2Nu/350092.m3u8",
-      "logo": "http://teleflixhd.club/static/logos/canais/record.png",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350092.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/record.png",
       "categoria": "RECORD",
+      "ativo": true
+    },
+    {
+      "id": 401,
+      "nome": "HBO 2 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/90246.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo2.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 402,
+      "nome": "HBO 2 FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72110.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo2.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 403,
+      "nome": "HBO 2 FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72111.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo2.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 404,
+      "nome": "HBO 2 HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72112.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo2.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 405,
+      "nome": "HBO 2 SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72113.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo2.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 406,
+      "nome": "HBO 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/90247.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 407,
+      "nome": "HBO FAMILY 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/90637.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbofamily.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 408,
+      "nome": "HBO FAMILY FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72114.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbofamily.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 409,
+      "nome": "HBO FAMILY FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72115.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbofamily.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 410,
+      "nome": "HBO FAMILY HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72116.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbofamily.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 411,
+      "nome": "HBO FAMILY SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72117.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbofamily.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 412,
+      "nome": "HBO FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72118.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 413,
+      "nome": "HBO FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72119.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 414,
+      "nome": "HBO HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72120.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 415,
+      "nome": "HBO MUNDI 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103496.m3u8",
+      "logo": "https://i.imgur.com/plzN5Pl.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 416,
+      "nome": "HBO MUNDI FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72121.m3u8",
+      "logo": "https://i.imgur.com/plzN5Pl.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 417,
+      "nome": "HBO MUNDI FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72122.m3u8",
+      "logo": "https://i.imgur.com/plzN5Pl.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 418,
+      "nome": "HBO MUNDI HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72123.m3u8",
+      "logo": "https://i.imgur.com/plzN5Pl.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 419,
+      "nome": "HBO MUNDI SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72124.m3u8",
+      "logo": "https://i.imgur.com/plzN5Pl.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 420,
+      "nome": "HBO PLUS 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/90635.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hboplus.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 421,
+      "nome": "HBO PLUS FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72125.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hboplus.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 422,
+      "nome": "HBO PLUS FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72126.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hboplus.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 423,
+      "nome": "HBO PLUS HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72127.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hboplus.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 424,
+      "nome": "HBO PLUS SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72128.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hboplus.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 425,
+      "nome": "HBO POP 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103495.m3u8",
+      "logo": "https://i.imgur.com/LFACM3J.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 426,
+      "nome": "HBO POP FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72129.m3u8",
+      "logo": "https://i.imgur.com/LFACM3J.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 427,
+      "nome": "HBO POP FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72130.m3u8",
+      "logo": "https://i.imgur.com/LFACM3J.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 428,
+      "nome": "HBO POP HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72131.m3u8",
+      "logo": "https://i.imgur.com/LFACM3J.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 429,
+      "nome": "HBO POP SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72132.m3u8",
+      "logo": "https://i.imgur.com/LFACM3J.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 430,
+      "nome": "HBO SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72133.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbo.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 431,
+      "nome": "HBO SIGNATURE 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103494.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbosignature.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 432,
+      "nome": "HBO SIGNATURE FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72134.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbosignature.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 433,
+      "nome": "HBO SIGNATURE FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72135.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbosignature.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 434,
+      "nome": "HBO SIGNATURE HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72136.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbosignature.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 435,
+      "nome": "HBO SIGNATURE SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72137.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/hbosignature.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 436,
+      "nome": "HBO XTREME 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/90636.m3u8",
+      "logo": "https://i.imgur.com/K9TvnMc.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 437,
+      "nome": "HBO XTREME FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72138.m3u8",
+      "logo": "https://i.imgur.com/K9TvnMc.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 438,
+      "nome": "HBO XTREME FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72139.m3u8",
+      "logo": "https://i.imgur.com/K9TvnMc.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 439,
+      "nome": "HBO XTREME HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72140.m3u8",
+      "logo": "https://i.imgur.com/K9TvnMc.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 440,
+      "nome": "HBO XTREME SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72141.m3u8",
+      "logo": "https://i.imgur.com/K9TvnMc.png",
+      "categoria": "HBO",
+      "ativo": true
+    },
+    {
+      "id": 301,
+      "nome": "AGROMAIS 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103532.m3u8",
+      "logo": "http://www.acstatic.co/logos/canais/agromais.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 302,
+      "nome": "AGROMAIS FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71764.m3u8",
+      "logo": "http://www.acstatic.co/logos/canais/agromais.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 303,
+      "nome": "AGROMAIS FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71765.m3u8",
+      "logo": "http://www.acstatic.co/logos/canais/agromais.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 304,
+      "nome": "AGROMAIS HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71766.m3u8",
+      "logo": "http://www.acstatic.co/logos/canais/agromais.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 305,
+      "nome": "AGROMAIS SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71767.m3u8",
+      "logo": "http://www.acstatic.co/logos/canais/agromais.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 306,
+      "nome": "BAND SP FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/79311.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/band.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 307,
+      "nome": "BAND SP FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104943.m3u8",
+      "logo": "http://gstaticontent.com/images/abb329697106ebb6f051ab5ab2d39dfd.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 308,
+      "nome": "BAND SP HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72597.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/band.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 309,
+      "nome": "BAND SP SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/79312.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/band.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 310,
+      "nome": "CANAL DO BOI 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103516.m3u8",
+      "logo": "http://acstatic.co/logos/canais/canaldoboi.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 311,
+      "nome": "CANAL DO BOI FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71820.m3u8",
+      "logo": "http://acstatic.co/logos/canais/canaldoboi.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 312,
+      "nome": "CANAL DO BOI HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71821.m3u8",
+      "logo": "http://acstatic.co/logos/canais/canaldoboi.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 313,
+      "nome": "CANAL DO BOI SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71822.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/canaldoboi.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 314,
+      "nome": "CANAL RURAL 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178516.m3u8",
+      "logo": "http://gstaticontent.com/images/fd9212142eedf1910dcba86a14dfdd81.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 315,
+      "nome": "CANAL RURAL FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178512.m3u8",
+      "logo": "http://gstaticontent.com/images/fd9212142eedf1910dcba86a14dfdd81.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 316,
+      "nome": "CANAL RURAL FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178515.m3u8",
+      "logo": "http://gstaticontent.com/images/fd9212142eedf1910dcba86a14dfdd81.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 317,
+      "nome": "CANAL RURAL HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178513.m3u8",
+      "logo": "http://gstaticontent.com/images/fd9212142eedf1910dcba86a14dfdd81.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 318,
+      "nome": "CANAL RURAL SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71823.m3u8",
+      "logo": "http://gstaticontent.com/images/fd9212142eedf1910dcba86a14dfdd81.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 319,
+      "nome": "CANAL RURAL SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178514.m3u8",
+      "logo": "http://gstaticontent.com/images/fd9212142eedf1910dcba86a14dfdd81.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 320,
+      "nome": "CULTURA 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103513.m3u8",
+      "logo": "http://acstatic.co/logos/canais/tvcultura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 321,
+      "nome": "CULTURA FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71851.m3u8",
+      "logo": "http://acstatic.co/logos/canais/tvcultura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 322,
+      "nome": "CULTURA FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71852.m3u8",
+      "logo": "http://acstatic.co/logos/canais/tvcultura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 323,
+      "nome": "CULTURA HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71853.m3u8",
+      "logo": "http://acstatic.co/logos/canais/tvcultura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 324,
+      "nome": "CULTURA SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71854.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/curta.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 325,
+      "nome": "FUTURA 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103499.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/futura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 326,
+      "nome": "FUTURA FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71962.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/futura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 327,
+      "nome": "FUTURA FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71963.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/futura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 328,
+      "nome": "FUTURA HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71964.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/futura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 329,
+      "nome": "FUTURA SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/71965.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/futura.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 330,
+      "nome": "REDETV FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72297.m3u8",
+      "logo": "http://gstaticontent.com/images/730b1aa20e87fbb7b2101a02fe806630.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 331,
+      "nome": "REDETV FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72298.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/redetv.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 332,
+      "nome": "REDETV HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72299.m3u8",
+      "logo": "http://gstaticontent.com/images/730b1aa20e87fbb7b2101a02fe806630.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 333,
+      "nome": "REDETV SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72300.m3u8",
+      "logo": "http://gstaticontent.com/images/730b1aa20e87fbb7b2101a02fe806630.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 334,
+      "nome": "REDETV 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178532.m3u8",
+      "logo": "http://gstaticontent.com/images/730b1aa20e87fbb7b2101a02fe806630.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 335,
+      "nome": "SBT REDE MASSA PR HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72305.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 336,
+      "nome": "SBT RJ FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/108681.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 337,
+      "nome": "SBT RJ HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/108682.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 338,
+      "nome": "SBT RJ SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/108683.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 339,
+      "nome": "SBT RS HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/75028.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 340,
+      "nome": "SBT SP FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/77963.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 341,
+      "nome": "SBT SP FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104939.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 342,
+      "nome": "SBT SP HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72598.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 343,
+      "nome": "SBT SP SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/77964.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 344,
+      "nome": "SBT TV ALTEROSA HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72621.m3u8",
+      "logo": "http://fanc.tmsimg.com/assets/s104210_ll_h3_aa.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 345,
+      "nome": "TV BRASIL 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103463.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/tvbrasil.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 346,
+      "nome": "TV BRASIL FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72399.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/tvbrasil.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 347,
+      "nome": "TV BRASIL FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72400.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/tvbrasil.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 348,
+      "nome": "TV BRASIL HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72401.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/tvbrasil.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 349,
+      "nome": "TV GAZETA FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104919.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/tvgazeta.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 350,
+      "nome": "TV GAZETA SP 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178520.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 351,
+      "nome": "TV GAZETA SP FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/104917.m3u8",
+      "logo": "http://gstaticontent.com/images/2baf5152b328307749ffbafedb684497.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 352,
+      "nome": "TV GAZETA SP HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/72406.m3u8",
+      "logo": "http://gstaticontent.com/images/2baf5152b328307749ffbafedb684497.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 353,
+      "nome": "TV GAZETA SP [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/178519.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 354,
+      "nome": "TV UNIAO 4K",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/103457.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 355,
+      "nome": "TV UNIAO FORTALEZA FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/100420.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 356,
+      "nome": "TV UNIAO FHD [H265]",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/100422.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 357,
+      "nome": "TV UNIAO FORTALEZA HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/100423.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 358,
+      "nome": "TV UNIAO FORTALEZA SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/100424.m3u8",
+      "logo": "http://exemplo.com/logo.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 359,
+      "nome": "SBT TV ALTEROSA FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218366.m3u8",
+      "logo": "http://fanc.tmsimg.com/assets/s104210_ll_h3_aa.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 360,
+      "nome": "SBT RS FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/218367.m3u8",
+      "logo": "http://fanc.tmsimg.com/assets/s103756_ll_h3_aa.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 361,
+      "nome": "BAND RIBEIRAO PRETO HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/286483.m3u8",
+      "logo": "http://gstaticontent.com/images/abb329697106ebb6f051ab5ab2d39dfd.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 362,
+      "nome": "SBT RIBEIRAO PRETO HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/286484.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/sbt.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 363,
+      "nome": "SBT VTV SANTOS CAMPINAS FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350093.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 364,
+      "nome": "SBT VTV SANTOS CAMPINAS HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350094.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 365,
+      "nome": "SBT VTV SANTOS CAMPINAS SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350095.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 366,
+      "nome": "SBT THATHI VALE FHD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350096.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 367,
+      "nome": "SBT THATHI VALE HD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350097.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 368,
+      "nome": "SBT THATHI VALE SD",
+      "url": "http://e6e7rt.vip/live/784623/Wuaaz2/350098.m3u8",
+      "logo": "http://gstaticontent.com/images/cdeca592bbb91b4c697cb75440c2bf83.png",
+      "categoria": "ABERTOS",
+      "ativo": true
+    },
+    {
+      "id": 500,
+      "nome": "BAND 4K",
+      "url": "http://exemplo.com/band4k.m3u8",
+      "logo": "http://exemplo.com/band.png",
+      "categoria": "BAND",
+      "ativo": true
+    },
+    {
+      "id": 501,
+      "nome": "BAND HD",
+      "url": "http://exemplo.com/bandhd.m3u8",
+      "logo": "http://exemplo.com/band.png",
+      "categoria": "BAND",
+      "ativo": true
+    },
+    {
+      "id": 502,
+      "nome": "SBT 4K",
+      "url": "http://exemplo.com/sbt4k.m3u8",
+      "logo": "http://exemplo.com/sbt.png",
+      "categoria": "SBT",
+      "ativo": true
+    },
+    {
+      "id": 503,
+      "nome": "SBT HD",
+      "url": "http://exemplo.com/sbthd.m3u8",
+      "logo": "http://exemplo.com/sbt.png",
+      "categoria": "SBT",
       "ativo": true
     }
   ]
