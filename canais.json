@@ -9,17 +9,17 @@
   "canais": [
     {
       "id": 1,
-      "nome": "GLOBO 4K",
-      "url": "http://exemplo.com/globo4k.m3u8",
-      "logo": "http://exemplo.com/globo.png",
+      "nome": "GLOBO EPTV CAMPINAS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71977.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
       "categoria": "GLOBO",
       "ativo": true
     },
     {
       "id": 2,
-      "nome": "GLOBO HD",
-      "url": "http://exemplo.com/globohd.m3u8",
-      "logo": "http://exemplo.com/globo.png",
+      "nome": "GLOBO EPTV RIBEIRAO PRETO HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131178.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
       "categoria": "GLOBO",
       "ativo": true
     },
