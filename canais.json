@@ -9,6 +9,14 @@
   "canais": [
     {
       "id": 1,
+      "nome": "GLOBO EPTV CAMPINAS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131150.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 2,
       "nome": "GLOBO EPTV CAMPINAS HD",
       "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71977.m3u8",
       "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
@@ -16,7 +24,23 @@
       "ativo": true
     },
     {
-      "id": 2,
+      "id": 3,
+      "nome": "GLOBO EPTV CAMPINAS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131210.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 4,
+      "nome": "GLOBO EPTV RIBEIRAO PRETO FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131172.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 5,
       "nome": "GLOBO EPTV RIBEIRAO PRETO HD",
       "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131178.m3u8",
       "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
@@ -24,7 +48,647 @@
       "ativo": true
     },
     {
-      "id": 3,
+      "id": 6,
+      "nome": "GLOBO EPTV RIBEIRAO PRETO SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131202.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 7,
+      "nome": "GLOBO EPTV SAO CARLOS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131141.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 8,
+      "nome": "GLOBO EPTV SAO CARLOS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131129.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 9,
+      "nome": "GLOBO EPTV SAO CARLOS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72592.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 10,
+      "nome": "GLOBO EPTV SUL DE MINAS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71979.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 11,
+      "nome": "GLOBO EPTV SUL DE MINAS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71980.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 12,
+      "nome": "GLOBO EPTV SUL DE MINAS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131201.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 13,
+      "nome": "GLOBO INTER TV ALTO LITORAL FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71982.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 14,
+      "nome": "GLOBO INTER TV ALTO LITORAL HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71983.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 15,
+      "nome": "GLOBO INTER TV ALTO LITORAL SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131131.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 16,
+      "nome": "GLOBO INTER TV DOS VALES FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131143.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 17,
+      "nome": "GLOBO INTER TV DOS VALES HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71989.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 18,
+      "nome": "GLOBO INTER TV DOS VALES SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71990.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 19,
+      "nome": "GLOBO INTER TV GRANDE MINAS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71991.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 20,
+      "nome": "GLOBO INTER TV GRANDE MINAS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131115.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 21,
+      "nome": "GLOBO INTER TV GRANDE MINAS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131114.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 22,
+      "nome": "GLOBO INTER TV SERRA MAR FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71994.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 23,
+      "nome": "GLOBO INTER TV SERRA MAR HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71995.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 24,
+      "nome": "GLOBO INTER TV SERRA MAR SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/71996.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 25,
+      "nome": "GLOBO MINAS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131200.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 26,
+      "nome": "GLOBO MINAS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131159.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 27,
+      "nome": "GLOBO MINAS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131209.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 28,
+      "nome": "GLOBO RJ FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72025.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 29,
+      "nome": "GLOBO RJ HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131163.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 30,
+      "nome": "GLOBO RJ SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131182.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 31,
+      "nome": "GLOBO SP FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72040.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 32,
+      "nome": "GLOBO SP FHD [H265]",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131215.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 33,
+      "nome": "GLOBO SP HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131212.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 34,
+      "nome": "GLOBO SP SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72042.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 35,
+      "nome": "GLOBO TV DIARIO MOGI DAS CRUZES FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131100.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 36,
+      "nome": "GLOBO TV DIARIO MOGI DAS CRUZES HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/97596.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 37,
+      "nome": "GLOBO TV DIARIO MOGI DAS CRUZES SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/97597.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 38,
+      "nome": "GLOBO TV FRONTEIRA PRESIDENTE PRUDENTE FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/97587.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 39,
+      "nome": "GLOBO TV FRONTEIRA PRESIDENTE PRUDENTE HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/97588.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 40,
+      "nome": "GLOBO TV FRONTEIRA PRESIDENTE PRUDENTE SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131177.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 41,
+      "nome": "GLOBO TV GAZETA SUL FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131099.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 42,
+      "nome": "GLOBO TV GAZETA SUL HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72059.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 43,
+      "nome": "GLOBO TV GAZETA SUL SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72060.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 44,
+      "nome": "GLOBO TV GAZETA VITORIA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72061.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 45,
+      "nome": "GLOBO TV GAZETA VITORIA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131154.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 46,
+      "nome": "GLOBO TV GAZETA VITORIA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131175.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 47,
+      "nome": "GLOBO TV INTEGRACAO ARAXA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131203.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 48,
+      "nome": "GLOBO TV INTEGRACAO ARAXA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131126.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 49,
+      "nome": "GLOBO TV INTEGRACAO ARAXA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131140.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 50,
+      "nome": "GLOBO TV INTEGRACAO JUIZ DE FORA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72067.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 51,
+      "nome": "GLOBO TV INTEGRACAO JUIZ DE FORA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72068.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 52,
+      "nome": "GLOBO TV INTEGRACAO JUIZ DE FORA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131106.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 53,
+      "nome": "GLOBO TV INTEGRACAO UBERABA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/133052.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 54,
+      "nome": "GLOBO TV INTEGRACAO UBERABA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/133053.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 55,
+      "nome": "GLOBO TV INTEGRACAO UBERABA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/133054.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 56,
+      "nome": "GLOBO TV INTEGRACAO UBERLANDIA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/133051.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 57,
+      "nome": "GLOBO TV INTEGRACAO UBERLANDIA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/93598.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 58,
+      "nome": "GLOBO TV INTEGRACAO UBERLANDIA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/93599.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 59,
+      "nome": "GLOBO TV RIO SUL FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72079.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 60,
+      "nome": "GLOBO TV RIO SUL HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131128.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 61,
+      "nome": "GLOBO TV RIO SUL SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72082.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 62,
+      "nome": "GLOBO TV TEM BAURU FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/91431.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 63,
+      "nome": "GLOBO TV TEM BAURU HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/91432.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 64,
+      "nome": "GLOBO TV TEM BAURU SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131120.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 65,
+      "nome": "GLOBO TV TEM ITAPETININGA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/91435.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 66,
+      "nome": "GLOBO TV TEM ITAPETININGA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/91436.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 67,
+      "nome": "GLOBO TV TEM ITAPETININGA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131119.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 68,
+      "nome": "GLOBO TV TEM SAO JOSE DO RIO PRETO FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131155.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 69,
+      "nome": "GLOBO TV TEM SAO JOSE DO RIO PRETO HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/91434.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 70,
+      "nome": "GLOBO TV TEM SAO JOSE DO RIO PRETO SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131205.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 71,
+      "nome": "GLOBO TV TEM SOROCABA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131191.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 72,
+      "nome": "GLOBO TV TEM SOROCABA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/91439.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 73,
+      "nome": "GLOBO TV TEM SOROCABA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131194.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 74,
+      "nome": "GLOBO TV TRIBUNA SANTOS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131135.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 75,
+      "nome": "GLOBO TV TRIBUNA SANTOS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131165.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 76,
+      "nome": "GLOBO TV TRIBUNA SANTOS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131109.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 77,
+      "nome": "GLOBO TV VANGUARDA S.J DOS CAMPOS FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131211.m3u8",
+      "logo": "http://gstaticontent.com/images/37974de0d1d16f3b56bec27eca38a765.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 78,
+      "nome": "GLOBO TV VANGUARDA S.J DOS CAMPOS HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/144027.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 79,
+      "nome": "GLOBO TV VANGUARDA S.J DOS CAMPOS SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/72624.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 80,
+      "nome": "GLOBO TV VANGUARDA TAUBATE FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/100375.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 81,
+      "nome": "GLOBO TV VANGUARDA TAUBATE HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/93605.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 82,
+      "nome": "GLOBO TV VANGUARDA TAUBATE SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/131187.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 83,
+      "nome": "GLOBO TV INTEGRACAO ITUIUTABA FHD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/306647.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 84,
+      "nome": "GLOBO TV INTEGRACAO ITUIUTABA HD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/306648.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 85,
+      "nome": "GLOBO TV INTEGRACAO ITUIUTABA SD",
+      "url": "http://e6e7rt.vip/live/FabianoRJ88/5c2hES/306649.m3u8",
+      "logo": "http://e6e7rt.vip/static/logos/canais/globo.png",
+      "categoria": "GLOBO",
+      "ativo": true
+    },
+    {
+      "id": 86,
       "nome": "RECORD 4K",
       "url": "http://exemplo.com/record4k.m3u8",
       "logo": "http://exemplo.com/record.png",
@@ -32,7 +696,7 @@
       "ativo": true
     },
     {
-      "id": 4,
+      "id": 87,
       "nome": "RECORD HD",
       "url": "http://exemplo.com/recordhd.m3u8",
       "logo": "http://exemplo.com/record.png",
@@ -40,7 +704,7 @@
       "ativo": true
     },
     {
-      "id": 5,
+      "id": 88,
       "nome": "BAND 4K",
       "url": "http://exemplo.com/band4k.m3u8",
       "logo": "http://exemplo.com/band.png",
@@ -48,7 +712,7 @@
       "ativo": true
     },
     {
-      "id": 6,
+      "id": 89,
       "nome": "BAND HD",
       "url": "http://exemplo.com/bandhd.m3u8",
       "logo": "http://exemplo.com/band.png",
@@ -56,7 +720,7 @@
       "ativo": true
     },
     {
-      "id": 7,
+      "id": 90,
       "nome": "SBT 4K",
       "url": "http://exemplo.com/sbt4k.m3u8",
       "logo": "http://exemplo.com/sbt.png",
@@ -64,7 +728,7 @@
       "ativo": true
     },
     {
-      "id": 8,
+      "id": 91,
       "nome": "SBT HD",
       "url": "http://exemplo.com/sbthd.m3u8",
       "logo": "http://exemplo.com/sbt.png",
@@ -72,7 +736,7 @@
       "ativo": true
     },
     {
-      "id": 9,
+      "id": 92,
       "nome": "CANAL VARIADO 1",
       "url": "http://exemplo.com/variado1.m3u8",
       "logo": "http://exemplo.com/variado.png",
@@ -80,7 +744,7 @@
       "ativo": true
     },
     {
-      "id": 10,
+      "id": 93,
       "nome": "CANAL VARIADO 2",
       "url": "http://exemplo.com/variado2.m3u8",
       "logo": "http://exemplo.com/variado.png",
